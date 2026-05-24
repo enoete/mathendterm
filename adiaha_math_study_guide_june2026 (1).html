@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adiaha's Math Study Guide – June 2026 ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky: #1a1a2e;
+    --deep: #16213e;
+    --card: #0f3460;
+    --accent1: #f5a623;
+    --accent2: #e94560;
+    --accent3: #0fbcf9;
+    --accent4: #0be881;
+    --accent5: #f8b500;
+    --text: #eef1ff;
+    --muted: #a8b2d8;
+    --white: #ffffff;
+    --radius: 18px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--sky);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* STARFIELD */
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star { position: absolute; border-radius: 50%; background: white; animation: twinkle 3s infinite alternate; }
+  @keyframes twinkle { from { opacity: 0.2; transform: scale(1); } to { opacity: 1; transform: scale(1.4); } }
+
+  .container { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* HEADER */
+  .hero {
+    text-align: center; padding: 48px 20px 32px;
+    background: linear-gradient(135deg, #f5a62330 0%, #e9456030 50%, #0fbcf930 100%);
+    border-radius: 0 0 40px 40px;
+    margin-bottom: 40px;
+    border-bottom: 3px solid var(--accent1);
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 1.1; margin-bottom: 12px;
+  }
+  .hero .subtitle { color: var(--muted); font-size: 1.05rem; font-weight: 600; }
+  .exam-badge {
+    display: inline-block; background: var(--accent2); color: white;
+    padding: 6px 20px; border-radius: 50px; font-weight: 800; font-size: 0.9rem;
+    margin-top: 14px; letter-spacing: 1px;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 32px; position: sticky; top: 0; z-index: 100;
+    background: var(--sky); padding: 12px 8px; border-radius: var(--radius);
+    backdrop-filter: blur(8px);
+  }
+  .tab-btn {
+    background: var(--card); border: 2px solid transparent; color: var(--muted);
+    padding: 9px 18px; border-radius: 50px; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.88rem;
+    transition: all 0.2s; white-space: nowrap;
+  }
+  .tab-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+  .tab-btn.active { background: var(--accent1); color: #1a1a2e; border-color: var(--accent1); }
+
+  /* SECTIONS */
+  .section { display: none; animation: fadeIn 0.4s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* CARDS */
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 20px;
+    box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.06);
+  }
+  .card h2 {
+    font-family: 'Fredoka One', cursive; font-size: 1.6rem;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; color: var(--accent3); }
+  .card p, .card li { line-height: 1.7; margin-bottom: 6px; }
+  .card ul { padding-left: 20px; }
+
+  /* ANGLE TYPES GRID */
+  .angle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; margin: 16px 0; }
+  .angle-card {
+    background: var(--deep); border-radius: 14px; padding: 14px 10px;
+    text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+  }
+  .angle-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.5); border-color: var(--accent3); }
+  .angle-card svg { width: 70px; height: 70px; }
+  .angle-card .angle-name { font-weight: 800; margin-top: 8px; font-size: 0.9rem; color: var(--accent1); }
+  .angle-card .angle-def { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+  /* PROTRACTOR DEMO */
+  .protractor-demo { text-align: center; margin: 20px 0; }
+  .proto-controls { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 16px; }
+  .proto-controls label { font-weight: 700; color: var(--accent3); }
+  input[type="range"] { width: 260px; accent-color: var(--accent1); cursor: pointer; }
+  .angle-display {
+    font-family: 'Fredoka One', cursive; font-size: 2rem;
+    color: var(--accent1); background: var(--deep);
+    padding: 6px 24px; border-radius: 50px; margin-top: 8px;
+    display: inline-block;
+  }
+  .angle-type-label {
+    font-weight: 800; font-size: 1.1rem; margin-top: 6px;
+    padding: 4px 16px; border-radius: 20px; display: inline-block;
+  }
+
+  /* TRIANGLE CHALLENGE */
+  .triangle-inputs { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; align-items: center; }
+  .angle-input {
+    background: var(--deep); border: 2px solid var(--accent3); color: var(--text);
+    border-radius: 10px; padding: 10px 14px; font-size: 1.1rem; font-weight: 700;
+    width: 90px; text-align: center; font-family: 'Space Mono', monospace;
+  }
+  .angle-input:disabled { border-color: var(--accent4); color: var(--accent4); }
+  .angle-input:focus { outline: none; border-color: var(--accent1); }
+  .big-btn {
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    border: none; color: white; padding: 12px 28px; border-radius: 50px;
+    cursor: pointer; font-family: 'Fredoka One', cursive; font-size: 1.1rem;
+    transition: transform 0.15s, opacity 0.15s; margin: 6px 4px;
+  }
+  .big-btn:hover { transform: scale(1.05); }
+  .big-btn.blue { background: linear-gradient(135deg, var(--accent3), var(--card)); }
+  .big-btn.green { background: linear-gradient(135deg, var(--accent4), #0a6b4a); color: #000; }
+  .feedback-box {
+    border-radius: 12px; padding: 12px 18px; margin-top: 12px;
+    font-weight: 700; font-size: 1rem; display: none;
+  }
+  .feedback-box.correct { background: #0be88120; border: 2px solid var(--accent4); color: var(--accent4); display: block; }
+  .feedback-box.wrong { background: #e9456020; border: 2px solid var(--accent2); color: var(--accent2); display: block; }
+  .feedback-box.info { background: #0fbcf920; border: 2px solid var(--accent3); color: var(--accent3); display: block; }
+
+  /* LINES SVG DEMO */
+  .lines-demo { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin: 16px 0; }
+  .line-card {
+    background: var(--deep); border-radius: 14px; padding: 16px;
+    text-align: center; cursor: pointer; border: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .line-card:hover { border-color: var(--accent1); transform: translateY(-3px); }
+  .line-card h4 { color: var(--accent1); font-size: 0.95rem; margin-top: 10px; }
+  .line-card p { color: var(--muted); font-size: 0.78rem; margin-top: 4px; }
+
+  /* SYMMETRY DEMO */
+  .symmetry-canvas-wrap { text-align: center; margin: 16px 0; }
+  #symCanvas { border: 2px solid var(--accent3); border-radius: 12px; cursor: crosshair; background: var(--deep); touch-action: none; }
+  .sym-controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+
+  /* DECIMAL PLACE VALUE */
+  .place-value-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .place-value-table th {
+    background: var(--accent1); color: #1a1a2e;
+    padding: 10px; font-family: 'Fredoka One', cursive; font-size: 1rem;
+  }
+  .place-value-table td {
+    padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.1);
+    font-family: 'Space Mono', monospace; font-size: 1.1rem;
+  }
+  .place-value-table tr:nth-child(even) td { background: rgba(255,255,255,0.04); }
+  .pv-highlight { color: var(--accent2); font-weight: 900; font-size: 1.3rem; }
+
+  /* DECIMAL OPERATIONS DRILL */
+  .drill-box { background: var(--deep); border-radius: 14px; padding: 20px; text-align: center; }
+  .drill-question { font-family: 'Space Mono', monospace; font-size: 1.4rem; color: var(--accent1); margin-bottom: 14px; font-weight: 700; }
+  .drill-input {
+    background: var(--card); border: 2px solid var(--accent3); color: var(--text);
+    border-radius: 10px; padding: 10px 16px; font-size: 1.3rem; font-family: 'Space Mono', monospace;
+    width: 160px; text-align: center;
+  }
+  .drill-input:focus { outline: none; border-color: var(--accent1); }
+  .hint-steps { background: var(--card); border-radius: 10px; padding: 14px; margin-top: 12px; text-align: left; display: none; }
+  .hint-steps.show { display: block; }
+  .hint-steps p { margin-bottom: 6px; font-size: 0.92rem; }
+  .hint-steps .step { color: var(--accent3); font-weight: 700; }
+  .hint-steps .answer { color: var(--accent4); font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; }
+  .btn-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+  .sm-btn {
+    background: var(--card); border: 2px solid var(--accent3); color: var(--accent3);
+    padding: 7px 16px; border-radius: 50px; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .sm-btn:hover { background: var(--accent3); color: #1a1a2e; }
+  .sm-btn.red { border-color: var(--accent2); color: var(--accent2); }
+  .sm-btn.red:hover { background: var(--accent2); color: white; }
+  .sm-btn.gold { border-color: var(--accent1); color: var(--accent1); }
+  .sm-btn.gold:hover { background: var(--accent1); color: #1a1a2e; }
+  .sm-btn.green { border-color: var(--accent4); color: var(--accent4); }
+  .sm-btn.green:hover { background: var(--accent4); color: #000; }
+
+  /* INTEGERS NUMBER LINE */
+  .number-line-wrap { overflow-x: auto; padding: 10px 0; }
+
+  /* PROBABILITY */
+  .prob-scale {
+    display: flex; align-items: center; gap: 0; margin: 20px 0;
+    border-radius: 12px; overflow: hidden; height: 48px;
+  }
+  .prob-seg {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 800; padding: 4px;
+    transition: transform 0.2s; cursor: pointer; height: 100%;
+  }
+  .prob-seg:hover { transform: scaleY(1.15); }
+  .prob-slider-wrap { text-align: center; margin: 20px 0; }
+  .prob-fraction-display {
+    font-family: 'Space Mono', monospace; font-size: 1.5rem;
+    color: var(--accent1); margin: 10px 0; font-weight: 700;
+  }
+  .prob-scenario { background: var(--deep); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+  .prob-scenario h4 { color: var(--accent3); margin-bottom: 8px; font-size: 0.95rem; }
+
+  /* BAR GRAPH */
+  .bar-graph-container { position: relative; }
+  .bar-chart-area { display: flex; align-items: flex-end; gap: 12px; height: 220px; padding: 10px 0 0; justify-content: center; }
+  .bar-col { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 52px; }
+  .bar-fill {
+    width: 44px; border-radius: 6px 6px 0 0; position: relative;
+    transition: height 0.6s cubic-bezier(.34,1.56,.64,1);
+    cursor: pointer;
+  }
+  .bar-fill:hover::after {
+    content: attr(data-val);
+    position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+    background: var(--accent1); color: #1a1a2e; padding: 2px 10px; border-radius: 20px;
+    font-weight: 800; font-size: 0.85rem; white-space: nowrap;
+  }
+  .bar-label { font-size: 0.75rem; font-weight: 700; color: var(--muted); text-align: center; }
+  .bar-axis { border-top: 2px solid rgba(255,255,255,0.2); margin-top: 4px; }
+  .y-labels { display: flex; flex-direction: column-reverse; justify-content: space-between; height: 220px; padding: 10px 0 0; margin-right: 8px; }
+  .y-label { font-size: 0.75rem; color: var(--muted); font-family: 'Space Mono', monospace; }
+  .bar-graph-row { display: flex; }
+  .graph-questions { margin-top: 20px; }
+  .graph-q { background: var(--deep); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+  .graph-q p { font-weight: 700; margin-bottom: 8px; }
+  .graph-q-input {
+    background: var(--card); border: 2px solid var(--accent3); color: var(--text);
+    border-radius: 8px; padding: 7px 12px; font-size: 1rem; width: 100px; text-align: center;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* INTEGERS INTERACTIVE */
+  .int-buttons { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; justify-content: center; }
+  .int-val-btn {
+    background: var(--deep); border: 2px solid var(--accent3); color: var(--accent3);
+    padding: 8px 14px; border-radius: 10px; cursor: pointer;
+    font-family: 'Space Mono', monospace; font-weight: 700; font-size: 1rem;
+    transition: all 0.15s; min-width: 52px; text-align: center;
+  }
+  .int-val-btn:hover { background: var(--accent3); color: #000; }
+  .int-val-btn.negative { border-color: var(--accent2); color: var(--accent2); }
+  .int-val-btn.negative:hover { background: var(--accent2); color: white; }
+  .int-display {
+    font-family: 'Space Mono', monospace; font-size: 1.6rem; font-weight: 700;
+    text-align: center; padding: 14px; background: var(--deep); border-radius: 12px;
+    margin: 10px 0; min-height: 60px; color: var(--accent1);
+  }
+
+  /* QUIZ SECTION */
+  .quiz-header {
+    text-align: center; padding: 20px 0;
+    font-family: 'Fredoka One', cursive; font-size: 2rem;
+    background: linear-gradient(90deg, var(--accent2), var(--accent1));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .quiz-progress { text-align: center; margin-bottom: 24px; }
+  .progress-bar { background: var(--deep); border-radius: 50px; height: 10px; overflow: hidden; margin: 10px auto; max-width: 400px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent4), var(--accent3)); border-radius: 50px; transition: width 0.4s ease; }
+  .quiz-score-badge {
+    display: inline-block; background: var(--accent1); color: #1a1a2e;
+    padding: 4px 18px; border-radius: 50px; font-weight: 800; font-size: 0.9rem;
+  }
+  /* QUIZ — full scroll, no active/hidden cards */
+  .q-card {
+    background: var(--card); border-radius: var(--radius); padding: 24px;
+    margin-bottom: 20px; border: 2px solid rgba(255,255,255,0.06);
+    transition: border-color 0.4s;
+  }
+  .q-card.answered-correct { border-color: var(--accent4); }
+  .q-card.answered-wrong   { border-color: var(--accent2); }
+  .q-card.unanswered-flag  { border-color: var(--accent1); animation: pulse-gold 0.6s 2; }
+  @keyframes pulse-gold { 0%,100%{border-color:var(--accent1)} 50%{border-color:#fff} }
+  .q-num { font-size: 0.8rem; font-weight: 800; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+  .q-type-badge {
+    display: inline-block; font-size: 0.72rem; font-weight: 800; padding: 2px 10px;
+    border-radius: 20px; margin-bottom: 10px; background: var(--accent3); color: #000;
+  }
+  .q-stem { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; line-height: 1.5; }
+  .q-options { display: flex; flex-direction: column; gap: 10px; }
+  .q-option {
+    background: var(--deep); border: 2px solid rgba(255,255,255,0.1); color: var(--text);
+    padding: 11px 16px; border-radius: 12px; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 0.95rem;
+    text-align: left; transition: all 0.15s;
+  }
+  .q-option:hover:not(:disabled) { border-color: var(--accent3); background: rgba(15,188,249,0.1); }
+  .q-option.selected-choice { border-color: var(--accent1) !important; background: rgba(245,166,35,0.15) !important; color: var(--accent1) !important; font-weight: 800; }
+  .tf-btn.selected-choice { border-color: var(--accent1) !important; background: rgba(245,166,35,0.15) !important; color: var(--accent1) !important; }
+  .q-option.correct { border-color: var(--accent4) !important; background: rgba(11,232,129,0.2) !important; color: var(--accent4) !important; font-weight: 800; }
+  .q-option.wrong { border-color: var(--accent2) !important; background: rgba(233,69,96,0.2) !important; color: var(--accent2) !important; }
+  .q-option:disabled { cursor: default; }
+  .tf-options { display: flex; gap: 12px; }
+  .tf-btn {
+    flex: 1; padding: 14px; border-radius: 12px; border: 2px solid rgba(255,255,255,0.1);
+    cursor: pointer; font-family: 'Fredoka One', cursive; font-size: 1.2rem;
+    background: var(--deep); color: var(--text); transition: all 0.15s;
+  }
+  .tf-btn:hover:not(:disabled) { transform: scale(1.04); }
+  .tf-btn.true-btn:hover:not(:disabled) { border-color: var(--accent4); color: var(--accent4); }
+  .tf-btn.false-btn:hover:not(:disabled) { border-color: var(--accent2); color: var(--accent2); }
+  .fill-input {
+    background: var(--deep); border: 2px solid var(--accent3); color: var(--text);
+    border-radius: 10px; padding: 10px 16px; font-size: 1.1rem; font-family: 'Space Mono', monospace;
+    width: 100%; max-width: 240px; text-align: center; display: block; margin: 8px auto;
+  }
+  .fill-input:focus { outline: none; border-color: var(--accent1); }
+
+  /* MATCHING */
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .match-col { display: flex; flex-direction: column; gap: 8px; }
+  .match-item {
+    background: var(--deep); border: 2px solid rgba(255,255,255,0.1);
+    padding: 10px 14px; border-radius: 10px; cursor: pointer;
+    font-weight: 700; font-size: 0.9rem; transition: all 0.15s; text-align: center;
+    user-select: none;
+  }
+  .match-item:hover { border-color: var(--accent1); }
+  .match-item.selected { border-color: var(--accent1); background: rgba(245,166,35,0.15); color: var(--accent1); }
+  .match-item.matched { border-color: var(--accent4); background: rgba(11,232,129,0.15); color: var(--accent4); cursor: default; }
+  .match-item.wrong-match { border-color: var(--accent2); background: rgba(233,69,96,0.15); color: var(--accent2); animation: shake 0.3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* QUIZ RESULT */
+  .quiz-result {
+    text-align: center; padding: 40px 20px; display: none;
+  }
+  .result-emoji { font-size: 4rem; margin-bottom: 12px; }
+  .result-score {
+    font-family: 'Fredoka One', cursive; font-size: 3rem;
+    background: linear-gradient(90deg, var(--accent1), var(--accent4));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .result-msg { color: var(--muted); font-size: 1.1rem; margin: 10px 0 24px; font-weight: 600; }
+
+  /* EXTERIOR ANGLE DEMO */
+  .ext-angle-demo { text-align: center; margin: 20px 0; }
+
+  /* CONFETTI */
+  .confetti-piece {
+    position: fixed; width: 10px; height: 10px; top: -10px;
+    animation: confettiFall linear forwards;
+    z-index: 999; border-radius: 2px; pointer-events: none;
+  }
+  @keyframes confettiFall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--sky); }
+  ::-webkit-scrollbar-thumb { background: var(--card); border-radius: 3px; }
+
+  /* PATTERN WIZARD */
+  .pattern-sequence { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0; align-items: center; }
+  .pattern-num {
+    background: var(--deep); border: 2px solid var(--accent3); border-radius: 10px;
+    padding: 10px 16px; font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700;
+    color: var(--accent3); min-width: 64px; text-align: center;
+  }
+  .pattern-num.blank { border-style: dashed; color: var(--muted); }
+  .pattern-num.blank.input { border-color: var(--accent1); cursor: text; }
+
+  /* EXPANDED FORM BUILDER */
+  .exp-form-container { margin: 16px 0; }
+  .exp-form-display { font-family: 'Space Mono', monospace; font-size: 1.4rem; color: var(--accent1); margin-bottom: 12px; min-height: 36px; }
+
+  /* TOOLTIP */
+  .tooltip { position: relative; display: inline-block; }
+  .tooltip .tip {
+    visibility: hidden; background: var(--accent1); color: #1a1a2e;
+    padding: 4px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700;
+    position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+    white-space: nowrap; z-index: 10;
+  }
+  .tooltip:hover .tip { visibility: visible; }
+
+  /* KEY FACTS */
+  .key-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+  .key-fact {
+    background: var(--deep); border-radius: 12px; padding: 14px;
+    border-left: 4px solid var(--accent1); font-size: 0.9rem;
+  }
+  .key-fact strong { color: var(--accent1); display: block; margin-bottom: 4px; }
+  .key-fact.blue { border-left-color: var(--accent3); }
+  .key-fact.blue strong { color: var(--accent3); }
+  .key-fact.green { border-left-color: var(--accent4); }
+  .key-fact.green strong { color: var(--accent4); }
+  .key-fact.red { border-left-color: var(--accent2); }
+  .key-fact.red strong { color: var(--accent2); }
+
+  /* QUIZ NAV */
+  .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; gap: 10px; }
+
+  @media (max-width: 600px) {
+    .match-grid { grid-template-columns: 1fr; }
+    .angle-grid { grid-template-columns: repeat(3, 1fr); }
+    .bar-chart-area { gap: 6px; }
+    .bar-fill { width: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="starfield"></div>
+
+<div class="container">
+  <div class="hero">
+    <h1>⭐ Adiaha's Math Universe ⭐</h1>
+    <p class="subtitle">Grade 5 Interactive Study Guide · Chapters 4–14</p>
+    <div class="exam-badge">📅 Exam: June 18, 2026</div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showSection('angles',this)">📐 Angles</button>
+    <button class="tab-btn" onclick="showSection('lines',this)">📏 Lines & Polygons</button>
+    <button class="tab-btn" onclick="showSection('decimals',this)">🔢 Decimals</button>
+    <button class="tab-btn" onclick="showSection('integers',this)">➕➖ Integers</button>
+    <button class="tab-btn" onclick="showSection('probability',this)">🎲 Probability</button>
+    <button class="tab-btn" onclick="showSection('data',this)">📊 Data & Graphs</button>
+    <button class="tab-btn" onclick="showSection('quiz',this)">🏆 Monster Quiz</button>
+  </div>
+
+  <!-- =================== ANGLES =================== -->
+  <div class="section active" id="sec-angles">
+
+    <div class="card">
+      <h2 style="color:var(--accent1)">📐 Types of Angles</h2>
+      <p style="margin-bottom:16px">Click any angle to explore it! Hover for more info.</p>
+      <div class="angle-grid">
+        <div class="angle-card" onclick="highlightAngle(this,'acute')">
+          <!-- Acute: vertex at (15,62). Base goes RIGHT. Arm goes up-right at ~45°. Arc sweeps between them. -->
+          <svg viewBox="0 0 80 80">
+            <line x1="15" y1="62" x2="68" y2="62" stroke="#0fbcf9" stroke-width="2.5"/>
+            <line x1="15" y1="62" x2="52" y2="22" stroke="#f5a623" stroke-width="2.5"/>
+            <!-- Arc from base (right) sweeping UP to arm. r=18, start=(33,62), end=arm direction -->
+            <!-- arm angle = atan2(62-22, 52-15) = atan2(40,37) ≈ 47°. end = (15+18cos47°, 62-18sin47°) = (27.3, 48.8) -->
+            <path d="M33,62 A18,18 0 0,0 27.3,48.8" fill="none" stroke="#0be881" stroke-width="2"/>
+            <text x="32" y="56" fill="#0be881" font-size="10" font-family="monospace">45°</text>
+          </svg>
+          <div class="angle-name">Acute</div>
+          <div class="angle-def">Less than 90°</div>
+        </div>
+        <div class="angle-card" onclick="highlightAngle(this,'right')">
+          <!-- Right: vertex at (15,62). Base goes RIGHT. Arm goes straight UP. Little square at vertex. -->
+          <svg viewBox="0 0 80 80">
+            <line x1="15" y1="62" x2="68" y2="62" stroke="#0fbcf9" stroke-width="2.5"/>
+            <line x1="15" y1="62" x2="15" y2="15" stroke="#f5a623" stroke-width="2.5"/>
+            <!-- Square marker at the corner -->
+            <polyline points="15,52 25,52 25,62" fill="none" stroke="#0be881" stroke-width="2"/>
+            <text x="27" y="50" fill="#0be881" font-size="10" font-family="monospace">90°</text>
+          </svg>
+          <div class="angle-name">Right</div>
+          <div class="angle-def">Exactly 90°</div>
+        </div>
+        <div class="angle-card" onclick="highlightAngle(this,'obtuse')">
+          <!-- Obtuse: vertex at (55,62). Base goes LEFT. Arm goes up-left at ~120° from base. -->
+          <!-- Arm at 120° from right: x=55+40cos120°=55-20=35, y=62-40sin120°=62-34.6=27.4 -->
+          <svg viewBox="0 0 80 80">
+            <line x1="55" y1="62" x2="8" y2="62" stroke="#0fbcf9" stroke-width="2.5"/>
+            <line x1="55" y1="62" x2="35" y2="25" stroke="#f5a623" stroke-width="2.5"/>
+            <!-- Arc r=20, from base going LEFT (180°) sweeping DOWN to arm at 120° -->
+            <!-- start at (55-20,62)=(35,62). end: 55+20cos120°=45, 62-20sin120°=44.7 → (45,44.7) -->
+            <!-- sweep from 180° to 120°: going clockwise in screen = sweep-flag=1, large-arc=0 -->
+            <path d="M35,62 A20,20 0 0,1 45,44.7" fill="none" stroke="#0be881" stroke-width="2"/>
+            <text x="22" y="52" fill="#0be881" font-size="10" font-family="monospace">120°</text>
+          </svg>
+          <div class="angle-name">Obtuse</div>
+          <div class="angle-def">90° to 180°</div>
+        </div>
+        <div class="angle-card" onclick="highlightAngle(this,'straight')">
+          <!-- Straight: one horizontal line, dot at center, 180° label above -->
+          <svg viewBox="0 0 80 80">
+            <line x1="8" y1="45" x2="72" y2="45" stroke="#0fbcf9" stroke-width="2.5"/>
+            <circle cx="40" cy="45" r="4" fill="#f5a623"/>
+            <!-- Semicircle arc above the line to show 180° -->
+            <path d="M20,45 A20,20 0 0,0 60,45" fill="none" stroke="#0be881" stroke-width="2"/>
+            <text x="28" y="30" fill="#0be881" font-size="10" font-family="monospace">180°</text>
+          </svg>
+          <div class="angle-name">Straight</div>
+          <div class="angle-def">Exactly 180°</div>
+        </div>
+        <div class="angle-card" onclick="highlightAngle(this,'reflex')">
+          <!-- Reflex 270°: vertex at (40,40). Base goes RIGHT. Arm goes UP (90°). -->
+          <!-- The reflex arc (270°) sweeps the LONG way around: right → down → left → up to arm -->
+          <!-- r=22. Start=(62,40). End=(40,18). large-arc=1, sweep=1 (clockwise) -->
+          <svg viewBox="0 0 80 80">
+            <line x1="40" y1="40" x2="65" y2="40" stroke="#0fbcf9" stroke-width="2.5"/>
+            <line x1="40" y1="40" x2="40" y2="15" stroke="#f5a623" stroke-width="2.5"/>
+            <!-- Reflex arc going clockwise the long way from base to arm -->
+            <path d="M62,40 A22,22 0 1,1 40,18" fill="none" stroke="#0be881" stroke-width="2"/>
+            <text x="8" y="72" fill="#0be881" font-size="10" font-family="monospace">270°</text>
+          </svg>
+          <div class="angle-name">Reflex</div>
+          <div class="angle-def">180° to 360°</div>
+        </div>
+        <div class="angle-card" onclick="highlightAngle(this,'full')">
+          <!-- Full 360°: dashed circle, one ray going right, dot at center -->
+          <svg viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="26" fill="none" stroke="#f5a623" stroke-width="2" stroke-dasharray="5,3"/>
+            <line x1="40" y1="40" x2="66" y2="40" stroke="#0fbcf9" stroke-width="2.5"/>
+            <circle cx="40" cy="40" r="4" fill="#0fbcf9"/>
+            <text x="22" y="74" fill="#0be881" font-size="10" font-family="monospace">360°</text>
+          </svg>
+          <div class="angle-name">Full/Revolution</div>
+          <div class="angle-def">Exactly 360°</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE PROTRACTOR -->
+    <div class="card">
+      <h2 style="color:var(--accent3)">🎛️ Angle Explorer</h2>
+      <p style="margin-bottom:14px">Drag the slider to create any angle and see what type it is!</p>
+      <div class="protractor-demo">
+        <svg id="protractorSVG" width="280" height="180" viewBox="0 0 280 180">
+          <defs>
+            <marker id="arrowhead" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#f5a623"/>
+            </marker>
+          </defs>
+          <!-- Protractor semicircle background -->
+          <path d="M40,140 A100,100 0 0,1 240,140" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="28"/>
+          <!-- Degree marks -->
+          <g id="degMarks"></g>
+          <!-- Arc fill (the shaded angle) -->
+          <path id="arcFill" d="" fill="rgba(11,232,129,0.18)" stroke="#0be881" stroke-width="2"/>
+          <!-- Base line (0° ray — goes RIGHT from center) -->
+          <line x1="140" y1="140" x2="242" y2="140" stroke="#0fbcf9" stroke-width="2.5"/>
+          <!-- Angle arm (movable) -->
+          <line id="angleArm" x1="140" y1="140" x2="242" y2="140" stroke="#f5a623" stroke-width="3" marker-end="url(#arrowhead)"/>
+          <!-- Origin dot -->
+          <circle cx="140" cy="140" r="5" fill="#e94560"/>
+          <!-- Angle label inside arc -->
+          <text id="angleLabel" x="140" y="130" text-anchor="middle" fill="#0be881" font-size="13" font-family="Space Mono, monospace" font-weight="700"></text>
+        </svg>
+        <div class="proto-controls">
+          <label>Angle: <span id="angleNum">0</span>°</label>
+          <input type="range" id="angleSlider" min="0" max="360" value="0" oninput="updateProtractor(this.value)">
+          <div class="angle-display" id="angleDisplay">0°</div>
+          <div class="angle-type-label" id="angleTypeLabel" style="background:rgba(255,255,255,0.1);color:var(--muted)">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRIANGLES -->
+    <div class="card">
+      <h2 style="color:var(--accent4)">🔺 Triangle Angle Challenge</h2>
+      <div class="key-facts">
+        <div class="key-fact"><strong>🔑 Rule 1</strong>All angles in a triangle add up to <strong>180°</strong></div>
+        <div class="key-fact blue"><strong>🔑 Rule 2</strong>Exterior angle = sum of the two opposite interior angles</div>
+        <div class="key-fact green"><strong>Acute Triangle</strong>All angles less than 90°</div>
+        <div class="key-fact red"><strong>Right Triangle</strong>Has one 90° angle</div>
+      </div>
+
+      <h3 style="margin-top:18px">🔍 Find the Missing Angle</h3>
+      <p style="margin-bottom:12px;color:var(--muted)">Enter two angles and find the third. Leave one box blank (it will be calculated)!</p>
+      <div class="triangle-inputs">
+        <label style="font-weight:700">∠A: <input class="angle-input" id="triA" type="number" min="1" max="178" placeholder="?°"></label>
+        <label style="font-weight:700">∠B: <input class="angle-input" id="triB" type="number" min="1" max="178" placeholder="?°"></label>
+        <label style="font-weight:700">∠C: <input class="angle-input" id="triC" type="number" min="1" max="178" placeholder="?°" disabled style="color:var(--accent4)"></label>
+        <button class="big-btn" onclick="calcTriangle()">Calculate! 🧮</button>
+        <button class="big-btn blue" onclick="resetTriangle()">Reset 🔄</button>
+      </div>
+      <div class="feedback-box" id="triFeedback"></div>
+
+      <h3 style="margin-top:20px">⚡ Exterior Angle Demo</h3>
+      <p style="color:var(--muted);margin-bottom:10px">The exterior angle of a triangle equals the sum of the two non-adjacent interior angles.</p>
+      <div class="ext-angle-demo">
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <!-- Triangle: A=(30,145), B=(160,25), C=(280,145) -->
+          <polygon points="30,145 160,25 280,145" fill="rgba(15,188,249,0.1)" stroke="#0fbcf9" stroke-width="2"/>
+          <!-- Extended base line past C -->
+          <line x1="280" y1="145" x2="320" y2="145" stroke="#e94560" stroke-width="2.5" stroke-dasharray="6,3"/>
+          <!-- Exterior angle arc at C: from extended line (right) sweeping UP to triangle side -->
+          <!-- Triangle side at C goes toward B=(160,25). Direction: dx=-120, dy=-120 → 45° above-left → 135° from right -->
+          <!-- Arc from (300,145) sweeping counter-clockwise to direction 135°, r=28 -->
+          <!-- end point: 280+28cos135°=280-19.8=260.2, 145-28sin135°=145-19.8=125.2 -->
+          <path d="M308,145 A28,28 0 0,0 260,125" fill="none" stroke="#e94560" stroke-width="2.5"/>
+          <!-- Angle labels at vertices — well spaced -->
+          <text x="8"   y="162" fill="#f5a623" font-size="14" font-family="Space Mono" font-weight="700">A=50°</text>
+          <text x="138" y="17"  fill="#0be881" font-size="14" font-family="Space Mono" font-weight="700">B=70°</text>
+          <text x="238" y="165" fill="#0fbcf9" font-size="14" font-family="Space Mono" font-weight="700">C=60°</text>
+          <!-- Ext label above the arc, clear of C label -->
+          <text x="288" y="118" fill="#e94560" font-size="13" font-family="Space Mono" font-weight="700">120°</text>
+          <!-- Equation top-left, clear of everything -->
+          <text x="30" y="40" fill="#e94560" font-size="12" font-family="Space Mono">50°+70°=120°</text>
+        </svg>
+        <p style="color:var(--muted);font-size:0.88rem;margin-top:6px">Exterior ∠ = 50° + 70° = <strong style="color:var(--accent2)">120°</strong></p>
+      </div>
+    </div>
+
+  </div><!-- end angles -->
+
+  <!-- =================== LINES & POLYGONS =================== -->
+  <div class="section" id="sec-lines">
+
+    <div class="card">
+      <h2 style="color:var(--accent2)">📏 Types of Lines</h2>
+      <p style="margin-bottom:14px">Click each line type to learn more!</p>
+      <div class="lines-demo">
+        <div class="line-card" onclick="showLineInfo('parallel')">
+          <svg width="140" height="60" viewBox="0 0 140 60">
+            <line x1="10" y1="20" x2="130" y2="20" stroke="#f5a623" stroke-width="2.5"/>
+            <line x1="10" y1="40" x2="130" y2="40" stroke="#0fbcf9" stroke-width="2.5"/>
+            <text x="5" y="14" fill="#f5a623" font-size="9">→</text>
+            <text x="5" y="54" fill="#0fbcf9" font-size="9">→</text>
+          </svg>
+          <h4>Parallel</h4>
+          <p>Never meet, always same distance apart</p>
+        </div>
+        <div class="line-card" onclick="showLineInfo('perpendicular')">
+          <svg width="140" height="60" viewBox="0 0 140 60">
+            <line x1="70" y1="5" x2="70" y2="55" stroke="#f5a623" stroke-width="2.5"/>
+            <line x1="10" y1="30" x2="130" y2="30" stroke="#0fbcf9" stroke-width="2.5"/>
+            <rect x="70" y="30" width="8" height="8" fill="none" stroke="#0be881" stroke-width="1.5"/>
+          </svg>
+          <h4>Perpendicular</h4>
+          <p>Meet at exactly 90°</p>
+        </div>
+        <div class="line-card" onclick="showLineInfo('intersecting')">
+          <svg width="140" height="60" viewBox="0 0 140 60">
+            <line x1="15" y1="55" x2="125" y2="5" stroke="#f5a623" stroke-width="2.5"/>
+            <line x1="15" y1="5" x2="125" y2="55" stroke="#0fbcf9" stroke-width="2.5"/>
+            <circle cx="70" cy="30" r="4" fill="#e94560"/>
+          </svg>
+          <h4>Intersecting</h4>
+          <p>Cross at any angle (not 90°)</p>
+        </div>
+        <div class="line-card" onclick="showLineInfo('segment')">
+          <svg width="140" height="60" viewBox="0 0 140 60">
+            <line x1="20" y1="30" x2="120" y2="30" stroke="#0be881" stroke-width="2.5"/>
+            <circle cx="20" cy="30" r="5" fill="#0be881"/>
+            <circle cx="120" cy="30" r="5" fill="#0be881"/>
+            <text x="15" y="22" fill="#0be881" font-size="9">A</text>
+            <text x="115" y="22" fill="#0be881" font-size="9">B</text>
+          </svg>
+          <h4>Line Segment</h4>
+          <p>Has two endpoints (A to B)</p>
+        </div>
+        <div class="line-card" onclick="showLineInfo('ray')">
+          <svg width="140" height="60" viewBox="0 0 140 60">
+            <line x1="20" y1="30" x2="120" y2="30" stroke="#e94560" stroke-width="2.5" marker-end="url(#arrowhead2)"/>
+            <defs><marker id="arrowhead2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="#e94560"/></marker></defs>
+            <circle cx="20" cy="30" r="5" fill="#e94560"/>
+            <text x="15" y="22" fill="#e94560" font-size="9">A</text>
+            <text x="118" y="22" fill="#e94560" font-size="9">→∞</text>
+          </svg>
+          <h4>Ray</h4>
+          <p>One endpoint, goes on forever in one direction</p>
+        </div>
+        <div class="line-card" onclick="showLineInfo('point')">
+          <svg width="140" height="60" viewBox="0 0 140 60">
+            <circle cx="70" cy="30" r="7" fill="#f5a623"/>
+            <text x="80" y="35" fill="#f5a623" font-size="13" font-weight="700">P</text>
+          </svg>
+          <h4>Point</h4>
+          <p>An exact location — no size</p>
+        </div>
+      </div>
+      <div class="feedback-box info" id="lineInfoBox" style="display:none"></div>
+    </div>
+
+    <!-- SYMMETRY DRAWING DEMO -->
+    <div class="card">
+      <h2 style="color:var(--accent4)">🔮 Symmetry Explorer</h2>
+      <p style="margin-bottom:12px">Draw on the left half — the right half mirrors it! (Line of symmetry is the dotted line)</p>
+      <div class="symmetry-canvas-wrap">
+        <canvas id="symCanvas" width="380" height="260"></canvas>
+        <div class="sym-controls">
+          <button class="sm-btn red" onclick="clearSymCanvas()">🗑️ Clear</button>
+          <button class="sm-btn gold" onclick="showSymLines()">Show Lines</button>
+        </div>
+      </div>
+      <div class="key-facts" style="margin-top:16px">
+        <div class="key-fact"><strong>Line of Symmetry</strong>A fold line that makes both halves match exactly</div>
+        <div class="key-fact blue"><strong>Rotational Symmetry</strong>Shape looks the same when rotated (e.g. square = 4 times)</div>
+        <div class="key-fact green"><strong>Square</strong>4 lines of symmetry; order 4 rotational</div>
+        <div class="key-fact red"><strong>Equilateral Triangle</strong>3 lines of symmetry; order 3 rotational</div>
+      </div>
+      <!-- Symmetry shapes explorer -->
+      <h3 style="margin-top:18px">🔍 Shapes & Their Symmetry</h3>
+      <div class="angle-grid">
+        <div class="angle-card" onclick="showSymInfo(this,'Equilateral Triangle','3 lines of symmetry','Order 3 rotational')">
+          <svg viewBox="0 0 80 80"><polygon points="40,5 75,70 5,70" fill="rgba(11,232,129,0.15)" stroke="#0be881" stroke-width="2"/><line x1="40" y1="5" x2="40" y2="70" stroke="#e94560" stroke-width="1.5" stroke-dasharray="3,2"/></svg>
+          <div class="angle-name">Equil. Triangle</div>
+          <div class="angle-def">Click to see!</div>
+        </div>
+        <div class="angle-card" onclick="showSymInfo(this,'Square','4 lines of symmetry','Order 4 rotational')">
+          <svg viewBox="0 0 80 80"><rect x="10" y="10" width="60" height="60" fill="rgba(15,188,249,0.15)" stroke="#0fbcf9" stroke-width="2"/><line x1="40" y1="10" x2="40" y2="70" stroke="#e94560" stroke-width="1.5" stroke-dasharray="3,2"/><line x1="10" y1="40" x2="70" y2="40" stroke="#e94560" stroke-width="1.5" stroke-dasharray="3,2"/></svg>
+          <div class="angle-name">Square</div>
+          <div class="angle-def">Click to see!</div>
+        </div>
+        <div class="angle-card" onclick="showSymInfo(this,'Rectangle','2 lines of symmetry','Order 2 rotational')">
+          <svg viewBox="0 0 80 80"><rect x="5" y="20" width="70" height="40" fill="rgba(245,166,35,0.15)" stroke="#f5a623" stroke-width="2"/><line x1="40" y1="20" x2="40" y2="60" stroke="#e94560" stroke-width="1.5" stroke-dasharray="3,2"/><line x1="5" y1="40" x2="75" y2="40" stroke="#e94560" stroke-width="1.5" stroke-dasharray="3,2"/></svg>
+          <div class="angle-name">Rectangle</div>
+          <div class="angle-def">Click to see!</div>
+        </div>
+        <div class="angle-card" onclick="showSymInfo(this,'Circle','Infinite lines of symmetry','Order ∞ rotational')">
+          <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="rgba(233,69,96,0.15)" stroke="#e94560" stroke-width="2"/><line x1="40" y1="8" x2="40" y2="72" stroke="#e94560" stroke-width="1.5" stroke-dasharray="3,2"/><line x1="8" y1="40" x2="72" y2="40" stroke="#e94560" stroke-width="1.5" stroke-dasharray="3,2"/></svg>
+          <div class="angle-name">Circle</div>
+          <div class="angle-def">Click to see!</div>
+        </div>
+      </div>
+      <div class="feedback-box info" id="symInfoBox" style="display:none"></div>
+    </div>
+  </div><!-- end lines -->
+
+  <!-- =================== DECIMALS =================== -->
+  <div class="section" id="sec-decimals">
+
+    <div class="card">
+      <h2 style="color:var(--accent1)">🔢 Decimal Place Values</h2>
+      <p style="margin-bottom:14px">Every digit has a place and a value! Let's explore <strong style="color:var(--accent1)">3.407</strong></p>
+      <div style="overflow-x:auto">
+        <table class="place-value-table">
+          <tr>
+            <th>Hundreds</th><th>Tens</th><th>Ones</th><th style="background:#e94560">.</th>
+            <th style="background:#0fbcf9;color:#000">Tenths</th>
+            <th style="background:#0be881;color:#000">Hundredths</th>
+            <th style="background:#f5a623;color:#000">Thousandths</th>
+          </tr>
+          <tr>
+            <td>—</td><td>—</td><td class="pv-highlight">3</td><td style="color:#e94560;font-weight:900">.</td>
+            <td style="color:#0fbcf9;font-weight:900;font-size:1.4rem">4</td>
+            <td style="color:#0be881;font-weight:900;font-size:1.4rem">0</td>
+            <td style="color:#f5a623;font-weight:900;font-size:1.4rem">7</td>
+          </tr>
+          <tr>
+            <td></td><td></td><td style="font-size:0.75rem;color:var(--muted)">×1</td><td></td>
+            <td style="font-size:0.75rem;color:#0fbcf9">×1/10</td>
+            <td style="font-size:0.75rem;color:#0be881">×1/100</td>
+            <td style="font-size:0.75rem;color:#f5a623">×1/1000</td>
+          </tr>
+        </table>
+      </div>
+      <div class="feedback-box info" style="display:block;margin-top:16px">
+        <strong>Expanded Form:</strong> 3.407 = 3 + 0.4 + 0.007
+        &nbsp;|&nbsp; <strong>As fractions:</strong> 3 + 4/10 + 0/100 + 7/1000
+      </div>
+
+      <!-- EXPANDED FORM BUILDER -->
+      <h3 style="margin-top:20px">🏗️ Expanded Form Builder</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Type a decimal and see its expanded form!</p>
+      <div class="exp-form-container">
+        <input type="text" id="expInput" class="drill-input" placeholder="e.g. 5.293" oninput="buildExpandedForm()" style="margin-bottom:12px;display:block">
+        <div class="exp-form-display" id="expFormDisplay">Type a number above ↑</div>
+        <div class="feedback-box info" id="expFractionDisplay" style="display:none"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="color:var(--accent3)">⚡ Decimal Operations Drill</h2>
+      <p style="margin-bottom:16px">Answer 5 questions in a row — use Hint and Steps if you're stuck!</p>
+      <div class="drill-box" id="decimalDrill">
+        <div class="drill-question" id="dqText">Loading...</div>
+        <input type="number" class="drill-input" id="dqAnswer" placeholder="Your answer" step="any">
+        <div class="btn-row">
+          <button class="sm-btn gold" onclick="checkDrillAnswer()">✅ Check</button>
+          <button class="sm-btn" onclick="showDrillHint()">💡 Hint</button>
+          <button class="sm-btn green" onclick="showDrillSteps()">📋 Steps</button>
+          <button class="sm-btn red" onclick="showDrillAnswer()">👁️ Answer</button>
+          <button class="sm-btn" onclick="nextDrill()">⏭️ Next</button>
+        </div>
+        <div class="hint-steps" id="dqHint"></div>
+        <div class="feedback-box" id="dqFeedback"></div>
+      </div>
+      <div style="margin-top:14px;font-weight:700">Score: <span id="dqScore" style="color:var(--accent4)">0</span> / <span id="dqTotal" style="color:var(--muted)">0</span></div>
+    </div>
+
+    <!-- ROUNDING PRACTICE -->
+    <div class="card">
+      <h2 style="color:var(--accent2)">🎯 Rounding Challenge</h2>
+      <div class="key-facts">
+        <div class="key-fact"><strong>Round UP if</strong>next digit is 5 or more</div>
+        <div class="key-fact blue"><strong>Round DOWN if</strong>next digit is 4 or less</div>
+        <div class="key-fact green"><strong>1 decimal place</strong>Look at hundredths digit</div>
+        <div class="key-fact red"><strong>2 decimal places</strong>Look at thousandths digit</div>
+      </div>
+      <div style="margin-top:16px" class="drill-box" id="roundingDrill">
+        <div class="drill-question" id="rqText">Loading...</div>
+        <input type="number" class="drill-input" id="rqAnswer" placeholder="Rounded to 2dp" step="0.01">
+        <div class="btn-row">
+          <button class="sm-btn gold" onclick="checkRounding()">✅ Check</button>
+          <button class="sm-btn" onclick="showRoundHint()">💡 Hint</button>
+          <button class="sm-btn red" onclick="showRoundAnswer()">👁️ Answer</button>
+          <button class="sm-btn" onclick="nextRounding()">⏭️ Next</button>
+        </div>
+        <div class="hint-steps" id="rqHint"></div>
+        <div class="feedback-box" id="rqFeedback"></div>
+      </div>
+    </div>
+
+    <!-- ORDERING DECIMALS -->
+    <div class="card">
+      <h2 style="color:var(--accent4)">🏁 Order the Decimals!</h2>
+      <p style="color:var(--muted);margin-bottom:14px">Click the numbers in order from <strong>smallest to largest</strong>!</p>
+      <div id="orderGame">
+        <div class="pattern-sequence" id="orderNums"></div>
+        <div style="margin-top:10px;color:var(--muted);font-size:0.88rem">Your order: <span id="orderSelected" style="color:var(--accent1);font-family:'Space Mono',monospace;font-weight:700">—</span></div>
+        <div class="btn-row" style="margin-top:10px">
+          <button class="sm-btn gold" onclick="checkOrder()">✅ Check Order</button>
+          <button class="sm-btn" onclick="resetOrderGame()">🔄 New Set</button>
+        </div>
+        <div class="feedback-box" id="orderFeedback"></div>
+      </div>
+    </div>
+
+  </div><!-- end decimals -->
+
+  <!-- =================== INTEGERS =================== -->
+  <div class="section" id="sec-integers">
+
+    <div class="card">
+      <h2 style="color:var(--accent3)">➕➖ What are Integers?</h2>
+      <div class="key-facts">
+        <div class="key-fact"><strong>Positive Integers</strong>Greater than 0: +1, +2, +3…</div>
+        <div class="key-fact red"><strong>Negative Integers</strong>Less than 0: -1, -2, -3…</div>
+        <div class="key-fact blue"><strong>Zero</strong>Neither positive nor negative</div>
+        <div class="key-fact green"><strong>Absolute Value</strong>Distance from 0 (always positive!)</div>
+      </div>
+
+      <!-- NUMBER LINE -->
+      <h3 style="margin-top:18px">📍 Interactive Number Line</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Click + or - to move along the number line!</p>
+      <div class="number-line-wrap">
+        <svg id="numLineSVG" width="560" height="80" viewBox="0 0 560 80">
+          <line x1="20" y1="40" x2="540" y2="40" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+          <!-- Ticks and labels -->
+          <g id="nlTicks"></g>
+          <!-- Current position marker -->
+          <g id="nlMarker">
+            <polygon id="nlTriangle" points="280,20 270,36 290,36" fill="#f5a623"/>
+            <text id="nlText" x="280" y="16" text-anchor="middle" fill="#f5a623" font-size="12" font-family="Space Mono" font-weight="700">0</text>
+          </g>
+        </svg>
+      </div>
+      <div class="int-buttons">
+        <button class="int-val-btn negative" onclick="moveNL(-5)">-5</button>
+        <button class="int-val-btn negative" onclick="moveNL(-2)">-2</button>
+        <button class="int-val-btn negative" onclick="moveNL(-1)">-1</button>
+        <button class="int-val-btn" onclick="moveNL(0,true)">Reset</button>
+        <button class="int-val-btn" onclick="moveNL(1)">+1</button>
+        <button class="int-val-btn" onclick="moveNL(2)">+2</button>
+        <button class="int-val-btn" onclick="moveNL(5)">+5</button>
+      </div>
+      <div class="int-display" id="nlDisplay">Position: 0</div>
+    </div>
+
+    <!-- INTEGER OPERATIONS -->
+    <div class="card">
+      <h2 style="color:var(--accent2)">🧮 Integer Operations Drill</h2>
+      <div class="key-facts">
+        <div class="key-fact"><strong>+ + = +</strong>pos + pos = positive</div>
+        <div class="key-fact red"><strong>- - = +</strong>neg × neg = positive!</div>
+        <div class="key-fact blue"><strong>+ × - = -</strong>pos × neg = negative</div>
+        <div class="key-fact green"><strong>Subtracting -</strong>is the same as adding! 5 − (−3) = 5 + 3 = 8</div>
+      </div>
+      <div class="drill-box" style="margin-top:18px">
+        <div class="drill-question" id="intQText">Loading...</div>
+        <input type="number" class="drill-input" id="intAnswer" placeholder="Answer">
+        <div class="btn-row">
+          <button class="sm-btn gold" onclick="checkIntAnswer()">✅ Check</button>
+          <button class="sm-btn" onclick="showIntHint()">💡 Hint</button>
+          <button class="sm-btn red" onclick="showIntAnswer()">👁️ Answer</button>
+          <button class="sm-btn" onclick="nextIntQ()">⏭️ Next</button>
+        </div>
+        <div class="hint-steps" id="intHint"></div>
+        <div class="feedback-box" id="intFeedback"></div>
+      </div>
+    </div>
+
+    <!-- COMPARE & ORDER INTEGERS -->
+    <div class="card">
+      <h2 style="color:var(--accent4)">⚖️ Compare Integers</h2>
+      <p style="color:var(--muted);margin-bottom:14px">Choose the correct symbol: &lt; &gt; =</p>
+      <div class="drill-box" id="compareBox">
+        <div class="drill-question" id="cmpText" style="font-size:1.6rem">__ ○ __</div>
+        <div class="btn-row">
+          <button class="big-btn blue" onclick="checkCmp('&lt;')">&lt; Less than</button>
+          <button class="big-btn" onclick="checkCmp('=')">=  Equal</button>
+          <button class="big-btn" onclick="checkCmp('&gt;')">&gt; Greater than</button>
+        </div>
+        <div class="feedback-box" id="cmpFeedback"></div>
+        <button class="sm-btn" style="margin-top:10px" onclick="nextCmp()">⏭️ Next Question</button>
+      </div>
+    </div>
+
+  </div><!-- end integers -->
+
+  <!-- =================== PROBABILITY =================== -->
+  <div class="section" id="sec-probability">
+
+    <div class="card">
+      <h2 style="color:var(--accent1)">🎲 The Language of Probability</h2>
+      <div class="prob-scale">
+        <div class="prob-seg" style="background:#e94560" onclick="showProbInfo('impossible')">Impossible</div>
+        <div class="prob-seg" style="background:#e94560aa" onclick="showProbInfo('unlikely')">Unlikely</div>
+        <div class="prob-seg" style="background:#f5a623" onclick="showProbInfo('even')">Even Chance</div>
+        <div class="prob-seg" style="background:#0be88188" onclick="showProbInfo('likely')">Likely</div>
+        <div class="prob-seg" style="background:#0be881" onclick="showProbInfo('certain')">Certain</div>
+      </div>
+      <div class="prob-scale" style="height:auto;background:none;padding:4px 0">
+        <div style="flex:1;text-align:center;font-family:'Space Mono';font-size:0.7rem;color:var(--muted)">0</div>
+        <div style="flex:1;text-align:center;font-family:'Space Mono';font-size:0.7rem;color:var(--muted)">1/4</div>
+        <div style="flex:1;text-align:center;font-family:'Space Mono';font-size:0.7rem;color:var(--muted)">1/2</div>
+        <div style="flex:1;text-align:center;font-family:'Space Mono';font-size:0.7rem;color:var(--muted)">3/4</div>
+        <div style="flex:1;text-align:center;font-family:'Space Mono';font-size:0.7rem;color:var(--muted)">1</div>
+      </div>
+      <div class="feedback-box info" id="probInfoBox" style="display:none;margin-top:12px"></div>
+
+      <!-- Probability Slider -->
+      <h3 style="margin-top:20px">🎛️ Probability Calculator</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Set favourable outcomes and total outcomes:</p>
+      <div class="prob-slider-wrap">
+        <label style="font-weight:700;color:var(--accent3)">Favourable outcomes: <span id="favNum">1</span></label><br>
+        <input type="range" id="favSlider" min="0" max="10" value="1" oninput="updateProb()" style="width:220px;margin:8px 0">
+        <br>
+        <label style="font-weight:700;color:var(--accent1)">Total outcomes: <span id="totNum">6</span></label><br>
+        <input type="range" id="totSlider" min="1" max="20" value="6" oninput="updateProb()" style="width:220px;margin:8px 0">
+        <div class="prob-fraction-display" id="probFracDisplay">P = 1/6</div>
+        <div style="color:var(--muted);font-size:0.9rem" id="probDecDisplay">= 0.167 (Unlikely)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="color:var(--accent3)">🎯 Probability Scenarios</h2>
+      <p style="color:var(--muted);margin-bottom:14px">Calculate the probability for each scenario! P(event) = Favourable ÷ Total</p>
+
+      <div class="prob-scenario">
+        <h4>🎲 Scenario 1: Rolling a standard die (1–6)</h4>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+          <div id="diceScenario">
+            <p>What is the probability of rolling a <strong style="color:var(--accent1)">4</strong>?</p>
+            <input class="drill-input" id="diceQ" type="text" placeholder="Write as fraction (e.g. 1/6)">
+            <div class="btn-row"><button class="sm-btn gold" onclick="checkDice()">Check</button><button class="sm-btn red" onclick="showDiceAnswer()">Answer</button></div>
+            <div class="feedback-box" id="diceFeedback"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prob-scenario">
+        <h4>🎪 Scenario 2: Bag of marbles</h4>
+        <p style="color:var(--muted);margin:6px 0 10px">A bag has <span style="color:#e94560">3 red</span>, <span style="color:#0fbcf9">4 blue</span>, and <span style="color:#0be881">3 green</span> marbles.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px">
+            <p>P(blue) = ?</p>
+            <input class="drill-input" id="marbleQ1" type="text" placeholder="fraction" style="width:100%">
+            <div class="btn-row"><button class="sm-btn gold" onclick="checkMarble(1)">Check</button><button class="sm-btn red" onclick="showMarbleAnswer(1)">Answer</button></div>
+            <div class="feedback-box" id="marbleFeedback1"></div>
+          </div>
+          <div style="flex:1;min-width:200px">
+            <p>P(NOT red) = ?</p>
+            <input class="drill-input" id="marbleQ2" type="text" placeholder="fraction" style="width:100%">
+            <div class="btn-row"><button class="sm-btn gold" onclick="checkMarble(2)">Check</button><button class="sm-btn red" onclick="showMarbleAnswer(2)">Answer</button></div>
+            <div class="feedback-box" id="marbleFeedback2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prob-scenario">
+        <h4>🃏 Scenario 3: Spinner with 8 equal sections</h4>
+        <p style="color:var(--muted);margin:6px 0 10px">Sections: 3 yellow, 2 purple, 2 orange, 1 pink.</p>
+        <div class="prob-slider-wrap">
+          <svg width="180" height="180" viewBox="0 0 180 180" style="display:block;margin:0 auto">
+            <circle cx="90" cy="90" r="80" fill="none"/>
+            <!-- 8 sections, 45° each -->
+            <path d="M90,90 L90,10 A80,80 0 0,1 146.6,33.4 Z" fill="#f5a623" opacity="0.85"/>
+            <path d="M90,90 L146.6,33.4 A80,80 0 0,1 170,90 Z" fill="#f5a623" opacity="0.85"/>
+            <path d="M90,90 L170,90 A80,80 0 0,1 146.6,146.6 Z" fill="#f5a623" opacity="0.85"/>
+            <path d="M90,90 L146.6,146.6 A80,80 0 0,1 90,170 Z" fill="#9b59b6" opacity="0.85"/>
+            <path d="M90,90 L90,170 A80,80 0 0,1 33.4,146.6 Z" fill="#9b59b6" opacity="0.85"/>
+            <path d="M90,90 L33.4,146.6 A80,80 0 0,1 10,90 Z" fill="#e67e22" opacity="0.85"/>
+            <path d="M90,90 L10,90 A80,80 0 0,1 33.4,33.4 Z" fill="#e67e22" opacity="0.85"/>
+            <path d="M90,90 L33.4,33.4 A80,80 0 0,1 90,10 Z" fill="#ff69b4" opacity="0.85"/>
+            <circle cx="90" cy="90" r="10" fill="var(--card)" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
+        <p>What is P(yellow)?</p>
+        <input class="drill-input" id="spinnerQ" type="text" placeholder="fraction">
+        <div class="btn-row"><button class="sm-btn gold" onclick="checkSpinner()">Check</button><button class="sm-btn red" onclick="showSpinnerAnswer()">Answer</button></div>
+        <div class="feedback-box" id="spinnerFeedback"></div>
+      </div>
+    </div>
+
+  </div><!-- end probability -->
+
+  <!-- =================== DATA & GRAPHS =================== -->
+  <div class="section" id="sec-data">
+
+    <!-- KEY VOCABULARY -->
+    <div class="card">
+      <h2 style="color:var(--accent2)">📊 Data & Graphs — Key Vocabulary</h2>
+      <div class="key-facts">
+        <div class="key-fact"><strong>📏 Scale</strong>The numbers on the axis — always check what each unit represents (e.g. each square = 5 students)</div>
+        <div class="key-fact blue"><strong>Mode</strong>The value that appears MOST often in a data set. A set can have more than one mode!</div>
+        <div class="key-fact green"><strong>Median</strong>The MIDDLE value when data is arranged in order. If two middle values, find their mean.</div>
+        <div class="key-fact red"><strong>Mean</strong>The AVERAGE — add all values, then divide by how many there are.</div>
+        <div class="key-fact"><strong>Range</strong>The SPREAD — subtract the smallest value from the largest. Range = Max − Min.</div>
+        <div class="key-fact blue"><strong>Frequency</strong>How many times a value occurs. A frequency table counts each item.</div>
+        <div class="key-fact green"><strong>Tally Chart</strong>Groups of 5 marks (||||) used to record data as it is collected.</div>
+        <div class="key-fact red"><strong>Most/Least Popular</strong>Highest/lowest bar (or frequency) in the data.</div>
+      </div>
+
+      <!-- MEAN/MODE/MEDIAN/RANGE INTERACTIVE CALCULATOR -->
+      <h3 style="margin-top:22px">🧮 Mean, Mode, Median & Range Calculator</h3>
+      <p style="color:var(--muted);margin-bottom:10px">Enter a list of numbers separated by commas (e.g. <code style="color:var(--accent1)">4, 7, 2, 7, 9, 3</code>) and explore the statistics!</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <input type="text" id="statsInput" class="drill-input" style="width:280px;text-align:left;padding-left:12px" placeholder="e.g. 5, 3, 8, 3, 6, 9, 3" value="5, 3, 8, 3, 6, 9, 3">
+        <button class="big-btn green" onclick="calcStats()">Calculate! 🔢</button>
+      </div>
+      <div id="statsResult" style="display:none">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-top:12px">
+          <div style="background:var(--deep);border-radius:12px;padding:14px;border-left:4px solid var(--accent1)">
+            <div style="font-size:0.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Mean (Average)</div>
+            <div id="statMean" style="font-family:'Space Mono';font-size:1.5rem;color:var(--accent1);font-weight:700;margin-top:6px">—</div>
+            <div id="statMeanWork" style="font-size:0.78rem;color:var(--muted);margin-top:4px"></div>
+          </div>
+          <div style="background:var(--deep);border-radius:12px;padding:14px;border-left:4px solid var(--accent3)">
+            <div style="font-size:0.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Mode</div>
+            <div id="statMode" style="font-family:'Space Mono';font-size:1.5rem;color:var(--accent3);font-weight:700;margin-top:6px">—</div>
+            <div style="font-size:0.78rem;color:var(--muted);margin-top:4px">Most frequent value(s)</div>
+          </div>
+          <div style="background:var(--deep);border-radius:12px;padding:14px;border-left:4px solid var(--accent4)">
+            <div style="font-size:0.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Median</div>
+            <div id="statMedian" style="font-family:'Space Mono';font-size:1.5rem;color:var(--accent4);font-weight:700;margin-top:6px">—</div>
+            <div id="statMedianWork" style="font-size:0.78rem;color:var(--muted);margin-top:4px"></div>
+          </div>
+          <div style="background:var(--deep);border-radius:12px;padding:14px;border-left:4px solid var(--accent2)">
+            <div style="font-size:0.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Range</div>
+            <div id="statRange" style="font-family:'Space Mono';font-size:1.5rem;color:var(--accent2);font-weight:700;margin-top:6px">—</div>
+            <div id="statRangeWork" style="font-size:0.78rem;color:var(--muted);margin-top:4px"></div>
+          </div>
+        </div>
+        <div id="statSorted" style="margin-top:10px;font-size:0.88rem;color:var(--muted)"></div>
+      </div>
+    </div>
+
+    <!-- BAR GRAPH 1: SEA CREATURES -->
+    <div class="card">
+      <h2 style="color:var(--accent1)">🐠 Bar Graph 1: Favourite Sea Creatures</h2>
+      <p style="color:var(--muted);margin-bottom:4px">Hover over bars to see values. Scale: each unit = 1 student.</p>
+      <div style="margin-top:14px">
+        <div class="bar-graph-row">
+          <div class="y-labels">
+            <div class="y-label">0</div><div class="y-label">5</div><div class="y-label">10</div>
+            <div class="y-label">15</div><div class="y-label">20</div><div class="y-label">25</div>
+          </div>
+          <div style="flex:1">
+            <div class="bar-chart-area" id="barChartArea"></div>
+            <div class="bar-axis"></div>
+            <p style="text-align:center;color:var(--muted);font-size:0.82rem;margin-top:6px">Sea Creature</p>
+          </div>
+        </div>
+      </div>
+      <div class="graph-questions">
+        <h3 style="margin-bottom:12px">📝 Questions — Sea Creatures</h3>
+        <div class="graph-q"><p>1. Which sea creature was the <strong>most popular</strong>?</p>
+          <input class="graph-q-input" id="gq1" type="text" placeholder="Name" style="width:160px">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkGQ(1,'Turtle','Turtles','turtle','turtles')">Check</button><button class="sm-btn red" onclick="showGQA(1,'🐢 Turtle — 24 votes!')">Answer</button></div>
+          <div class="feedback-box" id="gqf1"></div></div>
+        <div class="graph-q"><p>2. How many students chose <strong>Dolphin or Shark</strong> altogether?</p>
+          <input class="graph-q-input" id="gq2" type="number" placeholder="Number">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkGQ(2,35)">Check</button><button class="sm-btn" onclick="showGQHint(2,'Dolphin=20, Shark=15. Add them!')">Hint</button><button class="sm-btn red" onclick="showGQA(2,'35 students (20 + 15 = 35)')">Answer</button></div>
+          <div class="feedback-box" id="gqf2"></div></div>
+        <div class="graph-q"><p>3. How many <strong>more</strong> students chose Turtle than Octopus?</p>
+          <input class="graph-q-input" id="gq3" type="number" placeholder="Number">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkGQ(3,14)">Check</button><button class="sm-btn" onclick="showGQHint(3,'Turtle=24, Octopus=10. Subtract!')">Hint</button><button class="sm-btn red" onclick="showGQA(3,'14 more (24 − 10 = 14)')">Answer</button></div>
+          <div class="feedback-box" id="gqf3"></div></div>
+        <div class="graph-q"><p>4. What is the <strong>total</strong> number of students surveyed?</p>
+          <input class="graph-q-input" id="gq4" type="number" placeholder="Total">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkGQ(4,82)">Check</button><button class="sm-btn" onclick="showGQHint(4,'Add ALL bars: 24+20+15+13+10')">Hint</button><button class="sm-btn red" onclick="showGQA(4,'82 students total')">Answer</button></div>
+          <div class="feedback-box" id="gqf4"></div></div>
+        <div class="graph-q"><p>5. What <strong>fraction</strong> of students chose Shark?</p>
+          <input class="graph-q-input" id="gq5" type="text" placeholder="fraction" style="width:120px">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkGQFrac(5,'15/82')">Check</button><button class="sm-btn" onclick="showGQHint(5,'15 out of 82 total students')">Hint</button><button class="sm-btn red" onclick="showGQA(5,'15/82 (cannot be simplified)')">Answer</button></div>
+          <div class="feedback-box" id="gqf5"></div></div>
+        <div class="graph-q"><p>6. What is the <strong>range</strong> of the data?</p>
+          <input class="graph-q-input" id="gq6" type="number" placeholder="Number">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkGQ(6,14)">Check</button><button class="sm-btn" onclick="showGQHint(6,'Range = Most popular − Least popular = 24 − 10')">Hint</button><button class="sm-btn red" onclick="showGQA(6,'14 (Range = 24 − 10 = 14)')">Answer</button></div>
+          <div class="feedback-box" id="gqf6"></div></div>
+        <div class="graph-q"><p>7. What is the <strong>mean</strong> (average) number of votes per creature?</p>
+          <input class="graph-q-input" id="gq7" type="text" placeholder="e.g. 16.4">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkGQ(7,'16.4',16.4)">Check</button><button class="sm-btn" onclick="showGQHint(7,'Add all values ÷ number of creatures: 82 ÷ 5')">Hint</button><button class="sm-btn red" onclick="showGQA(7,'16.4 (82 ÷ 5 = 16.4)')">Answer</button></div>
+          <div class="feedback-box" id="gqf7"></div></div>
+      </div>
+    </div>
+
+    <!-- FREQUENCY TABLE + BAR GRAPH 2 -->
+    <div class="card">
+      <h2 style="color:var(--accent3)">📋 Frequency Table: Test Scores</h2>
+      <p style="color:var(--muted);margin-bottom:14px">A class of 30 students got these scores on a spelling test (out of 10):</p>
+      <div style="background:var(--deep);border-radius:12px;padding:16px;margin-bottom:16px;font-family:'Space Mono',monospace;font-size:0.9rem;letter-spacing:1px;color:var(--accent3)">
+        6, 7, 8, 6, 9, 10, 7, 6, 8, 7, 9, 6, 7, 8, 7, 10, 6, 9, 7, 8, 6, 7, 9, 8, 7, 6, 10, 8, 7, 9
+      </div>
+      <!-- Tally / Frequency table -->
+      <div style="overflow-x:auto">
+        <table class="place-value-table" style="margin-bottom:16px">
+          <tr><th>Score</th><th>Tally</th><th>Frequency</th></tr>
+          <tr><td>6</td><td style="font-size:1.1rem;letter-spacing:2px;color:var(--accent1)">|||| ||</td><td style="color:var(--accent1);font-weight:900">7</td></tr>
+          <tr><td>7</td><td style="font-size:1.1rem;letter-spacing:2px;color:var(--accent3)">|||| ||||</td><td style="color:var(--accent3);font-weight:900">9</td></tr>
+          <tr><td>8</td><td style="font-size:1.1rem;letter-spacing:2px;color:var(--accent4)">|||| |</td><td style="color:var(--accent4);font-weight:900">6</td></tr>
+          <tr><td>9</td><td style="font-size:1.1rem;letter-spacing:2px;color:var(--accent2)">||||</td><td style="color:var(--accent2);font-weight:900">5</td></tr>
+          <tr><td>10</td><td style="font-size:1.1rem;letter-spacing:2px;color:#c678dd">|||</td><td style="color:#c678dd;font-weight:900">3</td></tr>
+          <tr style="background:rgba(255,255,255,0.08)"><td><strong>Total</strong></td><td></td><td><strong>30</strong></td></tr>
+        </table>
+      </div>
+      <!-- Bar graph for scores -->
+      <div style="margin-bottom:16px">
+        <div class="bar-graph-row">
+          <div class="y-labels" style="height:180px">
+            <div class="y-label">0</div><div class="y-label">2</div><div class="y-label">4</div>
+            <div class="y-label">6</div><div class="y-label">8</div><div class="y-label">10</div>
+          </div>
+          <div style="flex:1">
+            <div class="bar-chart-area" id="scoreChartArea" style="height:180px"></div>
+            <div class="bar-axis"></div>
+            <p style="text-align:center;color:var(--muted);font-size:0.82rem;margin-top:6px">Score</p>
+          </div>
+        </div>
+      </div>
+      <div class="graph-questions">
+        <h3 style="margin-bottom:12px">📝 Questions — Spelling Test</h3>
+        <div class="graph-q"><p>1. What is the <strong>mode</strong> (most common score)?</p>
+          <input class="graph-q-input" id="sq1" type="number" placeholder="Score">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkSQ(1,7)">Check</button><button class="sm-btn" onclick="showSQHint(1,'Look for the highest frequency in the table!')">Hint</button><button class="sm-btn red" onclick="showSQA(1,'Mode = 7 (appears 9 times — the most!)')">Answer</button></div>
+          <div class="feedback-box" id="sqf1"></div></div>
+        <div class="graph-q"><p>2. What is the <strong>range</strong> of the scores?</p>
+          <input class="graph-q-input" id="sq2" type="number" placeholder="Range">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkSQ(2,4)">Check</button><button class="sm-btn" onclick="showSQHint(1,'Range = Highest score − Lowest score')">Hint</button><button class="sm-btn red" onclick="showSQA(2,'Range = 10 − 6 = 4')">Answer</button></div>
+          <div class="feedback-box" id="sqf2"></div></div>
+        <div class="graph-q"><p>3. How many students scored <strong>8 or above</strong>?</p>
+          <input class="graph-q-input" id="sq3" type="number" placeholder="Students">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkSQ(3,14)">Check</button><button class="sm-btn" onclick="showSQHint(3,'Add frequencies for scores 8, 9, and 10')">Hint</button><button class="sm-btn red" onclick="showSQA(3,'14 students (6 + 5 + 3 = 14)')">Answer</button></div>
+          <div class="feedback-box" id="sqf3"></div></div>
+        <div class="graph-q"><p>4. What <strong>fraction</strong> of students scored exactly 10? (simplify)</p>
+          <input class="graph-q-input" id="sq4" type="text" placeholder="fraction" style="width:120px">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkSQFrac(4,'1/10','3/30')">Check</button><button class="sm-btn" onclick="showSQHint(4,'3 out of 30. Can you simplify that?')">Hint</button><button class="sm-btn red" onclick="showSQA(4,'1/10 (3 ÷ 30, simplified by ÷3)')">Answer</button></div>
+          <div class="feedback-box" id="sqf4"></div></div>
+        <div class="graph-q"><p>5. What is the <strong>mean</strong> score? (Round to 1 decimal place)</p>
+          <input class="graph-q-input" id="sq5" type="text" placeholder="e.g. 7.5">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkSQFrac(5,'7.5')">Check</button><button class="sm-btn" onclick="showSQHint(5,'Mean = total of all scores ÷ 30. Total = (6×7)+(7×9)+(8×6)+(9×5)+(10×3)')">Hint</button><button class="sm-btn red" onclick="showSQA(5,'7.5: Total = 42+63+48+45+30 = 228. Mean = 228÷30 = 7.6')">Answer</button></div>
+          <div class="feedback-box" id="sqf5"></div></div>
+      </div>
+    </div>
+
+    <!-- DATA SET CHALLENGE: MEAN/MODE/MEDIAN/RANGE DRILL -->
+    <div class="card">
+      <h2 style="color:var(--accent4)">🏋️ Statistics Drill</h2>
+      <p style="color:var(--muted);margin-bottom:14px">Practise finding mean, mode, median, and range from data sets!</p>
+      <div class="drill-box" id="statsDrillBox">
+        <div class="drill-question" id="sdText" style="font-size:1rem;line-height:1.6">Loading...</div>
+        <input type="text" class="drill-input" id="sdAnswer" placeholder="Your answer">
+        <div class="btn-row">
+          <button class="sm-btn gold" onclick="checkSD()">✅ Check</button>
+          <button class="sm-btn" onclick="showSDHint()">💡 Hint</button>
+          <button class="sm-btn green" onclick="showSDSteps()">📋 Steps</button>
+          <button class="sm-btn red" onclick="showSDAnswer()">👁️ Answer</button>
+          <button class="sm-btn" onclick="nextSD()">⏭️ Next</button>
+        </div>
+        <div class="hint-steps" id="sdHint"></div>
+        <div class="feedback-box" id="sdFeedback"></div>
+      </div>
+    </div>
+
+    <!-- TALLY CHART READING -->
+    <div class="card">
+      <h2 style="color:var(--accent2)">🗳️ Reading a Tally Chart</h2>
+      <p style="color:var(--muted);margin-bottom:14px">A survey asked students their favourite sport. Read the tally chart and answer the questions.</p>
+      <div style="overflow-x:auto">
+        <table class="place-value-table">
+          <tr><th>Sport</th><th>Tally</th><th>Frequency</th></tr>
+          <tr><td>⚽ Football</td><td style="font-size:1.1rem;letter-spacing:3px;color:var(--accent1)">|||| |||| ||||</td><td style="color:var(--accent1);font-weight:900">?</td></tr>
+          <tr><td>🏊 Swimming</td><td style="font-size:1.1rem;letter-spacing:3px;color:var(--accent3)">|||| ||||</td><td style="color:var(--accent3);font-weight:900">?</td></tr>
+          <tr><td>🎾 Tennis</td><td style="font-size:1.1rem;letter-spacing:3px;color:var(--accent4)">|||| |</td><td style="color:var(--accent4);font-weight:900">?</td></tr>
+          <tr><td>🏀 Basketball</td><td style="font-size:1.1rem;letter-spacing:3px;color:var(--accent2)">||||</td><td style="color:var(--accent2);font-weight:900">?</td></tr>
+          <tr><td>🏏 Cricket</td><td style="font-size:1.1rem;letter-spacing:3px;color:#c678dd">|||| ||</td><td style="color:#c678dd;font-weight:900">?</td></tr>
+        </table>
+      </div>
+      <div class="graph-questions" style="margin-top:14px">
+        <div class="graph-q"><p>1. Count the tallies — how many students chose <strong>Football</strong>?</p>
+          <input class="graph-q-input" id="tq1" type="number" placeholder="Number">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkTQ(1,14)">Check</button><button class="sm-btn" onclick="showTQHint(1,'Each group of 5 tallies counts as 5. Count the groups!')">Hint</button><button class="sm-btn red" onclick="showTQA(1,'14 — two groups of 5 (||||) plus 4 more')">Answer</button></div>
+          <div class="feedback-box" id="tqf1"></div></div>
+        <div class="graph-q"><p>2. How many chose <strong>Swimming</strong>?</p>
+          <input class="graph-q-input" id="tq2" type="number" placeholder="Number">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkTQ(2,9)">Check</button><button class="sm-btn red" onclick="showTQA(2,'9 — one group of 5 plus 4 more')">Answer</button></div>
+          <div class="feedback-box" id="tqf2"></div></div>
+        <div class="graph-q"><p>3. What is the <strong>total</strong> number of students surveyed?</p>
+          <input class="graph-q-input" id="tq3" type="number" placeholder="Total">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkTQ(3,40)">Check</button><button class="sm-btn" onclick="showTQHint(3,'Football=14, Swimming=9, Tennis=6, Basketball=4, Cricket=7')">Hint</button><button class="sm-btn red" onclick="showTQA(3,'40 total (14+9+6+4+7=40)')">Answer</button></div>
+          <div class="feedback-box" id="tqf3"></div></div>
+        <div class="graph-q"><p>4. What sport is the <strong>mode</strong>?</p>
+          <input class="graph-q-input" id="tq4" type="text" placeholder="Sport" style="width:160px">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkTQText(4,'football','Football')">Check</button><button class="sm-btn red" onclick="showTQA(4,'Football — most students (14) chose it!')">Answer</button></div>
+          <div class="feedback-box" id="tqf4"></div></div>
+        <div class="graph-q"><p>5. What <strong>percentage</strong> of students chose Tennis? (Round to nearest whole %)</p>
+          <input class="graph-q-input" id="tq5" type="text" placeholder="e.g. 15%">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkTQText(5,'15%','15')">Check</button><button class="sm-btn" onclick="showTQHint(5,'Tennis=6, Total=40. (6÷40)×100 = ?')">Hint</button><button class="sm-btn red" onclick="showTQA(5,'15% — (6÷40)×100 = 15%')">Answer</button></div>
+          <div class="feedback-box" id="tqf5"></div></div>
+      </div>
+    </div>
+
+    <!-- DECIMAL PATTERNS -->
+    <div class="card">
+      <h2 style="color:var(--accent4)">🔍 Number Patterns with Decimals</h2>
+      <p style="color:var(--muted);margin-bottom:14px">Find the pattern and fill in the missing numbers!</p>
+      <div id="patternGame">
+        <div class="pattern-sequence" id="patternSeq"></div>
+        <div class="btn-row" style="margin-top:12px">
+          <button class="sm-btn gold" onclick="checkPattern()">✅ Check</button>
+          <button class="sm-btn" onclick="showPatternHint()">💡 Hint</button>
+          <button class="sm-btn green" onclick="newPattern()">🔄 New Pattern</button>
+        </div>
+        <div class="feedback-box" id="patternFeedback"></div>
+      </div>
+    </div>
+
+  </div><!-- end data -->
+
+  <!-- =================== MONSTER QUIZ =================== -->
+  <div class="section" id="sec-quiz">
+    <div class="quiz-header">🏆 The Monster Quiz 🏆</div>
+    <p style="text-align:center;color:var(--muted);margin-bottom:8px;font-size:0.95rem">Answer all questions below, then hit <strong style="color:var(--accent1)">Submit Quiz</strong> to see your score!</p>
+    <div class="quiz-progress">
+      <div class="quiz-score-badge" id="quizScoreBadge" style="display:none">Score: <span id="quizScore">0</span> / <span id="quizTotal">0</span></div>
+      <div class="progress-bar" id="quizProgressBarWrap" style="display:none"><div class="progress-fill" id="quizProgressBar" style="width:0%"></div></div>
+    </div>
+
+    <div id="quizContainer"></div>
+
+    <!-- STICKY SUBMIT BAR -->
+    <div id="quizSubmitBar" style="position:sticky;bottom:16px;z-index:200;text-align:center;margin-top:24px">
+      <button class="big-btn green" id="submitQuizBtn" onclick="submitQuiz()" style="font-size:1.2rem;padding:16px 48px;box-shadow:0 8px 32px rgba(0,0,0,0.6)">
+        🏁 Submit Quiz &amp; See Score
+      </button>
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="result-emoji" id="resultEmoji">🏆</div>
+      <div class="result-score" id="resultScore">0/42</div>
+      <div class="result-msg" id="resultMsg">Great job!</div>
+      <div id="resultBreakdown" style="margin:16px 0;font-size:0.9rem;color:var(--muted)"></div>
+      <button class="big-btn" onclick="restartQuiz()">🔄 Try Again!</button>
+    </div>
+  </div>
+
+</div><!-- end container -->
+
+<script>
+// =================== STARS ===================
+const starfield = document.getElementById('starfield');
+for(let i=0;i<80;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  const size=Math.random()*3+1;
+  s.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
+  starfield.appendChild(s);
+}
+
+// =================== TABS ===================
+function showSection(id, btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(id==='quiz') initQuiz();
+  if(id==='data') buildBarChart();
+}
+
+// =================== PROTRACTOR ===================
+// Center is (140,140). Base ray points RIGHT (0°). Arm sweeps counter-clockwise (towards top).
+// In SVG: angle 0° → arm points right (240,140). Angle 90° → arm points UP (140,40). Angle 180° → arm points left (40,140).
+// Math: arm tip = cx + r*cos(deg * π/180), cy - r*sin(deg * π/180)   [minus because SVG Y is flipped]
+
+const CX=140, CY=140, R_MARKS=100, R_ARM=98, R_ARC=72;
+
+function buildDegMarks(){
+  const g=document.getElementById('degMarks');
+  g.innerHTML='';
+  for(let d=0;d<=180;d+=10){
+    const rad = d * Math.PI / 180;
+    const ox = CX + R_MARKS * Math.cos(rad);
+    const oy = CY - R_MARKS * Math.sin(rad);
+    const ix = CX + (R_MARKS-14) * Math.cos(rad);
+    const iy = CY - (R_MARKS-14) * Math.sin(rad);
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',ox.toFixed(1)); line.setAttribute('y1',oy.toFixed(1));
+    line.setAttribute('x2',ix.toFixed(1)); line.setAttribute('y2',iy.toFixed(1));
+    line.setAttribute('stroke','rgba(255,255,255,0.35)'); line.setAttribute('stroke-width', d%30===0?'1.5':'1');
+    g.appendChild(line);
+    if(d%30===0){
+      const tx = CX + (R_MARKS+12) * Math.cos(rad);
+      const ty = CY - (R_MARKS+12) * Math.sin(rad);
+      const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x',tx.toFixed(1)); t.setAttribute('y',ty.toFixed(1));
+      t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
+      t.setAttribute('fill','rgba(255,255,255,0.5)'); t.setAttribute('font-size','9');
+      t.setAttribute('font-family','Space Mono');
+      t.textContent=d;
+      g.appendChild(t);
+    }
+  }
+}
+buildDegMarks();
+
+function updateProtractor(val){
+  val=parseInt(val);
+  document.getElementById('angleNum').textContent=val;
+  document.getElementById('angleDisplay').textContent=val+'°';
+
+  // Arm tip: 0° = right, 90° = up, 180° = left (standard math coords, SVG Y flipped)
+  const rad = val * Math.PI / 180;
+  const armX = CX + R_ARM * Math.cos(rad);
+  const armY = CY - R_ARM * Math.sin(rad);
+  document.getElementById('angleArm').setAttribute('x2', armX.toFixed(1));
+  document.getElementById('angleArm').setAttribute('y2', armY.toFixed(1));
+
+  // Arc: sweep from 0° ray (right) to the current angle, going counter-clockwise in screen space
+  // SVG arc: sweep-flag=0 means counter-clockwise in screen coords (because Y is flipped)
+  let arcPath = '';
+  if(val > 0 && val <= 360){
+    const startX = CX + R_ARC;  // 0° start = right
+    const startY = CY;
+    const endX = CX + R_ARC * Math.cos(rad);
+    const endY = CY - R_ARC * Math.sin(rad);
+    const largeArc = val > 180 ? 1 : 0;
+    // sweep-flag=0: arc goes counter-clockwise in screen space = the correct "opening" direction
+    if(val < 360){
+      arcPath = `M${CX},${CY} L${startX.toFixed(1)},${startY.toFixed(1)} A${R_ARC},${R_ARC} 0 ${largeArc},0 ${endX.toFixed(1)},${endY.toFixed(1)} Z`;
+    } else {
+      arcPath = `M${CX},${CY} m${R_ARC},0 A${R_ARC},${R_ARC} 0 1,0 ${R_ARC-0.01},0 Z`;
+    }
+  }
+  document.getElementById('arcFill').setAttribute('d', arcPath);
+
+  // Type label
+  let type='', col='';
+  if(val===0){type='—';col='var(--muted)';}
+  else if(val<90){type='🔷 Acute';col='var(--accent3)';}
+  else if(val===90){type='📐 Right Angle';col='var(--accent4)';}
+  else if(val<180){type='🔶 Obtuse';col='var(--accent1)';}
+  else if(val===180){type='📏 Straight';col='var(--accent2)';}
+  else if(val<360){type='🌀 Reflex';col='#c678dd';}
+  else{type='🔄 Full Revolution';col='var(--accent4)';}
+  const lbl=document.getElementById('angleTypeLabel');
+  lbl.textContent=type; lbl.style.background=col+'22'; lbl.style.color=col; lbl.style.border='2px solid '+col;
+
+  // Position degree label inside the arc at half-angle
+  const midRad = (val / 2) * Math.PI / 180;
+  const labelDist = val < 30 ? 40 : val < 60 ? 48 : 56;
+  const lx = CX + labelDist * Math.cos(midRad);
+  const ly = CY - labelDist * Math.sin(midRad);
+  const labelEl = document.getElementById('angleLabel');
+  labelEl.setAttribute('x', lx.toFixed(1));
+  labelEl.setAttribute('y', ly.toFixed(1));
+  labelEl.textContent = val > 0 ? val+'°' : '';
+}
+updateProtractor(45);
+
+// =================== TRIANGLE CALC ===================
+function calcTriangle(){
+  const a=document.getElementById('triA').value;
+  const b=document.getElementById('triB').value;
+  const fb=document.getElementById('triFeedback');
+  if(!a||!b){fb.className='feedback-box wrong';fb.textContent='Please enter both ∠A and ∠B!';return;}
+  const sum=parseFloat(a)+parseFloat(b);
+  const c=180-sum;
+  if(c<=0||c>=180){fb.className='feedback-box wrong';fb.textContent=`❌ ${a}° + ${b}° = ${sum}°. That's already ≥ 180°! No valid triangle.`;return;}
+  document.getElementById('triC').value=c;
+  let type='';
+  const angles=[parseFloat(a),parseFloat(b),c];
+  if(angles.some(x=>x===90))type='Right Triangle';
+  else if(angles.every(x=>x<90))type='Acute Triangle';
+  else type='Obtuse Triangle';
+  fb.className='feedback-box correct';
+  fb.textContent=`✅ ∠C = 180° − ${a}° − ${b}° = ${c}°. This is a ${type}!`;
+}
+function resetTriangle(){
+  ['triA','triB'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('triC').value='';
+  document.getElementById('triFeedback').className='feedback-box';
+  document.getElementById('triFeedback').textContent='';
+}
+
+// =================== LINES ===================
+const lineInfos = {
+  parallel:'Parallel lines run side by side and NEVER meet. Think of train tracks! ↔️ Symbol: two vertical bars ∥',
+  perpendicular:'Perpendicular lines meet at exactly 90°. Think of a + sign! ⊥ is the symbol.',
+  intersecting:'Intersecting lines cross at a point (not necessarily 90°). They share one point in common.',
+  segment:'A line segment has two endpoints — it starts and stops. AB̄ means "the segment from A to B".',
+  ray:'A ray has one endpoint and goes on forever in one direction. Like a laser beam! →',
+  point:'A point marks an exact location in space. It has no size, no length, no width — just position.'
+};
+function showLineInfo(type){
+  const box=document.getElementById('lineInfoBox');
+  box.style.display='block';
+  box.className='feedback-box info';
+  box.textContent='ℹ️ '+lineInfos[type];
+}
+
+// =================== SYMMETRY CANVAS ===================
+const symCanvas=document.getElementById('symCanvas');
+const symCtx=symCanvas.getContext('2d');
+let symDrawing=false;
+symCtx.strokeStyle='#0fbcf9'; symCtx.lineWidth=3; symCtx.lineCap='round';
+function getSymPos(e){
+  const r=symCanvas.getBoundingClientRect();
+  const x=(e.clientX||e.touches[0].clientX)-r.left;
+  const y=(e.clientY||e.touches[0].clientY)-r.top;
+  return{x,y};
+}
+symCanvas.addEventListener('mousedown',e=>{symDrawing=true;const p=getSymPos(e);symCtx.beginPath();symCtx.moveTo(p.x,p.y);});
+symCanvas.addEventListener('mousemove',e=>{
+  if(!symDrawing)return;
+  const p=getSymPos(e);
+  symCtx.lineTo(p.x,p.y); symCtx.stroke();
+  // Mirror
+  const mx=symCanvas.width-p.x;
+  symCtx.strokeStyle='#f5a623';
+  symCtx.lineTo(mx,p.y); // line appears in mirror
+  symCtx.stroke();
+  symCtx.beginPath(); symCtx.moveTo(mx,p.y);
+  symCtx.strokeStyle='#f5a623';
+  // draw mirror path
+  symCtx.beginPath(); symCtx.moveTo(p.x,p.y);
+  symCtx.strokeStyle='#0fbcf9';
+});
+symCanvas.addEventListener('mouseup',()=>symDrawing=false);
+symCanvas.addEventListener('mouseleave',()=>symDrawing=false);
+
+// Proper mirror drawing
+let symLastX=-1, symLastY=-1;
+symCanvas.removeEventListener('mousemove',null);
+symCanvas.addEventListener('mousedown',e=>{
+  symDrawing=true;
+  const p=getSymPos(e);
+  symLastX=p.x; symLastY=p.y;
+});
+symCanvas.addEventListener('mousemove',e=>{
+  if(!symDrawing)return;
+  const p=getSymPos(e);
+  const mid=symCanvas.width/2;
+  // Draw line segment
+  symCtx.beginPath(); symCtx.strokeStyle='#0fbcf9';
+  symCtx.moveTo(symLastX,symLastY); symCtx.lineTo(p.x,p.y); symCtx.stroke();
+  // Mirror
+  const mx=symCanvas.width-p.x, mlx=symCanvas.width-symLastX;
+  symCtx.beginPath(); symCtx.strokeStyle='#f5a623';
+  symCtx.moveTo(mlx,symLastY); symCtx.lineTo(mx,p.y); symCtx.stroke();
+  symCtx.strokeStyle='#0fbcf9';
+  symLastX=p.x; symLastY=p.y;
+});
+symCanvas.addEventListener('mouseup',()=>{symDrawing=false;});
+symCanvas.addEventListener('mouseleave',()=>{symDrawing=false;});
+
+function clearSymCanvas(){
+  symCtx.clearRect(0,0,symCanvas.width,symCanvas.height);
+  showSymLines();
+}
+function showSymLines(){
+  const mid=symCanvas.width/2;
+  symCtx.save();
+  symCtx.setLineDash([8,5]);
+  symCtx.strokeStyle='rgba(233,69,96,0.5)'; symCtx.lineWidth=2;
+  symCtx.beginPath(); symCtx.moveTo(mid,0); symCtx.lineTo(mid,symCanvas.height); symCtx.stroke();
+  symCtx.restore();
+}
+showSymLines();
+
+function showSymInfo(el,name,lines,rot){
+  const box=document.getElementById('symInfoBox');
+  box.style.display='block'; box.className='feedback-box info';
+  box.innerHTML=`<strong>${name}</strong> — ${lines} · ${rot}`;
+  document.querySelectorAll('#sec-lines .angle-card').forEach(c=>c.style.borderColor='transparent');
+  el.style.borderColor='var(--accent1)';
+}
+
+// =================== EXPANDED FORM ===================
+function buildExpandedForm(){
+  const raw=document.getElementById('expInput').value.trim();
+  const num=parseFloat(raw);
+  if(isNaN(num)){document.getElementById('expFormDisplay').textContent='Type a valid decimal number';return;}
+  const parts=raw.split('.');
+  const intPart=parseInt(parts[0])||0;
+  const decPart=parts[1]||'';
+  let expanded=[]; let fracParts=[];
+  // Integer digits
+  const intStr=Math.abs(intPart).toString();
+  for(let i=0;i<intStr.length;i++){
+    const d=parseInt(intStr[i]);
+    const place=Math.pow(10,intStr.length-1-i);
+    if(d!==0) expanded.push(`${d*place}`);
+  }
+  // Decimal digits
+  const names=['tenths','hundredths','thousandths'];
+  for(let i=0;i<Math.min(decPart.length,3);i++){
+    const d=parseInt(decPart[i]);
+    if(d!==0){
+      expanded.push(`0.${'0'.repeat(i)}${d}`);
+      fracParts.push(`${d}/${Math.pow(10,i+1)}`);
+    }
+  }
+  document.getElementById('expFormDisplay').textContent=raw+' = '+(expanded.join(' + ')||'0');
+  const fd=document.getElementById('expFractionDisplay');
+  if(fracParts.length){fd.style.display='block';fd.textContent='Fraction parts: '+fracParts.join(' + ');}
+  else fd.style.display='none';
+}
+
+// =================== DECIMAL DRILL ===================
+const decimalProblems=[
+  {q:'3.45 + 2.17 = ?', a:5.62, hint:'Line up decimals: 3.45 + 2.17', steps:['3.45\n+2.17\n————','5 + 7 hundredths = 12, carry 1','4 + 1 + 1 = 6 tenths','3 + 2 = 5 ones']},
+  {q:'8.90 − 3.45 = ?', a:5.45, hint:'Line up decimals: 8.90 − 3.45', steps:['8.90\n−3.45\n————','10−5=5 hundredths','8−4=4? No, borrow: 9−1=8, so 18−4−1=13... Wait: 90−45=45']},
+  {q:'6.3 × 4 = ?', a:25.2, hint:'Multiply 63 × 4 = 252, then place decimal: 25.2', steps:['Think: 6.3 × 4','= 63 × 4 ÷ 10','= 252 ÷ 10','= 25.2']},
+  {q:'9.6 ÷ 3 = ?', a:3.2, hint:'Divide 96 ÷ 3 = 32, then place decimal: 3.2', steps:['Think: 9.6 ÷ 3','= 96 ÷ 3 ÷ 10... Wait','Actually: 9÷3=3, 0.6÷3=0.2','Answer: 3 + 0.2 = 3.2']},
+  {q:'0.75 + 0.125 = ?', a:0.875, hint:'Line up: 0.750 + 0.125', steps:['0.750\n+0.125\n——————','5+5=10... 0+2+1=... Wait: 0+5=5 thousandths','5+2=7 hundredths','7+1=8 tenths','Answer: 0.875']},
+  {q:'5.004 − 1.3 = ?', a:3.704, hint:'Rewrite as 5.004 − 1.300', steps:['5.004\n−1.300\n————','4−0=4 thousandths','0−0=0 hundredths','0−3? Borrow: 10−3=7 tenths; 5−1−1=3 ones','Answer: 3.704']},
+  {q:'2.5 × 0.4 = ?', a:1.0, hint:'25 × 4 = 100; two decimal places → 1.00', steps:['25 × 4 = 100','Move decimal 2 places left','100 → 1.00 = 1.0']},
+  {q:'7.2 ÷ 0.9 = ?', a:8, hint:'Multiply both by 10: 72 ÷ 9 = 8', steps:['7.2 ÷ 0.9','×10 both sides: 72 ÷ 9','= 8']},
+];
+let dqIdx=0,dqScore=0,dqTotalAnswered=0;
+function loadDrill(){
+  const p=decimalProblems[dqIdx%decimalProblems.length];
+  document.getElementById('dqText').textContent=p.q;
+  document.getElementById('dqAnswer').value='';
+  document.getElementById('dqHint').classList.remove('show');
+  document.getElementById('dqHint').innerHTML='';
+  document.getElementById('dqFeedback').className='feedback-box';
+  document.getElementById('dqFeedback').textContent='';
+}
+function checkDrillAnswer(){
+  const p=decimalProblems[dqIdx%decimalProblems.length];
+  const ans=parseFloat(document.getElementById('dqAnswer').value);
+  const fb=document.getElementById('dqFeedback');
+  if(isNaN(ans)){fb.className='feedback-box wrong';fb.textContent='Enter a number!';return;}
+  dqTotalAnswered++;
+  if(Math.abs(ans-p.a)<0.001){dqScore++;fb.className='feedback-box correct';fb.textContent='🎉 Correct! '+p.a;}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite. Try the hint or steps!';}
+  document.getElementById('dqScore').textContent=dqScore;
+  document.getElementById('dqTotal').textContent=dqTotalAnswered;
+}
+function showDrillHint(){const p=decimalProblems[dqIdx%decimalProblems.length];const h=document.getElementById('dqHint');h.innerHTML='<p class="step">💡 Hint:</p><p>'+p.hint+'</p>';h.classList.add('show');}
+function showDrillSteps(){
+  const p=decimalProblems[dqIdx%decimalProblems.length];
+  const h=document.getElementById('dqHint');
+  h.innerHTML='<p class="step">📋 Steps:</p>'+p.steps.map((s,i)=>`<p><strong>Step ${i+1}:</strong> ${s}</p>`).join('');
+  h.classList.add('show');
+}
+function showDrillAnswer(){const p=decimalProblems[dqIdx%decimalProblems.length];const h=document.getElementById('dqHint');h.innerHTML+=`<p class="answer">✅ Answer: ${p.a}</p>`;h.classList.add('show');}
+function nextDrill(){dqIdx++;loadDrill();}
+loadDrill();
+
+// =================== ROUNDING ===================
+const roundProblems=[
+  {q:'Round 4.678 to 2 decimal places',a:'4.68',hint:'Look at the thousandths digit: 8 ≥ 5, so round up!'},
+  {q:'Round 9.341 to 2 decimal places',a:'9.34',hint:'Look at the thousandths digit: 1 < 5, so round down (keep as is)'},
+  {q:'Round 0.995 to 2 decimal places',a:'1.00',hint:'Look at thousandths: 5 ≥ 5, so 0.99 rounds up to 1.00!'},
+  {q:'Round 7.455 to 2 decimal places',a:'7.46',hint:'Thousandths digit is 5, so round up the hundredths'},
+  {q:'Round 3.104 to 2 decimal places',a:'3.10',hint:'Thousandths digit is 4 < 5, round down: keep 3.10'},
+  {q:'Round 12.506 to 2 decimal places',a:'12.51',hint:'Thousandths digit is 6 ≥ 5, round up'},
+];
+let rqIdx=0;
+function loadRounding(){
+  const p=roundProblems[rqIdx%roundProblems.length];
+  document.getElementById('rqText').textContent=p.q;
+  document.getElementById('rqAnswer').value='';
+  document.getElementById('rqHint').innerHTML=''; document.getElementById('rqHint').classList.remove('show');
+  document.getElementById('rqFeedback').className='feedback-box'; document.getElementById('rqFeedback').textContent='';
+}
+function checkRounding(){
+  const p=roundProblems[rqIdx%roundProblems.length];
+  const ans=document.getElementById('rqAnswer').value.trim();
+  const fb=document.getElementById('rqFeedback');
+  if(parseFloat(ans)===parseFloat(p.a)){fb.className='feedback-box correct';fb.textContent='🎉 Correct! '+p.a;}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite. Check the hint!';}
+}
+function showRoundHint(){const p=roundProblems[rqIdx%roundProblems.length];const h=document.getElementById('rqHint');h.innerHTML='<p class="step">💡 '+p.hint+'</p>';h.classList.add('show');}
+function showRoundAnswer(){const p=roundProblems[rqIdx%roundProblems.length];const h=document.getElementById('rqHint');h.innerHTML+='<p class="answer">Answer: '+p.a+'</p>';h.classList.add('show');}
+function nextRounding(){rqIdx++;loadRounding();}
+loadRounding();
+
+// =================== ORDER DECIMALS ===================
+let orderCorrect=[], orderSelected=[];
+function resetOrderGame(){
+  const nums=[
+    [0.5,1.25,0.75,2.0,0.125],
+    [3.45,3.054,3.5,3.405,3.0],
+    [0.09,0.9,0.099,0.909,0.99],
+    [1.1,1.01,1.001,1.11,1.0],
+  ];
+  const set=nums[Math.floor(Math.random()*nums.length)];
+  orderCorrect=[...set].sort((a,b)=>a-b);
+  orderSelected=[];
+  document.getElementById('orderSelected').textContent='—';
+  document.getElementById('orderFeedback').className='feedback-box'; document.getElementById('orderFeedback').textContent='';
+  const cont=document.getElementById('orderNums');
+  cont.innerHTML='';
+  set.forEach(n=>{
+    const d=document.createElement('div');
+    d.className='pattern-num';
+    d.textContent=n;
+    d.style.cursor='pointer';
+    d.onclick=function(){selectOrderNum(n,this);};
+    cont.appendChild(d);
+  });
+}
+function selectOrderNum(n,el){
+  if(el.style.opacity==='0.3')return;
+  orderSelected.push(n);
+  el.style.opacity='0.3'; el.style.borderColor='var(--accent1)';
+  document.getElementById('orderSelected').textContent=orderSelected.join(' < ');
+}
+function checkOrder(){
+  const fb=document.getElementById('orderFeedback');
+  if(orderSelected.length!==orderCorrect.length){fb.className='feedback-box wrong';fb.textContent='Select ALL numbers first!';return;}
+  const ok=orderSelected.every((v,i)=>v===orderCorrect[i]);
+  if(ok){fb.className='feedback-box correct';fb.textContent='🎉 Perfect order! Smallest → Largest!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite! Correct order: '+orderCorrect.join(' < ');}
+}
+resetOrderGame();
+
+// =================== NUMBER LINE ===================
+let nlPos=0;
+function buildNLTicks(){
+  const g=document.getElementById('nlTicks');
+  g.innerHTML='';
+  const cx=280, step=26;
+  for(let i=-9;i<=9;i++){
+    const x=cx+i*step;
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',x); line.setAttribute('y1',32);
+    line.setAttribute('x2',x); line.setAttribute('y2',48);
+    line.setAttribute('stroke','rgba(255,255,255,0.3)'); line.setAttribute('stroke-width',i===0?2.5:1.5);
+    g.appendChild(line);
+    const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',x); t.setAttribute('y',62);
+    t.setAttribute('text-anchor','middle'); t.setAttribute('fill', i<0?'#e94560':i>0?'#0be881':'white');
+    t.setAttribute('font-size','11'); t.setAttribute('font-family','Space Mono');
+    t.textContent=i;
+    g.appendChild(t);
+  }
+}
+buildNLTicks();
+function moveNL(by,reset=false){
+  if(reset)nlPos=0; else nlPos=Math.max(-9,Math.min(9,nlPos+by));
+  const cx=280, step=26;
+  const x=cx+nlPos*step;
+  document.getElementById('nlTriangle').setAttribute('points',`${x},20 ${x-10},36 ${x+10},36`);
+  document.getElementById('nlText').setAttribute('x',x);
+  document.getElementById('nlText').textContent=nlPos>0?'+'+nlPos:nlPos;
+  document.getElementById('nlText').setAttribute('fill',nlPos<0?'#e94560':nlPos>0?'#0be881':'var(--accent1)');
+  document.getElementById('nlDisplay').textContent=`Position: ${nlPos} (${nlPos<0?'Negative':nlPos>0?'Positive':'Zero'}) | Absolute value: |${nlPos}| = ${Math.abs(nlPos)}`;
+}
+
+// =================== INTEGER DRILL ===================
+const intProblems=[
+  {q:'-5 + 3 = ?', a:-2, hint:'Start at -5, move 3 RIGHT on the number line', steps:['Start at -5','Move +3','Land on -2']},
+  {q:'7 − 10 = ?', a:-3, hint:'7 take away 10 goes below zero!', steps:['7 − 10','= 7 − 7 − 3','= 0 − 3 = −3']},
+  {q:'-4 × 3 = ?', a:-12, hint:'Negative × Positive = Negative', steps:['4 × 3 = 12','neg × pos = neg','Answer: −12']},
+  {q:'-6 × -2 = ?', a:12, hint:'Negative × Negative = POSITIVE!', steps:['6 × 2 = 12','neg × neg = pos','Answer: +12']},
+  {q:'−15 ÷ 3 = ?', a:-5, hint:'15 ÷ 3 = 5, then neg ÷ pos = neg', steps:['15 ÷ 3 = 5','neg ÷ pos = neg','Answer: −5']},
+  {q:'5 − (−3) = ?', a:8, hint:'Subtracting a negative is the same as adding!', steps:['5 − (−3)','= 5 + 3','= 8']},
+  {q:'-8 + (-4) = ?', a:-12, hint:'Both negative — add the values, keep the sign!', steps:['Both are negative','8 + 4 = 12','neg + neg = neg: −12']},
+  {q:'-20 ÷ -4 = ?', a:5, hint:'neg ÷ neg = positive!', steps:['20 ÷ 4 = 5','neg ÷ neg = pos','Answer: +5']},
+];
+let intIdx=0;
+function loadIntQ(){
+  const p=intProblems[intIdx%intProblems.length];
+  document.getElementById('intQText').textContent=p.q;
+  document.getElementById('intAnswer').value='';
+  document.getElementById('intHint').innerHTML=''; document.getElementById('intHint').classList.remove('show');
+  document.getElementById('intFeedback').className='feedback-box'; document.getElementById('intFeedback').textContent='';
+}
+function checkIntAnswer(){
+  const p=intProblems[intIdx%intProblems.length];
+  const ans=parseFloat(document.getElementById('intAnswer').value);
+  const fb=document.getElementById('intFeedback');
+  if(ans===p.a){fb.className='feedback-box correct';fb.textContent='🎉 Correct! '+p.a;}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Try the hint!';}
+}
+function showIntHint(){const p=intProblems[intIdx%intProblems.length];const h=document.getElementById('intHint');h.innerHTML='<p class="step">💡 '+p.hint+'</p>';h.classList.add('show');}
+function showIntAnswer(){const p=intProblems[intIdx%intProblems.length];const h=document.getElementById('intHint');h.innerHTML+='<p class="answer">Answer: '+p.a+'</p>';h.classList.add('show');}
+function nextIntQ(){intIdx++;loadIntQ();}
+loadIntQ();
+
+// =================== COMPARE INTEGERS ===================
+const cmpPairs=[[-5,3],[-8,-2],[0,-1],[4,4],[-10,-20],[7,-7],[-3,3],[15,-15],[-100,-99],[0,0]];
+let cmpIdx=0;
+function loadCmp(){
+  const [a,b]=cmpPairs[cmpIdx%cmpPairs.length];
+  document.getElementById('cmpText').textContent=`${a}  ○  ${b}`;
+  document.getElementById('cmpFeedback').className='feedback-box'; document.getElementById('cmpFeedback').textContent='';
+}
+function checkCmp(sym){
+  const [a,b]=cmpPairs[cmpIdx%cmpPairs.length];
+  let correct;
+  if(sym==='<') correct=a<b;
+  else if(sym==='>') correct=a>b;
+  else correct=a===b;
+  const fb=document.getElementById('cmpFeedback');
+  if(correct){fb.className='feedback-box correct';fb.textContent=`✅ Yes! ${a} ${sym} ${b}`;}
+  else{const s=a<b?'<':a>b?'>':'=';fb.className='feedback-box wrong';fb.textContent=`❌ Nope! The correct symbol is: ${a} ${s} ${b}`;}
+}
+function nextCmp(){cmpIdx++;loadCmp();}
+loadCmp();
+
+// =================== PROBABILITY ===================
+function showProbInfo(type){
+  const infos={
+    impossible:'🚫 Impossible (P = 0): Will NEVER happen. E.g. rolling a 9 on a standard die.',
+    unlikely:'😬 Unlikely (P close to 0): Possible but not very likely. E.g. rolling a 1 on a die (1/6 ≈ 0.17).',
+    even:'⚖️ Even Chance (P = 1/2 = 0.5): Equally likely to happen or not. E.g. flipping heads on a coin.',
+    likely:'😊 Likely (P close to 1): Probably will happen. E.g. randomly picking a vowel if 4 of 5 letters are vowels.',
+    certain:'✅ Certain (P = 1): Will ALWAYS happen. E.g. picking a red ball if ALL balls are red.'
+  };
+  const box=document.getElementById('probInfoBox');
+  box.style.display='block'; box.className='feedback-box info';
+  box.textContent=infos[type];
+}
+function updateProb(){
+  const fav=parseInt(document.getElementById('favSlider').value);
+  const tot=parseInt(document.getElementById('totSlider').value);
+  const safeFav=Math.min(fav,tot);
+  document.getElementById('favNum').textContent=safeFav;
+  document.getElementById('totNum').textContent=tot;
+  const p=safeFav/tot;
+  document.getElementById('probFracDisplay').textContent=`P = ${safeFav}/${tot}`;
+  let label='';
+  if(p===0)label='Impossible 🚫';
+  else if(p<0.25)label='Unlikely 😬';
+  else if(p<0.5)label='Unlikely–Even ⚖️';
+  else if(p===0.5)label='Even Chance ⚖️';
+  else if(p<0.75)label='Likely 😊';
+  else if(p<1)label='Very Likely 😄';
+  else label='Certain ✅';
+  document.getElementById('probDecDisplay').textContent=`= ${p.toFixed(3)} · ${label}`;
+}
+updateProb();
+
+function checkDice(){
+  const ans=document.getElementById('diceQ').value.trim().replace(/\s/g,'');
+  const fb=document.getElementById('diceFeedback');
+  if(ans==='1/6'){fb.className='feedback-box correct';fb.textContent='🎉 Correct! There\'s 1 way to roll a 4 out of 6 possible outcomes.';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Hint: There is 1 favourable outcome (rolling 4) and 6 total outcomes.';}
+}
+function showDiceAnswer(){document.getElementById('diceFeedback').className='feedback-box correct';document.getElementById('diceFeedback').textContent='Answer: P(4) = 1/6';}
+function checkMarble(n){
+  const correct={1:'4/10',2:'7/10'};
+  const alt={1:['2/5'],2:[]};
+  const ans=document.getElementById(`marbleQ${n}`).value.trim().replace(/\s/g,'');
+  const fb=document.getElementById(`marbleFeedback${n}`);
+  if(ans===correct[n]||alt[n].includes(ans)){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite. Total = 3+4+3 = 10 marbles.';}
+}
+function showMarbleAnswer(n){const ans={1:'4/10 (or 2/5)',2:'7/10 (4 blue + 3 green = 7)'};document.getElementById(`marbleFeedback${n}`).className='feedback-box correct';document.getElementById(`marbleFeedback${n}`).textContent='Answer: P = '+ans[n];}
+function checkSpinner(){
+  const ans=document.getElementById('spinnerQ').value.trim().replace(/\s/g,'');
+  const fb=document.getElementById('spinnerFeedback');
+  if(ans==='3/8'){fb.className='feedback-box correct';fb.textContent='🎉 Correct! 3 yellow sections out of 8 total.';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Hint: Count the yellow sections (3) out of 8 total.';}
+}
+function showSpinnerAnswer(){document.getElementById('spinnerFeedback').className='feedback-box correct';document.getElementById('spinnerFeedback').textContent='P(yellow) = 3/8';}
+
+// =================== BAR CHART ===================
+const barData=[
+  {label:'🐢 Turtle',val:24,color:'#0be881'},
+  {label:'🐬 Dolphin',val:20,color:'#0fbcf9'},
+  {label:'🦈 Shark',val:15,color:'#e94560'},
+  {label:'🐙 Octopus',val:13,color:'#f5a623'},
+  {label:'🦑 Squid',val:10,color:'#c678dd'},
+];
+const maxVal=25;
+function buildBarChart(){
+  buildBars('barChartArea', barData, maxVal, 200);
+  buildScoreChart();
+}
+function buildBars(areaId, data, maxV, maxH){
+  const area=document.getElementById(areaId);
+  if(!area) return;
+  area.innerHTML='';
+  data.forEach(d=>{
+    const col=document.createElement('div');
+    col.className='bar-col';
+    const bar=document.createElement('div');
+    bar.className='bar-fill';
+    bar.style.height='0px';
+    bar.style.background=`linear-gradient(180deg, ${d.color}, ${d.color}88)`;
+    bar.setAttribute('data-val', d.val+(d.unit||' students'));
+    bar.title=d.label+': '+d.val;
+    const lbl=document.createElement('div');
+    lbl.className='bar-label';
+    lbl.textContent=d.label;
+    col.appendChild(bar); col.appendChild(lbl);
+    area.appendChild(col);
+    setTimeout(()=>{ bar.style.height=((d.val/maxV)*maxH)+'px'; }, 120);
+  });
+}
+const scoreData=[
+  {label:'6',val:7,color:'#f5a623'},
+  {label:'7',val:9,color:'#0fbcf9'},
+  {label:'8',val:6,color:'#0be881'},
+  {label:'9',val:5,color:'#e94560'},
+  {label:'10',val:3,color:'#c678dd'},
+];
+function buildScoreChart(){
+  buildBars('scoreChartArea', scoreData, 10, 160);
+}
+
+// =================== GRAPH Q HELPERS ===================
+function checkGQ(n,...answers){
+  const inp=document.getElementById(`gq${n}`);
+  const fb=document.getElementById(`gqf${n}`);
+  const val=String(inp.value).trim().toLowerCase();
+  const ok=answers.some(a=>val===String(a).toLowerCase()||val.includes(String(a).toLowerCase()));
+  if(ok){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite. Try the hint!';}
+}
+function checkGQFrac(n,...answers){
+  const inp=document.getElementById(`gq${n}`);
+  const fb=document.getElementById(`gqf${n}`);
+  const val=inp.value.trim();
+  if(answers.includes(val)){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Check your fraction. Total=82, Shark=15.';}
+}
+function showGQA(n,answer){const fb=document.getElementById(`gqf${n}`);fb.className='feedback-box correct';fb.textContent='✅ '+answer;}
+function showGQHint(n,hint){const fb=document.getElementById(`gqf${n}`);fb.className='feedback-box info';fb.textContent='💡 '+hint;}
+
+// Score chart questions
+function checkSQ(n,correct){
+  const inp=document.getElementById(`sq${n}`);
+  const fb=document.getElementById(`sqf${n}`);
+  if(parseFloat(inp.value)===correct){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite! Use the hint.';}
+}
+function checkSQFrac(n,...answers){
+  const inp=document.getElementById(`sq${n}`);
+  const fb=document.getElementById(`sqf${n}`);
+  const val=inp.value.trim();
+  if(answers.some(a=>val===a)){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite!';}
+}
+function showSQA(n,a){document.getElementById(`sqf${n}`).className='feedback-box correct';document.getElementById(`sqf${n}`).textContent='✅ '+a;}
+function showSQHint(n,h){document.getElementById(`sqf${n}`).className='feedback-box info';document.getElementById(`sqf${n}`).textContent='💡 '+h;}
+
+// Tally chart questions
+function checkTQ(n,correct){
+  const inp=document.getElementById(`tq${n}`);
+  const fb=document.getElementById(`tqf${n}`);
+  if(parseFloat(inp.value)===correct){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite!';}
+}
+function checkTQText(n,...answers){
+  const inp=document.getElementById(`tq${n}`);
+  const fb=document.getElementById(`tqf${n}`);
+  const val=inp.value.trim().toLowerCase();
+  if(answers.some(a=>val===a.toLowerCase())){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite!';}
+}
+function showTQA(n,a){document.getElementById(`tqf${n}`).className='feedback-box correct';document.getElementById(`tqf${n}`).textContent='✅ '+a;}
+function showTQHint(n,h){document.getElementById(`tqf${n}`).className='feedback-box info';document.getElementById(`tqf${n}`).textContent='💡 '+h;}
+
+// =================== STATS CALCULATOR ===================
+function calcStats(){
+  const raw=document.getElementById('statsInput').value;
+  const nums=raw.split(',').map(s=>parseFloat(s.trim())).filter(n=>!isNaN(n));
+  if(nums.length<2){alert('Enter at least 2 numbers!');return;}
+  const sorted=[...nums].sort((a,b)=>a-b);
+  const sum=nums.reduce((a,b)=>a+b,0);
+  const mean=sum/nums.length;
+  // Mode
+  const freq={};
+  nums.forEach(n=>freq[n]=(freq[n]||0)+1);
+  const maxF=Math.max(...Object.values(freq));
+  const modes=Object.keys(freq).filter(k=>freq[k]===maxF).map(Number).sort((a,b)=>a-b);
+  // Median
+  let median, medWork;
+  const mid=Math.floor(sorted.length/2);
+  if(sorted.length%2===1){median=sorted[mid];medWork=`Middle value (position ${mid+1}) = ${median}`;}
+  else{median=(sorted[mid-1]+sorted[mid])/2;medWork=`Mean of positions ${mid} & ${mid+1}: (${sorted[mid-1]}+${sorted[mid]})÷2 = ${median}`;}
+  // Range
+  const range=sorted[sorted.length-1]-sorted[0];
+  document.getElementById('statsResult').style.display='block';
+  document.getElementById('statMean').textContent=Math.round(mean*100)/100;
+  document.getElementById('statMeanWork').textContent=`${sum} ÷ ${nums.length} = ${Math.round(mean*100)/100}`;
+  document.getElementById('statMode').textContent=maxF===1?'No mode':modes.join(', ');
+  document.getElementById('statMedian').textContent=median;
+  document.getElementById('statMedianWork').textContent=medWork;
+  document.getElementById('statRange').textContent=range;
+  document.getElementById('statRangeWork').textContent=`${sorted[sorted.length-1]} − ${sorted[0]} = ${range}`;
+  document.getElementById('statSorted').textContent='Sorted: '+sorted.join(', ');
+}
+calcStats();
+
+// =================== STATISTICS DRILL ===================
+const statsDrillProblems=[
+  {q:'Data set: 4, 7, 2, 7, 9, 3, 7\nFind the MODE.',a:'7',hint:'Mode = most frequent value. Count how many times each number appears.',steps:['Count: 4→1, 7→3, 2→1, 9→1, 3→1','7 appears 3 times — most!','Mode = 7'],type:'stat'},
+  {q:'Data set: 12, 5, 8, 5, 11, 5, 9\nFind the RANGE.',a:'7',hint:'Range = largest − smallest.',steps:['Largest = 12, Smallest = 5','12 − 5 = 7','Range = 7'],type:'stat'},
+  {q:'Data set: 3, 6, 8, 2, 6, 4\nFind the MEDIAN.',a:'5',hint:'Sort the data first, then find the middle.',steps:['Sorted: 2, 3, 4, 6, 6, 8','6 values → two middle: positions 3 & 4','(4 + 6) ÷ 2 = 5','Median = 5'],type:'stat'},
+  {q:'Data set: 10, 20, 30, 40, 50\nFind the MEAN.',a:'30',hint:'Mean = sum ÷ count.',steps:['Sum = 10+20+30+40+50 = 150','Count = 5','150 ÷ 5 = 30','Mean = 30'],type:'stat'},
+  {q:'Data set: 8, 3, 5, 3, 7, 3, 9, 2\nFind the MODE.',a:'3',hint:'Count each value\'s frequency.',steps:['3 appears 3 times','All others appear once','Mode = 3'],type:'stat'},
+  {q:'Data set: 15, 22, 18, 22, 19, 22, 14\nFind the RANGE.',a:'8',hint:'Range = Max − Min.',steps:['Max = 22, Min = 14','22 − 14 = 8','Range = 8'],type:'stat'},
+  {q:'Data set: 11, 15, 13, 17, 19\nFind the MEDIAN.',a:'15',hint:'Sort the data and pick the middle value.',steps:['Already sorted: 11, 13, 15, 17, 19','5 values → middle is position 3','Median = 15'],type:'stat'},
+  {q:'A student scored 65, 70, 80, 75, 60 on 5 tests.\nFind the MEAN score.',a:'70',hint:'Add all scores then divide by 5.',steps:['Sum = 65+70+80+75+60 = 350','Count = 5','350 ÷ 5 = 70','Mean = 70'],type:'stat'},
+  {q:'Data set: 4, 4, 6, 8, 8\nThe mode is 4 AND 8. True or false — this data is BIMODAL?',a:'true',hint:'Bimodal means two modes!',steps:['4 appears twice','8 appears twice','Two values tie for most frequent','Yes — bimodal!'],type:'stat'},
+  {q:'A bar graph shows: Mon=12, Tue=8, Wed=15, Thu=10, Fri=5.\nWhat is the RANGE of the data?',a:'10',hint:'Range = highest bar − lowest bar.',steps:['Highest = 15 (Wed)','Lowest = 5 (Fri)','15 − 5 = 10','Range = 10'],type:'stat'},
+];
+let sdIdx=0;
+function loadSD(){
+  const p=statsDrillProblems[sdIdx%statsDrillProblems.length];
+  document.getElementById('sdText').innerHTML=p.q.replace(/\n/g,'<br>');
+  document.getElementById('sdAnswer').value='';
+  document.getElementById('sdHint').innerHTML=''; document.getElementById('sdHint').classList.remove('show');
+  document.getElementById('sdFeedback').className='feedback-box'; document.getElementById('sdFeedback').textContent='';
+}
+function checkSD(){
+  const p=statsDrillProblems[sdIdx%statsDrillProblems.length];
+  const ans=document.getElementById('sdAnswer').value.trim().toLowerCase();
+  const correct=String(p.a).toLowerCase();
+  const fb=document.getElementById('sdFeedback');
+  if(ans===correct||parseFloat(ans)===parseFloat(p.a)){fb.className='feedback-box correct';fb.textContent='🎉 Correct! '+p.a;}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite. Try the hint or steps!';}
+}
+function showSDHint(){const p=statsDrillProblems[sdIdx%statsDrillProblems.length];const h=document.getElementById('sdHint');h.innerHTML='<p class="step">💡 '+p.hint+'</p>';h.classList.add('show');}
+function showSDSteps(){const p=statsDrillProblems[sdIdx%statsDrillProblems.length];const h=document.getElementById('sdHint');h.innerHTML='<p class="step">📋 Steps:</p>'+p.steps.map((s,i)=>`<p><strong>Step ${i+1}:</strong> ${s}</p>`).join('');h.classList.add('show');}
+function showSDAnswer(){const p=statsDrillProblems[sdIdx%statsDrillProblems.length];const h=document.getElementById('sdHint');h.innerHTML+=`<p class="answer">✅ Answer: ${p.a}</p>`;h.classList.add('show');}
+function nextSD(){sdIdx++;loadSD();}
+loadSD();
+
+// =================== PATTERNS ===================
+const patterns=[
+  {seq:[0.5,1.0,1.5,'?',2.5],rule:'+0.5',blanks:{3:2.0}},
+  {seq:[3.6,3.3,3.0,'?',2.4],rule:'−0.3',blanks:{3:2.7}},
+  {seq:[0.1,0.2,0.4,'?',1.6],rule:'×2',blanks:{3:0.8}},
+  {seq:[10.0,5.0,2.5,'?'],rule:'÷2',blanks:{3:1.25}},
+  {seq:[1.2,2.4,'?',4.8,6.0],rule:'+1.2',blanks:{2:3.6}},
+];
+let patIdx=0;
+function newPattern(){patIdx++;loadPattern();}
+function loadPattern(){
+  const p=patterns[patIdx%patterns.length];
+  const cont=document.getElementById('patternSeq');
+  cont.innerHTML='';
+  document.getElementById('patternFeedback').className='feedback-box';
+  document.getElementById('patternFeedback').textContent='';
+  p.seq.forEach((v,i)=>{
+    if(v==='?'){
+      const inp=document.createElement('input');
+      inp.type='number'; inp.step='any'; inp.placeholder='?';
+      inp.className='angle-input'; inp.style.width='80px'; inp.id=`pat_${i}`;
+      cont.appendChild(inp);
+    } else {
+      const d=document.createElement('div');
+      d.className='pattern-num'; d.textContent=v;
+      cont.appendChild(d);
+    }
+  });
+}
+function checkPattern(){
+  const p=patterns[patIdx%patterns.length];
+  const fb=document.getElementById('patternFeedback');
+  let allRight=true;
+  Object.entries(p.blanks).forEach(([i,correct])=>{
+    const inp=document.getElementById(`pat_${i}`);
+    if(!inp)return;
+    if(parseFloat(inp.value)===correct){inp.style.borderColor='var(--accent4)';}
+    else{inp.style.borderColor='var(--accent2)';allRight=false;}
+  });
+  if(allRight){fb.className='feedback-box correct';fb.textContent=`🎉 Correct! Pattern: ${p.rule}`;}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Check again! Rule: '+p.rule;}
+}
+function showPatternHint(){
+  const p=patterns[patIdx%patterns.length];
+  const fb=document.getElementById('patternFeedback');
+  fb.className='feedback-box info'; fb.textContent='💡 Rule: '+p.rule;
+}
+loadPattern();
+
+// =================== ANGLE HIGHLIGHT ===================
+function highlightAngle(el,type){
+  document.querySelectorAll('.angle-card').forEach(c=>c.style.borderColor='transparent');
+  el.style.borderColor='var(--accent1)';
+  const infos={
+    acute:'Acute angle: less than 90°. Think of a slice of pizza! Examples: 30°, 45°, 60°, 89°',
+    right:'Right angle: exactly 90°. Think of the corner of a book! Always shown with a little square. ▢',
+    obtuse:'Obtuse angle: between 90° and 180°. Wider than a right angle. Examples: 120°, 150°, 170°',
+    straight:'Straight angle: exactly 180°. It looks like a straight line! Points A, B, C are all in a line.',
+    reflex:'Reflex angle: between 180° and 360°. It\'s the "going around the long way" angle!',
+    full:'Full revolution (Complete angle): 360°. A complete spin — like a figure skater doing a full turn!',
+  };
+}
+
+// =================== QUIZ ===================
+const quizQuestions=[
+  // ── ANGLES (5) ──────────────────────────────────────────────────────
+  {type:'mc',topic:'Angles',q:'What type of angle is 135°?',opts:['Acute','Right','Obtuse','Reflex'],ans:2,exp:'135° is between 90° and 180°, so it is Obtuse.'},
+  {type:'mc',topic:'Angles',q:'The angles in ANY triangle always add up to:',opts:['90°','180°','270°','360°'],ans:1,exp:'All three interior angles of a triangle always sum to exactly 180°.'},
+  {type:'fill',topic:'Angles',q:'A triangle has angles of 48° and 73°. What is the third angle?',ans:'59',hint:'All angles in a triangle = 180°. Missing = 180 − 48 − 73',steps:['Add the two known angles: 48 + 73 = 121°','Subtract from 180°: 180 − 121 = 59°','Answer: 59°'],calc:true},
+  {type:'tf',topic:'Angles',q:'A reflex angle is always greater than 180°.',ans:true,exp:'TRUE! Reflex angles are between 180° and 360°.'},
+  {type:'mc',topic:'Angles',q:'The exterior angle of a triangle equals the sum of:',opts:['All three interior angles','The two adjacent interior angles','The two non-adjacent (opposite) interior angles','The right angle only'],ans:2,exp:'Exterior angle = sum of the two NON-adjacent interior angles.'},
+
+  // ── LINES & SYMMETRY (4) ────────────────────────────────────────────
+  {type:'tf',topic:'Lines',q:'Perpendicular lines meet at exactly 90°.',ans:true,exp:'TRUE! Perpendicular lines always intersect at right angles.'},
+  {type:'tf',topic:'Lines',q:'A ray has two endpoints.',ans:false,exp:'FALSE! A ray has ONE endpoint and extends forever in one direction. A segment has two endpoints.'},
+  {type:'mc',topic:'Symmetry',q:'How many lines of symmetry does a square have?',opts:['1','2','4','8'],ans:2,exp:'A square has 4 lines of symmetry: 2 through opposite sides, 2 through opposite corners.'},
+  {type:'tf',topic:'Symmetry',q:'A rectangle has 4 lines of symmetry.',ans:false,exp:'FALSE! A rectangle has only 2 lines of symmetry — through the midpoints of opposite sides.'},
+
+  // ── DECIMALS (7) ────────────────────────────────────────────────────
+  {type:'mc',topic:'Decimals',q:'What is the value of the digit 7 in 4.073?',opts:['7 ones','7 tenths','7 hundredths','7 thousandths'],ans:2,exp:'4.073: 4 ones, 0 tenths, 7 hundredths, 3 thousandths.'},
+  {type:'mc',topic:'Decimals',q:'What is the expanded form of 5.24?',opts:['5 + 0.24','5 + 2 + 4','5 + 0.2 + 0.04','5 + 0.02 + 0.004'],ans:2,exp:'5.24 = 5 + 0.2 + 0.04 (2 tenths and 4 hundredths)'},
+  {type:'fill',topic:'Decimals',q:'Round 3.456 to 2 decimal places.',ans:'3.46',hint:'Look at the thousandths digit (6). Since 6 ≥ 5, round the hundredths UP.',steps:['Number: 3.456','Thousandths digit = 6','6 ≥ 5 → round UP','Hundredths: 5 becomes 6','Answer: 3.46'],calc:true},
+  {type:'mc',topic:'Decimals',q:'Which list is in order from SMALLEST to LARGEST?',opts:['0.03, 0.3, 0.303, 0.33','0.3, 0.03, 0.303, 0.33','0.33, 0.303, 0.3, 0.03','0.3, 0.303, 0.33, 0.03'],ans:0,exp:'Compare place by place: 0.03 < 0.3 < 0.303 < 0.33'},
+  {type:'fill',topic:'Decimals',q:'4.7 + 2.85 = ?',ans:'7.55',hint:'Rewrite as 4.70 + 2.85 so decimals line up.',steps:['4.70 + 2.85','Hundredths: 0+5=5','Tenths: 7+8=15 → write 5, carry 1','Ones: 4+2+1=7','Answer: 7.55'],calc:true},
+  {type:'mc',topic:'Decimals',q:'8.1 × 0.1 = ?',opts:['81','0.081','0.81','8.01'],ans:2,exp:'8.1 × 0.1 = 81 × 1 ÷ 100 = 0.81'},
+  {type:'mc',topic:'Decimals',q:'Which fraction is equivalent to 0.6?',opts:['6/100','3/5','6/1000','2/3'],ans:1,exp:'0.6 = 6/10 = 3/5 (divide numerator and denominator by 2)'},
+
+  // ── INTEGERS (5) ────────────────────────────────────────────────────
+  {type:'mc',topic:'Integers',q:'Which integer is the greatest?',opts:['-1','0','-100','-5'],ans:1,exp:'0 is to the right of all negative numbers on the number line — so it is greatest.'},
+  {type:'tf',topic:'Integers',q:'−6 × −3 = −18',ans:false,exp:'FALSE! Negative × Negative = POSITIVE. −6 × −3 = +18.'},
+  {type:'fill',topic:'Integers',q:'5 − (−8) = ?',ans:'13',hint:'Subtracting a negative is the same as adding!',steps:['5 − (−8)','= 5 + 8','= 13'],calc:true},
+  {type:'mc',topic:'Integers',q:'Which shows the correct order from LEAST to GREATEST?',opts:['-5, -1, 0, 3, -8','-8, -5, -1, 0, 3','3, 0, -1, -5, -8','-1, 0, 3, -5, -8'],ans:1,exp:'On the number line, left = smaller. −8 < −5 < −1 < 0 < 3'},
+  {type:'fill',topic:'Integers',q:'−3 × 4 + 10 = ?',ans:'-2',hint:'Multiply first (order of operations), then add.',steps:['−3 × 4 = −12','−12 + 10 = −2','Answer: −2'],calc:true},
+
+  // ── PROBABILITY (4) ─────────────────────────────────────────────────
+  {type:'mc',topic:'Probability',q:'A bag has 3 red, 5 blue, and 2 green balls. What is P(green)?',opts:['2/5','1/5','1/10','2/10'],ans:1,exp:'Total = 10. P(green) = 2/10 = 1/5'},
+  {type:'tf',topic:'Probability',q:'The probability of an event can be greater than 1.',ans:false,exp:'FALSE! Probability is always between 0 and 1 inclusive.'},
+  {type:'mc',topic:'Probability',q:'A coin is flipped. P(heads) = ?',opts:['1/4','1/3','1/2','2/3'],ans:2,exp:'2 equally likely outcomes: heads or tails. P(heads) = 1/2.'},
+  {type:'mc',topic:'Probability',q:'If P(rain) = 0.8, this is best described as:',opts:['Impossible','Unlikely','Even chance','Likely'],ans:3,exp:'0.8 is close to 1 (certain), so it is Likely.'},
+
+  // ── DATA & GRAPHS — THE BIG SECTION (15) ───────────────────────────
+  {type:'mc',topic:'Data & Graphs',q:'A bar graph shows test scores: Mon=12, Tue=8, Wed=15, Thu=10, Fri=5. What is the RANGE?',opts:['7','8','10','15'],ans:2,exp:'Range = highest − lowest = 15 − 5 = 10'},
+  {type:'tf',topic:'Data & Graphs',q:'The MODE is the middle value when data is arranged in order.',ans:false,exp:'FALSE! The MODE is the MOST FREQUENT value. The MEDIAN is the middle value.'},
+  {type:'mc',topic:'Data & Graphs',q:'Data: 4, 7, 2, 7, 9, 3, 7. What is the MODE?',opts:['2','4','7','9'],ans:2,exp:'7 appears 3 times — more than any other value. Mode = 7.'},
+  {type:'fill',topic:'Data & Graphs',q:'Data: 5, 8, 3, 9, 5\nFind the MEDIAN.',ans:'5',hint:'Sort the data first, then find the middle value.',steps:['Sort: 3, 5, 5, 8, 9','5 values → middle is position 3','Median = 5'],calc:true},
+  {type:'fill',topic:'Data & Graphs',q:'Data: 10, 20, 30, 40, 50\nFind the MEAN.',ans:'30',hint:'Mean = sum of all values ÷ number of values.',steps:['Sum = 10+20+30+40+50 = 150','Count = 5','150 ÷ 5 = 30','Mean = 30'],calc:true},
+  {type:'mc',topic:'Data & Graphs',q:'A frequency table shows: Score 6→7 students, Score 7→9 students, Score 8→6 students. What is the MODE score?',opts:['6','7','8','9'],ans:1,exp:'Score 7 has the highest frequency (9 students). Mode = 7.'},
+  {type:'mc',topic:'Data & Graphs',q:'A tally chart shows Football: |||| |||| ||||. How many students is this?',opts:['12','13','14','15'],ans:2,exp:'Each |||| = 5. Three groups = 15... but read again: |||| |||| |||| = 10 + 4 = 14.'},
+  {type:'tf',topic:'Data & Graphs',q:'You should always check the SCALE of a bar graph before reading values.',ans:true,exp:'TRUE! The scale tells you what each unit represents. Ignoring it causes wrong readings.'},
+  {type:'fill',topic:'Data & Graphs',q:'30 students were surveyed. 6 chose Tennis. What PERCENTAGE chose Tennis?',ans:'20',hint:'Percentage = (part ÷ total) × 100',steps:['6 ÷ 30 = 0.2','0.2 × 100 = 20','Answer: 20%'],calc:true},
+  {type:'mc',topic:'Data & Graphs',q:'Data set: 12, 15, 15, 18, 20. Which statement is TRUE?',opts:['Mean = 16, Mode = 15','Mean = 15, Mode = 16','Mean = 18, Mode = 12','Mean = 20, Mode = 18'],ans:0,exp:'Sum=80, Mean=80÷5=16. 15 appears twice (most), Mode=15. ✅'},
+  {type:'mc',topic:'Data & Graphs',q:'A bar graph shows students\' favourite fruits. Apple=18, Mango=24, Banana=12, Grape=6. What fraction chose Mango?',opts:['1/4','2/5','2/5','4/10'],ans:1,exp:'Total = 18+24+12+6 = 60. Mango = 24/60 = 2/5.'},
+  {type:'fill',topic:'Data & Graphs',q:'Data: 8, 3, 5, 3, 7, 3, 9, 2\nWhat is the RANGE?',ans:'7',hint:'Range = largest value − smallest value',steps:['Largest = 9, Smallest = 2','9 − 2 = 7','Range = 7'],calc:true},
+  {type:'mc',topic:'Data & Graphs',q:'A class has these quiz scores: 6, 8, 7, 9, 6, 10, 7, 6. What is the mode?',opts:['6','7','8','9'],ans:0,exp:'6 appears 3 times (positions 1, 5, 8) — more than any other. Mode = 6.'},
+  {type:'tf',topic:'Data & Graphs',q:'A data set can have MORE than one mode.',ans:true,exp:'TRUE! When two values appear the same number of times (and most), the data is bimodal and has two modes.'},
+  {type:'mc',topic:'Data & Graphs',q:'In a bar graph, the TALLEST bar shows:',opts:['The least popular item','The mean of the data','The most popular item','The range of the data'],ans:2,exp:'The tallest bar represents the highest frequency — the most popular item.'},
+
+  // ── MIXED CHALLENGE (Match) ─────────────────────────────────────────
+  {type:'match',topic:'Data & Graphs',q:'Match each statistical term to its correct meaning!',
+    pairs:[['Mode','Most frequent value'],['Median','Middle value when sorted'],['Range','Largest − Smallest'],['Mean','Sum ÷ Count']]},
+  {type:'match',topic:'Mixed',q:'Match each angle type to its correct description!',
+    pairs:[['Acute','Less than 90°'],['Reflex','Between 180°–360°'],['Straight','Exactly 180°'],['Right','Exactly 90°']]},
+];
+
+let quizScore=0, quizAnswered=0, quizInitDone=false;
+let quizUserAnswers={};   // qi → {type, chosen} or {type:'match', matched, total}
+let quizSubmitted=false;
+let matchSelTemp={};
+
+function initQuiz(){
+  if(quizInitDone)return;
+  quizInitDone=true;
+  quizScore=0; quizAnswered=0; quizUserAnswers={}; quizSubmitted=false; matchSelTemp={};
+  renderAllQuestions();
+  document.getElementById('quizTotal').textContent=quizQuestions.length;
+  document.getElementById('quizSubmitBar').style.display='block';
+  document.getElementById('quizResult').style.display='none';
+  document.getElementById('quizScoreBadge').style.display='none';
+  document.getElementById('quizProgressBarWrap').style.display='none';
+}
+
+function renderAllQuestions(){
+  const cont=document.getElementById('quizContainer');
+  cont.innerHTML='';
+  quizQuestions.forEach((q,i)=>{
+    const card=document.createElement('div');
+    card.className='q-card';
+    card.id='qcard_'+i;
+    card.innerHTML=buildQuestionHTML(q,i);
+    cont.appendChild(card);
+  });
+}
+
+function buildQuestionHTML(q,i){
+  const typeLabels={mc:'Multiple Choice',tf:'True or False',fill:'Fill in the Blank',match:'Matching'};
+  const topicColors={'Angles':'#f5a623','Lines':'#0fbcf9','Symmetry':'#0be881','Decimals':'#e94560','Integers':'#c678dd','Probability':'#f5a623','Data & Graphs':'#0fbcf9','Mixed':'#0be881'};
+  const tc=topicColors[q.topic]||'var(--accent3)';
+  let html=`<div class="q-num">Q${i+1} <span style="color:${tc};font-size:0.72rem;margin-left:6px;font-weight:800">${q.topic.toUpperCase()}</span></div>
+  <div class="q-type-badge" style="background:${tc}22;color:${tc};border:1px solid ${tc}55">${typeLabels[q.type]}</div>
+  <div class="q-stem">${q.q.replace(/\n/g,'<br>')}</div>`;
+
+  if(q.type==='mc'){
+    html+='<div class="q-options">';
+    q.opts.forEach((o,j)=>{
+      html+=`<button class="q-option" id="qopt_${i}_${j}" onclick="selectMC(${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`;
+    });
+    html+='</div>';
+    if(q.hint||q.steps){
+      html+=`<div class="btn-row" style="margin-top:10px">
+        ${q.hint?`<button class="sm-btn" onclick="toggleQHelper(${i},'hint')">💡 Hint</button>`:''}
+        ${q.steps?`<button class="sm-btn green" onclick="toggleQHelper(${i},'steps')">📋 Steps</button>`:''}
+      </div><div class="hint-steps" id="qhelper_${i}"></div>`;
+    }
+  } else if(q.type==='tf'){
+    html+=`<div class="tf-options">
+      <button class="tf-btn true-btn"  id="qtf_${i}_true"  onclick="selectTF(${i},true)">✅ True</button>
+      <button class="tf-btn false-btn" id="qtf_${i}_false" onclick="selectTF(${i},false)">❌ False</button>
+    </div>`;
+  } else if(q.type==='fill'){
+    html+=`<input class="fill-input" id="fill_${i}" placeholder="Type your answer">
+    <div class="btn-row" style="margin-top:10px">
+      ${q.hint?`<button class="sm-btn" onclick="toggleQHelper(${i},'hint')">💡 Hint</button>`:''}
+      ${q.steps?`<button class="sm-btn green" onclick="toggleQHelper(${i},'steps')">📋 Steps</button>`:''}
+    </div><div class="hint-steps" id="qhelper_${i}"></div>`;
+  } else if(q.type==='match'){
+    html+=buildMatchHTML(q,i);
+    html+=`<p style="font-size:0.8rem;color:var(--muted);margin-top:8px">Click a term on the left, then its meaning on the right to pair them.</p>`;
+  }
+  html+=`<div class="feedback-box" id="qfb_${i}" style="margin-top:12px"></div>`;
+  return html;
+}
+
+// ── SELECTION (no reveal) ────────────────────────────────────────────
+function selectMC(qi,chosen){
+  if(quizSubmitted)return;
+  document.querySelectorAll(`#qcard_${qi} .q-option`).forEach((o,j)=>{
+    o.classList.toggle('selected-choice', j===chosen);
+  });
+  quizUserAnswers[qi]={type:'mc', chosen};
+}
+
+function selectTF(qi,chosen){
+  if(quizSubmitted)return;
+  document.getElementById(`qtf_${qi}_true`).classList.toggle('selected-choice', chosen===true);
+  document.getElementById(`qtf_${qi}_false`).classList.toggle('selected-choice', chosen===false);
+  quizUserAnswers[qi]={type:'tf', chosen};
+}
+
+function buildMatchHTML(q,i){
+  const left=[...q.pairs].sort(()=>Math.random()-0.5);
+  const right=[...q.pairs].sort(()=>Math.random()-0.5);
+  let html=`<div class="match-grid" id="match_${i}"><div class="match-col" id="matchLeft_${i}">`;
+  left.forEach((p,j)=>{html+=`<div class="match-item" id="ml_${i}_${j}" onclick="selectMatchItem(${i},'left',${j})">${p[0]}</div>`;});
+  html+=`</div><div class="match-col" id="matchRight_${i}">`;
+  right.forEach((p,j)=>{html+=`<div class="match-item" id="mr_${i}_${j}" onclick="selectMatchItem(${i},'right',${j})">${p[1]}</div>`;});
+  html+='</div></div>';
+  return html;
+}
+
+function selectMatchItem(qi,side,idx){
+  if(quizSubmitted)return;
+  const key=`q${qi}`;
+  if(!matchSelTemp[key])matchSelTemp[key]={left:null,right:null};
+  const ms=matchSelTemp[key];
+  const el=document.getElementById(side==='left'?`ml_${qi}_${idx}`:`mr_${qi}_${idx}`);
+  if(el.classList.contains('matched'))return;
+  if(side==='left'&&ms.left!==null){const p=document.getElementById(`ml_${qi}_${ms.left}`);if(p)p.classList.remove('selected');}
+  if(side==='right'&&ms.right!==null){const p=document.getElementById(`mr_${qi}_${ms.right}`);if(p)p.classList.remove('selected');}
+  ms[side]=idx; el.classList.add('selected');
+  if(ms.left!==null&&ms.right!==null){
+    const q=quizQuestions[qi];
+    const leftEl=document.getElementById(`ml_${qi}_${ms.left}`);
+    const rightEl=document.getElementById(`mr_${qi}_${ms.right}`);
+    const isMatch=q.pairs.some(p=>leftEl.textContent.trim()===p[0]&&rightEl.textContent.trim()===p[1]);
+    if(isMatch){
+      leftEl.classList.remove('selected'); rightEl.classList.remove('selected');
+      leftEl.classList.add('matched'); rightEl.classList.add('matched');
+      leftEl.onclick=null; rightEl.onclick=null;
+      ms.left=null; ms.right=null;
+      if(!quizUserAnswers[qi])quizUserAnswers[qi]={type:'match',matched:0,total:q.pairs.length};
+      quizUserAnswers[qi].matched++;
+      // Show inline progress for matching
+      const done=quizUserAnswers[qi].matched;
+      const tot=quizUserAnswers[qi].total;
+      const fb=document.getElementById(`qfb_${qi}`);
+      fb.className='feedback-box info';
+      fb.textContent=done===tot?'✅ All pairs matched! Submit the quiz to confirm your score.':
+        `${done}/${tot} pairs matched — keep going!`;
+    } else {
+      leftEl.classList.add('wrong-match'); rightEl.classList.add('wrong-match');
+      setTimeout(()=>{leftEl.classList.remove('wrong-match','selected');rightEl.classList.remove('wrong-match','selected');ms.left=null;ms.right=null;},600);
+    }
+  }
+}
+
+function toggleQHelper(i,type){
+  const q=quizQuestions[i];
+  const h=document.getElementById(`qhelper_${i}`);
+  if(!h)return;
+  let content='';
+  if(type==='hint'&&q.hint)content=`<p class="step">💡 Hint:</p><p>${q.hint}</p>`;
+  else if(type==='steps'&&q.steps)content='<p class="step">📋 Steps:</p>'+q.steps.map((s,j)=>`<p><strong>Step ${j+1}:</strong> ${s}</p>`).join('');
+  if(h.classList.contains('show')&&h.dataset.t===type){h.classList.remove('show');h.dataset.t='';}
+  else{h.innerHTML=content;h.classList.add('show');h.dataset.t=type;}
+}
+
+// ── SUBMIT & GRADE ───────────────────────────────────────────────────
+function submitQuiz(){
+  const unanswered=[];
+  quizQuestions.forEach((q,i)=>{
+    const ua=quizUserAnswers[i];
+    if(q.type==='match'){
+      if(!ua||ua.matched<ua.total) unanswered.push(i+1);
+    } else if(!ua) unanswered.push(i+1);
+  });
+  if(unanswered.length>0){
+    const go=confirm(`You still have ${unanswered.length} unanswered question(s):\nQ${unanswered.slice(0,8).join(', Q')}${unanswered.length>8?'…':''}\n\nSubmit anyway?`);
+    if(!go)return;
+  }
+
+  quizSubmitted=true;
+  quizScore=0;
+  document.getElementById('quizSubmitBar').style.display='none';
+  document.getElementById('quizScoreBadge').style.display='inline-block';
+  document.getElementById('quizProgressBarWrap').style.display='block';
+
+  quizQuestions.forEach((q,i)=>{
+    const card=document.getElementById(`qcard_${i}`);
+    const fb=document.getElementById(`qfb_${i}`);
+    const ua=quizUserAnswers[i];
+    card.querySelectorAll('.q-option,.tf-btn,.fill-input').forEach(el=>el.disabled=true);
+
+    if(q.type==='mc'){
+      const opts=card.querySelectorAll('.q-option');
+      opts.forEach(o=>o.classList.remove('selected-choice'));
+      opts[q.ans].classList.add('correct');
+      if(ua){
+        const ok=ua.chosen===q.ans;
+        if(!ok) opts[ua.chosen].classList.add('wrong');
+        card.classList.add(ok?'answered-correct':'answered-wrong');
+        fb.className='feedback-box '+(ok?'correct':'wrong');
+        fb.textContent=ok?'✅ Correct! '+q.exp:'❌ '+q.exp;
+        if(ok)quizScore++;
+      } else {
+        card.classList.add('answered-wrong');
+        fb.className='feedback-box wrong'; fb.textContent='⚠️ Not answered. Correct answer highlighted above. '+q.exp;
+      }
+    } else if(q.type==='tf'){
+      const tBtn=document.getElementById(`qtf_${i}_true`);
+      const fBtn=document.getElementById(`qtf_${i}_false`);
+      tBtn.classList.remove('selected-choice'); fBtn.classList.remove('selected-choice');
+      (q.ans===true?tBtn:fBtn).classList.add('correct');
+      if(ua){
+        const ok=ua.chosen===q.ans;
+        if(!ok)(ua.chosen===true?tBtn:fBtn).classList.add('wrong');
+        card.classList.add(ok?'answered-correct':'answered-wrong');
+        fb.className='feedback-box '+(ok?'correct':'wrong');
+        fb.textContent=ok?'✅ '+q.exp:'❌ '+q.exp;
+        if(ok)quizScore++;
+      } else {
+        card.classList.add('answered-wrong');
+        fb.className='feedback-box wrong'; fb.textContent='⚠️ Not answered. '+q.exp;
+      }
+    } else if(q.type==='fill'){
+      const inp=document.getElementById(`fill_${i}`);
+      const val=inp?inp.value.trim():'';
+      const correct=String(q.ans).trim();
+      const nv=parseFloat(val), na=parseFloat(correct);
+      const ok=val.toLowerCase()===correct.toLowerCase()||(!isNaN(nv)&&!isNaN(na)&&Math.abs(nv-na)<0.001);
+      if(inp)inp.style.borderColor=ok?'var(--accent4)':'var(--accent2)';
+      card.classList.add(ok?'answered-correct':'answered-wrong');
+      fb.className='feedback-box '+(ok?'correct':'wrong');
+      fb.innerHTML=ok?'✅ Correct!':
+        `❌ The correct answer is <strong style="color:var(--accent4)">${correct}</strong>${q.hint?'<br><span style="font-size:0.82rem;color:var(--muted)">'+q.hint+'</span>':''}`;
+      if(ok)quizScore++;
+    } else if(q.type==='match'){
+      const allDone=ua&&ua.matched===ua.total;
+      card.classList.add(allDone?'answered-correct':'answered-wrong');
+      fb.className='feedback-box '+(allDone?'correct':'wrong');
+      fb.textContent=allDone?'✅ All matched correctly!':
+        `❌ Not fully matched. Correct pairs: ${q.pairs.map(p=>p[0]+' → '+p[1]).join(' | ')}`;
+      if(allDone)quizScore++;
+    }
+  });
+
+  document.getElementById('quizScore').textContent=quizScore;
+  document.getElementById('quizTotal').textContent=quizQuestions.length;
+  document.getElementById('quizProgressBar').style.width=(quizScore/quizQuestions.length*100)+'%';
+
+  // Result banner
+  const pct=quizScore/quizQuestions.length;
+  const result=document.getElementById('quizResult');
+  result.style.display='block';
+  let emoji,msg;
+  if(pct===1){emoji='🏆🌟🎊';msg='PERFECT SCORE! You\'re a math superstar, Adiaha!';}
+  else if(pct>=0.8){emoji='🥇😄';msg='Amazing work! You\'re so close to perfect!';}
+  else if(pct>=0.6){emoji='😊📚';msg='Good job! Keep reviewing and you\'ll get there!';}
+  else{emoji='💪📖';msg='Keep studying — you\'ve got this! Review the sections and try again!';}
+  document.getElementById('resultEmoji').textContent=emoji;
+  document.getElementById('resultScore').textContent=`${quizScore} / ${quizQuestions.length}`;
+  document.getElementById('resultMsg').textContent=msg;
+  // Topic breakdown
+  const ts={};
+  quizQuestions.forEach((q,i)=>{
+    if(!ts[q.topic])ts[q.topic]={r:0,t:0};
+    ts[q.topic].t++;
+    if(document.getElementById(`qcard_${i}`).classList.contains('answered-correct'))ts[q.topic].r++;
+  });
+  let bk='<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px">';
+  Object.entries(ts).forEach(([t,s])=>{
+    const p=Math.round(s.r/s.t*100);
+    const col=p>=80?'var(--accent4)':p>=50?'var(--accent1)':'var(--accent2)';
+    bk+=`<div style="background:var(--deep);border-radius:10px;padding:8px 14px;border-left:3px solid ${col}">
+      <div style="font-size:0.72rem;color:var(--muted)">${t}</div>
+      <div style="color:${col};font-weight:800;font-family:'Space Mono'">${s.r}/${s.t} (${p}%)</div>
+    </div>`;
+  });
+  bk+='</div>';
+  document.getElementById('resultBreakdown').innerHTML=bk;
+  result.scrollIntoView({behavior:'smooth',block:'start'});
+  if(pct>=0.8)spawnConfetti();
+}
+
+function updateQuizProgress(){} // no-op in scroll mode
+
+function restartQuiz(){
+  quizScore=0; quizAnswered=0; quizInitDone=false;
+  quizUserAnswers={}; quizSubmitted=false; matchSelTemp={};
+  document.getElementById('quizResult').style.display='none';
+  initQuiz();
+  document.getElementById('sec-quiz').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function spawnConfetti(){
+  const colors=['#f5a623','#e94560','#0fbcf9','#0be881','#c678dd','#fff'];
+  for(let i=0;i<80;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.width=(8+Math.random()*8)+'px';
+    c.style.height=(8+Math.random()*8)+'px';
+    c.style.animationDuration=(2+Math.random()*2.5)+'s';
+    c.style.animationDelay=(Math.random()*2)+'s';
+    c.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+
+// Build bar chart on load
+setTimeout(buildBarChart,300);
+
+
+// Build bar chart on load
+setTimeout(buildBarChart,300);
+</script>
+</body>
+</html>
