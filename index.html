@@ -763,23 +763,70 @@
         </table>
       </div>
       <div class="feedback-box info" style="display:block;margin-top:16px">
-        <strong>Expanded Form:</strong> 3.407 = 3 + 0.4 + 0.007
-        &nbsp;|&nbsp; <strong>As fractions:</strong> 3 + 4/10 + 0/100 + 7/1000
+        <strong>Expanded Form:</strong> 3.407 = 3 + 0.4 + 0.007 &nbsp;|&nbsp; <strong>As fractions:</strong> 3 + 4/10 + 0/100 + 7/1000
       </div>
 
-      <!-- EXPANDED FORM BUILDER -->
-      <h3 style="margin-top:20px">🏗️ Expanded Form Builder</h3>
-      <p style="color:var(--muted);margin-bottom:12px">Type a decimal and see its expanded form!</p>
-      <div class="exp-form-container">
-        <input type="text" id="expInput" class="drill-input" placeholder="e.g. 5.293" oninput="buildExpandedForm()" style="margin-bottom:12px;display:block">
-        <div class="exp-form-display" id="expFormDisplay">Type a number above ↑</div>
-        <div class="feedback-box info" id="expFractionDisplay" style="display:none"></div>
+      <!-- READ & WRITE DECIMALS -->
+      <h3 style="margin-top:22px">🗣️ Reading & Writing Decimals</h3>
+      <div class="key-facts" style="margin-bottom:14px">
+        <div class="key-fact"><strong>Say the whole number</strong>then say "point" then each digit individually</div>
+        <div class="key-fact blue"><strong>3.407</strong>"Three point four zero seven"</div>
+        <div class="key-fact green"><strong>0.85</strong>"Zero point eight five"</div>
+        <div class="key-fact red"><strong>12.06</strong>"Twelve point zero six"</div>
+      </div>
+      <p style="color:var(--muted);margin-bottom:10px">How would you say these numbers? Click to reveal!</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px">
+        <button class="sm-btn gold" onclick="revealReading('rw1','Five point zero three')">5.03</button>
+        <button class="sm-btn gold" onclick="revealReading('rw2','Zero point nine')">0.9</button>
+        <button class="sm-btn gold" onclick="revealReading('rw3','Fourteen point two five eight')">14.258</button>
+        <button class="sm-btn gold" onclick="revealReading('rw4','One hundred and seven point zero zero six')">107.006</button>
+      </div>
+      <div id="rwAnswer" class="feedback-box info" style="display:none;margin-top:10px"></div>
+    </div>
+
+    <!-- DECIMAL ↔ FRACTION CONVERSIONS -->
+    <div class="card">
+      <h2 style="color:var(--accent3)">🔄 Decimals ↔ Fractions</h2>
+      <div class="key-facts">
+        <div class="key-fact"><strong>1 decimal place → /10</strong>0.7 = 7/10</div>
+        <div class="key-fact blue"><strong>2 decimal places → /100</strong>0.43 = 43/100</div>
+        <div class="key-fact green"><strong>3 decimal places → /1000</strong>0.125 = 125/1000</div>
+        <div class="key-fact red"><strong>Simplify!</strong>0.5 = 5/10 = 1/2 &nbsp;|&nbsp; 0.25 = 25/100 = 1/4</div>
+      </div>
+
+      <!-- CONVERSION TABLE -->
+      <div style="overflow-x:auto;margin-top:16px">
+        <table class="place-value-table">
+          <tr><th>Decimal</th><th>Fraction</th><th>Simplified</th><th>Say it</th></tr>
+          <tr><td style="color:var(--accent1)">0.1</td><td>1/10</td><td style="color:var(--accent4)">1/10</td><td style="color:var(--muted);font-size:0.85rem">one tenth</td></tr>
+          <tr><td style="color:var(--accent1)">0.5</td><td>5/10</td><td style="color:var(--accent4)">1/2</td><td style="color:var(--muted);font-size:0.85rem">one half</td></tr>
+          <tr><td style="color:var(--accent1)">0.25</td><td>25/100</td><td style="color:var(--accent4)">1/4</td><td style="color:var(--muted);font-size:0.85rem">one quarter</td></tr>
+          <tr><td style="color:var(--accent1)">0.75</td><td>75/100</td><td style="color:var(--accent4)">3/4</td><td style="color:var(--muted);font-size:0.85rem">three quarters</td></tr>
+          <tr><td style="color:var(--accent1)">0.3</td><td>3/10</td><td style="color:var(--accent4)">3/10</td><td style="color:var(--muted);font-size:0.85rem">three tenths</td></tr>
+          <tr><td style="color:var(--accent1)">0.06</td><td>6/100</td><td style="color:var(--accent4)">3/50</td><td style="color:var(--muted);font-size:0.85rem">six hundredths</td></tr>
+          <tr><td style="color:var(--accent1)">0.125</td><td>125/1000</td><td style="color:var(--accent4)">1/8</td><td style="color:var(--muted);font-size:0.85rem">one hundred and twenty-five thousandths</td></tr>
+        </table>
+      </div>
+
+      <h3 style="margin-top:20px">⚡ Conversion Drill</h3>
+      <p style="color:var(--muted);margin-bottom:12px">Convert the decimal to a fraction. Write as numerator/denominator (e.g. <code style="color:var(--accent1)">7/10</code>). Simplify if you can!</p>
+      <div class="drill-box">
+        <div class="drill-question" id="convQText">Loading...</div>
+        <input type="text" class="drill-input" id="convAnswer" placeholder="e.g. 3/10">
+        <div class="btn-row">
+          <button class="sm-btn gold" onclick="checkConv()">✅ Check</button>
+          <button class="sm-btn" onclick="showConvHint()">💡 Hint</button>
+          <button class="sm-btn red" onclick="showConvAnswer()">👁️ Answer</button>
+          <button class="sm-btn" onclick="nextConv()">⏭️ Next</button>
+        </div>
+        <div class="hint-steps" id="convHint"></div>
+        <div class="feedback-box" id="convFeedback"></div>
       </div>
     </div>
 
     <div class="card">
       <h2 style="color:var(--accent3)">⚡ Decimal Operations Drill</h2>
-      <p style="margin-bottom:16px">Answer 5 questions in a row — use Hint and Steps if you're stuck!</p>
+      <p style="margin-bottom:16px">From her class notes: <strong style="color:var(--accent1)">line up decimal points</strong> when adding or subtracting!</p>
       <div class="drill-box" id="decimalDrill">
         <div class="drill-question" id="dqText">Loading...</div>
         <input type="number" class="drill-input" id="dqAnswer" placeholder="Your answer" step="any">
@@ -799,15 +846,16 @@
     <!-- ROUNDING PRACTICE -->
     <div class="card">
       <h2 style="color:var(--accent2)">🎯 Rounding Challenge</h2>
+      <p style="color:var(--muted);margin-bottom:10px">From her notebook starters: 56.438 → 2dp, 7309.34 → 1dp, 278.3554 → 3dp…</p>
       <div class="key-facts">
         <div class="key-fact"><strong>Round UP if</strong>next digit is 5 or more</div>
         <div class="key-fact blue"><strong>Round DOWN if</strong>next digit is 4 or less</div>
-        <div class="key-fact green"><strong>1 decimal place</strong>Look at hundredths digit</div>
-        <div class="key-fact red"><strong>2 decimal places</strong>Look at thousandths digit</div>
+        <div class="key-fact green"><strong>1 decimal place (1dp)</strong>Look at the hundredths digit</div>
+        <div class="key-fact red"><strong>2 decimal places (2dp)</strong>Look at the thousandths digit</div>
       </div>
-      <div style="margin-top:16px" class="drill-box" id="roundingDrill">
+      <div style="margin-top:16px" class="drill-box">
         <div class="drill-question" id="rqText">Loading...</div>
-        <input type="number" class="drill-input" id="rqAnswer" placeholder="Rounded to 2dp" step="0.01">
+        <input type="number" class="drill-input" id="rqAnswer" placeholder="Your rounded answer" step="any">
         <div class="btn-row">
           <button class="sm-btn gold" onclick="checkRounding()">✅ Check</button>
           <button class="sm-btn" onclick="showRoundHint()">💡 Hint</button>
@@ -822,7 +870,7 @@
     <!-- ORDERING DECIMALS -->
     <div class="card">
       <h2 style="color:var(--accent4)">🏁 Order the Decimals!</h2>
-      <p style="color:var(--muted);margin-bottom:14px">Click the numbers in order from <strong>smallest to largest</strong>!</p>
+      <p style="color:var(--muted);margin-bottom:14px">Click the numbers in order from <strong>smallest to largest</strong>. Compare digit by digit — tenths first, then hundredths, then thousandths!</p>
       <div id="orderGame">
         <div class="pattern-sequence" id="orderNums"></div>
         <div style="margin-top:10px;color:var(--muted);font-size:0.88rem">Your order: <span id="orderSelected" style="color:var(--accent1);font-family:'Space Mono',monospace;font-weight:700">—</span></div>
@@ -834,29 +882,42 @@
       </div>
     </div>
 
+    <!-- EXPANDED FORM BUILDER -->
+    <div class="card">
+      <h2 style="color:var(--accent2)">🏗️ Expanded Form Builder</h2>
+      <p style="color:var(--muted);margin-bottom:12px">Type a decimal — see its expanded form AND fraction parts automatically!</p>
+      <div class="exp-form-container">
+        <input type="text" id="expInput" class="drill-input" placeholder="e.g. 5.293" oninput="buildExpandedForm()" style="margin-bottom:12px;display:block">
+        <div class="exp-form-display" id="expFormDisplay">Type a number above ↑</div>
+        <div class="feedback-box info" id="expFractionDisplay" style="display:none"></div>
+      </div>
+    </div>
+
   </div><!-- end decimals -->
 
   <!-- =================== INTEGERS =================== -->
   <div class="section" id="sec-integers">
 
     <div class="card">
-      <h2 style="color:var(--accent3)">➕➖ What are Integers?</h2>
+      <h2 style="color:var(--accent3)">➕➖ What Are Integers?</h2>
+      <div class="feedback-box info" style="display:block;margin-bottom:16px">
+        <strong>From her notebook:</strong> "An integer is a positive or negative whole number, including zero." &nbsp;|&nbsp; "-3 is 3 below or less than zero"
+      </div>
       <div class="key-facts">
         <div class="key-fact"><strong>Positive Integers</strong>Greater than 0: +1, +2, +3…</div>
-        <div class="key-fact red"><strong>Negative Integers</strong>Less than 0: -1, -2, -3…</div>
+        <div class="key-fact red"><strong>Negative Integers</strong>Less than 0: −1, −2, −3…</div>
         <div class="key-fact blue"><strong>Zero</strong>Neither positive nor negative</div>
-        <div class="key-fact green"><strong>Absolute Value</strong>Distance from 0 (always positive!)</div>
+        <div class="key-fact green"><strong>−5</strong>means "5 below zero" — it is 5 away from 0</div>
       </div>
 
       <!-- NUMBER LINE -->
       <h3 style="margin-top:18px">📍 Interactive Number Line</h3>
-      <p style="color:var(--muted);margin-bottom:12px">Click + or - to move along the number line!</p>
+      <p style="color:var(--muted);margin-bottom:6px">Adding a positive → move <strong style="color:var(--accent4)">RIGHT</strong> &nbsp;|&nbsp; Adding a negative → move <strong style="color:var(--accent2)">LEFT</strong></p>
+      <p style="color:var(--muted);margin-bottom:12px">Subtracting a positive → move <strong style="color:var(--accent2)">LEFT</strong> &nbsp;|&nbsp; Subtracting a negative → move <strong style="color:var(--accent4)">RIGHT</strong></p>
       <div class="number-line-wrap">
         <svg id="numLineSVG" width="560" height="80" viewBox="0 0 560 80">
           <line x1="20" y1="40" x2="540" y2="40" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
-          <!-- Ticks and labels -->
           <g id="nlTicks"></g>
-          <!-- Current position marker -->
           <g id="nlMarker">
             <polygon id="nlTriangle" points="280,20 270,36 290,36" fill="#f5a623"/>
             <text id="nlText" x="280" y="16" text-anchor="middle" fill="#f5a623" font-size="12" font-family="Space Mono" font-weight="700">0</text>
@@ -864,27 +925,95 @@
         </svg>
       </div>
       <div class="int-buttons">
-        <button class="int-val-btn negative" onclick="moveNL(-5)">-5</button>
-        <button class="int-val-btn negative" onclick="moveNL(-2)">-2</button>
-        <button class="int-val-btn negative" onclick="moveNL(-1)">-1</button>
+        <button class="int-val-btn negative" onclick="moveNL(-5)">−5</button>
+        <button class="int-val-btn negative" onclick="moveNL(-3)">−3</button>
+        <button class="int-val-btn negative" onclick="moveNL(-1)">−1</button>
         <button class="int-val-btn" onclick="moveNL(0,true)">Reset</button>
         <button class="int-val-btn" onclick="moveNL(1)">+1</button>
-        <button class="int-val-btn" onclick="moveNL(2)">+2</button>
+        <button class="int-val-btn" onclick="moveNL(3)">+3</button>
         <button class="int-val-btn" onclick="moveNL(5)">+5</button>
       </div>
       <div class="int-display" id="nlDisplay">Position: 0</div>
     </div>
 
-    <!-- INTEGER OPERATIONS -->
+    <!-- ADDING & SUBTRACTING RULES -->
+    <div class="card">
+      <h2 style="color:var(--accent2)">📖 Adding & Subtracting Rules</h2>
+      <p style="color:var(--muted);margin-bottom:14px">From her class notes — these are the EXACT rules she was taught:</p>
+      <div class="key-facts">
+        <div class="key-fact"><strong>Adding a negative</strong>same as TAKING AWAY<br><span style="color:var(--accent1);font-family:'Space Mono'">3 + (−2) = 3 − 2 = 1</span></div>
+        <div class="key-fact blue"><strong>Subtracting a negative</strong>same as ADDING<br><span style="color:var(--accent3);font-family:'Space Mono'">−7 − (−3) = −7 + 3 = −4</span></div>
+        <div class="key-fact green"><strong>Two negatives together</strong>become a positive<br><span style="color:var(--accent4);font-family:'Space Mono'">−2 − (−6) = −2 + 6 = 4</span></div>
+        <div class="key-fact red"><strong>On the number line:</strong><br>+ positive → go RIGHT &nbsp;|&nbsp; + negative → go LEFT</div>
+      </div>
+      <!-- Worked examples from her notebook -->
+      <h3 style="margin-top:18px">📓 From Her Notebook</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px">
+        <div style="background:var(--deep);border-radius:10px;padding:12px;font-family:'Space Mono',monospace">
+          <div style="color:var(--muted);font-size:0.72rem;margin-bottom:6px">eg. subtract positive → go LEFT</div>
+          <div style="color:var(--accent1);font-size:1.1rem">6 − 9 = <span style="color:var(--accent2)">−3</span></div>
+        </div>
+        <div style="background:var(--deep);border-radius:10px;padding:12px;font-family:'Space Mono',monospace">
+          <div style="color:var(--muted);font-size:0.72rem;margin-bottom:6px">eg. add positive → go RIGHT</div>
+          <div style="color:var(--accent1);font-size:1.1rem">−11 + 4 = <span style="color:var(--accent2)">−7</span></div>
+        </div>
+        <div style="background:var(--deep);border-radius:10px;padding:12px;font-family:'Space Mono',monospace">
+          <div style="color:var(--muted);font-size:0.72rem;margin-bottom:6px">adding a negative = take away</div>
+          <div style="color:var(--accent1);font-size:1.1rem">3 + (−2) = 3 − 2 = <span style="color:var(--accent4)">1</span></div>
+        </div>
+        <div style="background:var(--deep);border-radius:10px;padding:12px;font-family:'Space Mono',monospace">
+          <div style="color:var(--muted);font-size:0.72rem;margin-bottom:6px">subtracting a negative = add</div>
+          <div style="color:var(--accent1);font-size:1.1rem">−5 + 4 = −5 + 4 = <span style="color:var(--accent2)">−1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MULTIPLY & DIVIDE SIGN RULES -->
+    <div class="card">
+      <h2 style="color:var(--accent4)">✖️➗ Multiply & Divide Sign Rules</h2>
+      <p style="color:var(--muted);margin-bottom:14px">From her notebook — these rules NEVER change:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+        <div style="background:var(--deep);border-radius:12px;padding:16px;text-align:center;border:2px solid var(--accent4)">
+          <div style="font-family:'Fredoka One';font-size:1.1rem;color:var(--accent4);margin-bottom:8px">+ × + = +</div>
+          <div style="font-family:'Space Mono';font-size:0.85rem;color:var(--muted)">positive × positive</div>
+          <div style="font-family:'Space Mono';font-size:0.9rem;color:var(--accent1);margin-top:6px">5 × 3 = 15</div>
+        </div>
+        <div style="background:var(--deep);border-radius:12px;padding:16px;text-align:center;border:2px solid var(--accent2)">
+          <div style="font-family:'Fredoka One';font-size:1.1rem;color:var(--accent2);margin-bottom:8px">+ × − = −</div>
+          <div style="font-family:'Space Mono';font-size:0.85rem;color:var(--muted)">positive × negative</div>
+          <div style="font-family:'Space Mono';font-size:0.9rem;color:var(--accent1);margin-top:6px">5 × (−3) = −15</div>
+        </div>
+        <div style="background:var(--deep);border-radius:12px;padding:16px;text-align:center;border:2px solid var(--accent2)">
+          <div style="font-family:'Fredoka One';font-size:1.1rem;color:var(--accent2);margin-bottom:8px">− × + = −</div>
+          <div style="font-family:'Space Mono';font-size:0.85rem;color:var(--muted)">negative × positive</div>
+          <div style="font-family:'Space Mono';font-size:0.9rem;color:var(--accent1);margin-top:6px">(−6) × 3 = −18</div>
+        </div>
+        <div style="background:var(--deep);border-radius:12px;padding:16px;text-align:center;border:2px solid var(--accent4)">
+          <div style="font-family:'Fredoka One';font-size:1.1rem;color:var(--accent4);margin-bottom:8px">− × − = +</div>
+          <div style="font-family:'Space Mono';font-size:0.85rem;color:var(--muted)">negative × negative</div>
+          <div style="font-family:'Space Mono';font-size:0.9rem;color:var(--accent1);margin-top:6px">(−6) × (−2) = +12</div>
+        </div>
+      </div>
+      <div class="feedback-box info" style="display:block">
+        💡 Same rules apply to <strong>division</strong>: 12 ÷ (−4) = −3 &nbsp;|&nbsp; (−6) ÷ (−3) = +2 &nbsp;|&nbsp; (−6) ÷ 3 = −2
+      </div>
+      <!-- Worked examples from her notebook page 2 -->
+      <h3 style="margin-top:16px">📓 Notebook Examples</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-top:10px">
+        <div style="background:var(--deep);border-radius:10px;padding:10px;font-family:'Space Mono',monospace;font-size:0.88rem">5 × (−3) = <span style="color:var(--accent2)">−15</span></div>
+        <div style="background:var(--deep);border-radius:10px;padding:10px;font-family:'Space Mono',monospace;font-size:0.88rem">−6 ÷ 3 = <span style="color:var(--accent2)">−2</span></div>
+        <div style="background:var(--deep);border-radius:10px;padding:10px;font-family:'Space Mono',monospace;font-size:0.88rem">12 ÷ (−4) = <span style="color:var(--accent2)">−3</span></div>
+        <div style="background:var(--deep);border-radius:10px;padding:10px;font-family:'Space Mono',monospace;font-size:0.88rem">6 × (−3) = <span style="color:var(--accent2)">−18</span></div>
+        <div style="background:var(--deep);border-radius:10px;padding:10px;font-family:'Space Mono',monospace;font-size:0.88rem">4 × 3 × (−2) = <span style="color:var(--accent2)">−24</span></div>
+        <div style="background:var(--deep);border-radius:10px;padding:10px;font-family:'Space Mono',monospace;font-size:0.88rem">−6 ÷ 3 × 4 = <span style="color:var(--accent2)">−8</span></div>
+      </div>
+    </div>
+
+    <!-- INTEGER OPERATIONS DRILL -->
     <div class="card">
       <h2 style="color:var(--accent2)">🧮 Integer Operations Drill</h2>
-      <div class="key-facts">
-        <div class="key-fact"><strong>+ + = +</strong>pos + pos = positive</div>
-        <div class="key-fact red"><strong>- - = +</strong>neg × neg = positive!</div>
-        <div class="key-fact blue"><strong>+ × - = -</strong>pos × neg = negative</div>
-        <div class="key-fact green"><strong>Subtracting -</strong>is the same as adding! 5 − (−3) = 5 + 3 = 8</div>
-      </div>
-      <div class="drill-box" style="margin-top:18px">
+      <p style="color:var(--muted);margin-bottom:14px">Mixed practice — just like her classwork and starters!</p>
+      <div class="drill-box">
         <div class="drill-question" id="intQText">Loading...</div>
         <input type="number" class="drill-input" id="intAnswer" placeholder="Answer">
         <div class="btn-row">
@@ -898,10 +1027,25 @@
       </div>
     </div>
 
-    <!-- COMPARE & ORDER INTEGERS -->
+    <!-- ORDERING INTEGERS -->
     <div class="card">
-      <h2 style="color:var(--accent4)">⚖️ Compare Integers</h2>
-      <p style="color:var(--muted);margin-bottom:14px">Choose the correct symbol: &lt; &gt; =</p>
+      <h2 style="color:var(--accent1)">📊 Ordering Integers</h2>
+      <p style="color:var(--muted);margin-bottom:10px">From her notebook: arrange in ascending order (smallest → largest). On the number line, numbers further LEFT are smaller.</p>
+      <div class="key-facts">
+        <div class="key-fact red"><strong>−100 &lt; −10 &lt; −1</strong>Bigger negative = smaller value!</div>
+        <div class="key-fact blue"><strong>Negative &lt; Zero &lt; Positive</strong>Always!</div>
+      </div>
+      <!-- Ordering examples from notebook -->
+      <div style="background:var(--deep);border-radius:12px;padding:14px;margin:14px 0;font-family:'Space Mono',monospace;font-size:0.88rem">
+        <div style="color:var(--muted);margin-bottom:6px">From her notebook — arrange in ascending order:</div>
+        <div style="color:var(--accent1);margin-bottom:4px">9, −12, 0, −1, 4, −5 → <span style="color:var(--accent4)">−12, −5, −1, 0, 4, 9</span></div>
+        <div style="color:var(--accent1);margin-bottom:4px">15, −25, 0, −24, 3, −3 → <span style="color:var(--accent4)">−25, −24, −3, 0, 3, 15</span></div>
+        <div style="color:var(--accent1)">121, −119, 106, −134, 26 → <span style="color:var(--accent4)">−134, −119, 26, 106, 121</span></div>
+      </div>
+
+      <!-- COMPARE & ORDER DRILL -->
+      <h3>⚖️ Compare: Which symbol?</h3>
+      <p style="color:var(--muted);margin-bottom:10px">Choose the correct symbol: &lt; &gt; =</p>
       <div class="drill-box" id="compareBox">
         <div class="drill-question" id="cmpText" style="font-size:1.6rem">__ ○ __</div>
         <div class="btn-row">
@@ -1018,49 +1162,38 @@
 
     <!-- KEY VOCABULARY -->
     <div class="card">
-      <h2 style="color:var(--accent2)">📊 Data & Graphs — Key Vocabulary</h2>
+      <h2 style="color:var(--accent2)">📊 Data & Graphs — Key Concepts</h2>
       <div class="key-facts">
-        <div class="key-fact"><strong>📏 Scale</strong>The numbers on the axis — always check what each unit represents (e.g. each square = 5 students)</div>
-        <div class="key-fact blue"><strong>Mode</strong>The value that appears MOST often in a data set. A set can have more than one mode!</div>
-        <div class="key-fact green"><strong>Median</strong>The MIDDLE value when data is arranged in order. If two middle values, find their mean.</div>
-        <div class="key-fact red"><strong>Mean</strong>The AVERAGE — add all values, then divide by how many there are.</div>
-        <div class="key-fact"><strong>Range</strong>The SPREAD — subtract the smallest value from the largest. Range = Max − Min.</div>
-        <div class="key-fact blue"><strong>Frequency</strong>How many times a value occurs. A frequency table counts each item.</div>
-        <div class="key-fact green"><strong>Tally Chart</strong>Groups of 5 marks (||||) used to record data as it is collected.</div>
-        <div class="key-fact red"><strong>Most/Least Popular</strong>Highest/lowest bar (or frequency) in the data.</div>
+        <div class="key-fact"><strong>📏 Scale</strong>The numbers on the y-axis. Always check what each unit represents BEFORE reading!</div>
+        <div class="key-fact blue"><strong>Tally Chart</strong>Groups of 5 marks (||||) used to count data as you collect it</div>
+        <div class="key-fact green"><strong>Frequency</strong>How many times something occurs — the total count in each row of a tally chart</div>
+        <div class="key-fact red"><strong>Bar Chart</strong>Uses bars of equal width to show frequencies. Bars do NOT touch each other.</div>
       </div>
 
-      <!-- MEAN/MODE/MEDIAN/RANGE INTERACTIVE CALCULATOR -->
-      <h3 style="margin-top:22px">🧮 Mean, Mode, Median & Range Calculator</h3>
-      <p style="color:var(--muted);margin-bottom:10px">Enter a list of numbers separated by commas (e.g. <code style="color:var(--accent1)">4, 7, 2, 7, 9, 3</code>) and explore the statistics!</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
-        <input type="text" id="statsInput" class="drill-input" style="width:280px;text-align:left;padding-left:12px" placeholder="e.g. 5, 3, 8, 3, 6, 9, 3" value="5, 3, 8, 3, 6, 9, 3">
-        <button class="big-btn green" onclick="calcStats()">Calculate! 🔢</button>
-      </div>
-      <div id="statsResult" style="display:none">
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-top:12px">
-          <div style="background:var(--deep);border-radius:12px;padding:14px;border-left:4px solid var(--accent1)">
-            <div style="font-size:0.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Mean (Average)</div>
-            <div id="statMean" style="font-family:'Space Mono';font-size:1.5rem;color:var(--accent1);font-weight:700;margin-top:6px">—</div>
-            <div id="statMeanWork" style="font-size:0.78rem;color:var(--muted);margin-top:4px"></div>
-          </div>
-          <div style="background:var(--deep);border-radius:12px;padding:14px;border-left:4px solid var(--accent3)">
-            <div style="font-size:0.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Mode</div>
-            <div id="statMode" style="font-family:'Space Mono';font-size:1.5rem;color:var(--accent3);font-weight:700;margin-top:6px">—</div>
-            <div style="font-size:0.78rem;color:var(--muted);margin-top:4px">Most frequent value(s)</div>
-          </div>
-          <div style="background:var(--deep);border-radius:12px;padding:14px;border-left:4px solid var(--accent4)">
-            <div style="font-size:0.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Median</div>
-            <div id="statMedian" style="font-family:'Space Mono';font-size:1.5rem;color:var(--accent4);font-weight:700;margin-top:6px">—</div>
-            <div id="statMedianWork" style="font-size:0.78rem;color:var(--muted);margin-top:4px"></div>
-          </div>
-          <div style="background:var(--deep);border-radius:12px;padding:14px;border-left:4px solid var(--accent2)">
-            <div style="font-size:0.78rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">Range</div>
-            <div id="statRange" style="font-family:'Space Mono';font-size:1.5rem;color:var(--accent2);font-weight:700;margin-top:6px">—</div>
-            <div id="statRangeWork" style="font-size:0.78rem;color:var(--muted);margin-top:4px"></div>
-          </div>
+      <!-- BAR CHART DRAWING RULES from her notebook -->
+      <h3 style="margin-top:20px">📓 Important Steps When Drawing a Bar Chart</h3>
+      <p style="color:var(--muted);margin-bottom:12px">From her notebook (Friday 22nd May 2026):</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="background:var(--deep);border-radius:10px;padding:14px;border-left:4px solid var(--accent1);display:flex;gap:12px;align-items:flex-start">
+          <span style="font-family:'Fredoka One';font-size:1.4rem;color:var(--accent1)">1</span>
+          <div><strong style="color:var(--accent1)">Label the axes</strong><br><span style="color:var(--muted);font-size:0.88rem">Y-axis = Frequency &nbsp;|&nbsp; X-axis = Category (colour, subject, etc.)</span></div>
         </div>
-        <div id="statSorted" style="margin-top:10px;font-size:0.88rem;color:var(--muted)"></div>
+        <div style="background:var(--deep);border-radius:10px;padding:14px;border-left:4px solid var(--accent3);display:flex;gap:12px;align-items:flex-start">
+          <span style="font-family:'Fredoka One';font-size:1.4rem;color:var(--accent3)">2</span>
+          <div><strong style="color:var(--accent3)">Equal spacing between bars</strong><br><span style="color:var(--muted);font-size:0.88rem">The gap between each bar must be the SAME size all the way across</span></div>
+        </div>
+        <div style="background:var(--deep);border-radius:10px;padding:14px;border-left:4px solid var(--accent4);display:flex;gap:12px;align-items:flex-start">
+          <span style="font-family:'Fredoka One';font-size:1.4rem;color:var(--accent4)">3</span>
+          <div><strong style="color:var(--accent4)">Equal width bars</strong><br><span style="color:var(--muted);font-size:0.88rem">All bars must be the same width — only the HEIGHT changes to show frequency</span></div>
+        </div>
+        <div style="background:var(--deep);border-radius:10px;padding:14px;border-left:4px solid var(--accent2);display:flex;gap:12px;align-items:flex-start">
+          <span style="font-family:'Fredoka One';font-size:1.4rem;color:var(--accent2)">4</span>
+          <div><strong style="color:var(--accent2)">Give the chart a title</strong><br><span style="color:var(--muted);font-size:0.88rem">Always write a title so the reader knows what the chart is about</span></div>
+        </div>
+        <div style="background:var(--deep);border-radius:10px;padding:14px;border-left:4px solid #c678dd;display:flex;gap:12px;align-items:flex-start">
+          <span style="font-family:'Fredoka One';font-size:1.4rem;color:#c678dd">5</span>
+          <div><strong style="color:#c678dd">Check the scale carefully</strong><br><span style="color:var(--muted);font-size:0.88rem">Use the y-axis scale to read heights accurately — don't guess!</span></div>
+        </div>
       </div>
     </div>
 
@@ -1172,22 +1305,56 @@
       </div>
     </div>
 
-    <!-- DATA SET CHALLENGE: MEAN/MODE/MEDIAN/RANGE DRILL -->
+    <!-- BAR CHART FROM HER CLASSWORK: Colours -->
     <div class="card">
-      <h2 style="color:var(--accent4)">🏋️ Statistics Drill</h2>
-      <p style="color:var(--muted);margin-bottom:14px">Practise finding mean, mode, median, and range from data sets!</p>
-      <div class="drill-box" id="statsDrillBox">
-        <div class="drill-question" id="sdText" style="font-size:1rem;line-height:1.6">Loading...</div>
-        <input type="text" class="drill-input" id="sdAnswer" placeholder="Your answer">
-        <div class="btn-row">
-          <button class="sm-btn gold" onclick="checkSD()">✅ Check</button>
-          <button class="sm-btn" onclick="showSDHint()">💡 Hint</button>
-          <button class="sm-btn green" onclick="showSDSteps()">📋 Steps</button>
-          <button class="sm-btn red" onclick="showSDAnswer()">👁️ Answer</button>
-          <button class="sm-btn" onclick="nextSD()">⏭️ Next</button>
+      <h2 style="color:var(--accent3)">🎨 From Her Classwork: Favourite Colours</h2>
+      <p style="color:var(--muted);margin-bottom:14px">James asked his friends their favourite colour. Here is the data — just like Q1 in her classwork!</p>
+      <div style="overflow-x:auto;margin-bottom:16px">
+        <table class="place-value-table">
+          <tr><th>Colour</th><th>Tally</th><th>Frequency</th></tr>
+          <tr><td>🔵 Blue</td><td style="font-size:1.1rem;letter-spacing:2px;color:#0fbcf9">||||</td><td style="color:#0fbcf9;font-weight:900">4</td></tr>
+          <tr><td>🔴 Red</td><td style="font-size:1.1rem;letter-spacing:2px;color:#e94560">|||</td><td style="color:#e94560;font-weight:900">3</td></tr>
+          <tr><td>⚪ White</td><td style="font-size:1.1rem;letter-spacing:2px;color:white">||</td><td style="color:white;font-weight:900">2</td></tr>
+          <tr><td>🟢 Green</td><td style="font-size:1.1rem;letter-spacing:2px;color:#0be881">|||| ||</td><td style="color:#0be881;font-weight:900">7</td></tr>
+          <tr style="background:rgba(255,255,255,0.08)"><td><strong>Total</strong></td><td></td><td><strong>16</strong></td></tr>
+        </table>
+      </div>
+      <!-- Colour bar chart -->
+      <div style="margin-bottom:16px">
+        <div class="bar-graph-row">
+          <div class="y-labels" style="height:180px">
+            <div class="y-label">0</div><div class="y-label">2</div><div class="y-label">4</div>
+            <div class="y-label">6</div><div class="y-label">8</div>
+          </div>
+          <div style="flex:1">
+            <div class="bar-chart-area" id="colourChartArea" style="height:180px"></div>
+            <div class="bar-axis"></div>
+            <p style="text-align:center;color:var(--muted);font-size:0.82rem;margin-top:6px">Colour</p>
+          </div>
         </div>
-        <div class="hint-steps" id="sdHint"></div>
-        <div class="feedback-box" id="sdFeedback"></div>
+      </div>
+      <div class="graph-questions">
+        <h3 style="margin-bottom:12px">📝 Questions</h3>
+        <div class="graph-q"><p>1. Which colour was the <strong>most popular</strong>?</p>
+          <input class="graph-q-input" id="cq1" type="text" placeholder="Colour" style="width:140px">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkCQ(1,'green','Green')">Check</button><button class="sm-btn red" onclick="showCQA(1,'Green — 7 friends chose it!')">Answer</button></div>
+          <div class="feedback-box" id="cqf1"></div></div>
+        <div class="graph-q"><p>2. How many more friends chose Green than Red?</p>
+          <input class="graph-q-input" id="cq2" type="number" placeholder="Number">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkCQN(2,4)">Check</button><button class="sm-btn" onclick="showCQA(2,'Hint: 7 − 3 = ?')">Hint</button><button class="sm-btn red" onclick="showCQA(2,'4 more (7 − 3 = 4)')">Answer</button></div>
+          <div class="feedback-box" id="cqf2"></div></div>
+        <div class="graph-q"><p>3. What is the <strong>total</strong> number of friends asked?</p>
+          <input class="graph-q-input" id="cq3" type="number" placeholder="Total">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkCQN(3,16)">Check</button><button class="sm-btn red" onclick="showCQA(3,'16 (4+3+2+7=16)')">Answer</button></div>
+          <div class="feedback-box" id="cqf3"></div></div>
+        <div class="graph-q"><p>4. What <strong>fraction</strong> of friends chose Blue?</p>
+          <input class="graph-q-input" id="cq4" type="text" placeholder="fraction" style="width:120px">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkCQFrac(4,'4/16','1/4')">Check</button><button class="sm-btn" onclick="showCQA(4,'Hint: 4 out of 16 total')">Hint</button><button class="sm-btn red" onclick="showCQA(4,'4/16 = 1/4')">Answer</button></div>
+          <div class="feedback-box" id="cqf4"></div></div>
+        <div class="graph-q"><p>5. Which colour was chosen by the <strong>fewest</strong> friends?</p>
+          <input class="graph-q-input" id="cq5" type="text" placeholder="Colour" style="width:140px">
+          <div class="btn-row"><button class="sm-btn gold" onclick="checkCQ(5,'white','White')">Check</button><button class="sm-btn red" onclick="showCQA(5,'White — only 2 friends!')">Answer</button></div>
+          <div class="feedback-box" id="cqf5"></div></div>
       </div>
     </div>
 
@@ -1682,14 +1849,31 @@ function moveNL(by,reset=false){
 
 // =================== INTEGER DRILL ===================
 const intProblems=[
-  {q:'-5 + 3 = ?', a:-2, hint:'Start at -5, move 3 RIGHT on the number line', steps:['Start at -5','Move +3','Land on -2']},
-  {q:'7 − 10 = ?', a:-3, hint:'7 take away 10 goes below zero!', steps:['7 − 10','= 7 − 7 − 3','= 0 − 3 = −3']},
-  {q:'-4 × 3 = ?', a:-12, hint:'Negative × Positive = Negative', steps:['4 × 3 = 12','neg × pos = neg','Answer: −12']},
-  {q:'-6 × -2 = ?', a:12, hint:'Negative × Negative = POSITIVE!', steps:['6 × 2 = 12','neg × neg = pos','Answer: +12']},
-  {q:'−15 ÷ 3 = ?', a:-5, hint:'15 ÷ 3 = 5, then neg ÷ pos = neg', steps:['15 ÷ 3 = 5','neg ÷ pos = neg','Answer: −5']},
-  {q:'5 − (−3) = ?', a:8, hint:'Subtracting a negative is the same as adding!', steps:['5 − (−3)','= 5 + 3','= 8']},
-  {q:'-8 + (-4) = ?', a:-12, hint:'Both negative — add the values, keep the sign!', steps:['Both are negative','8 + 4 = 12','neg + neg = neg: −12']},
-  {q:'-20 ÷ -4 = ?', a:5, hint:'neg ÷ neg = positive!', steps:['20 ÷ 4 = 5','neg ÷ neg = pos','Answer: +5']},
+  // From her notebook classwork page
+  {q:'4 − 8 = ?', a:-4, hint:'Start at 4, subtract 8 → go LEFT on number line',steps:['Start at 4','Subtract 8 (go left)','4 − 8 = −4']},
+  {q:'4 + 8 = ?', a:12, hint:'Positive + positive = positive',steps:['4 + 8 = 12']},
+  {q:'−4 + 8 = ?', a:4, hint:'Adding positive = go RIGHT. Start at −4, move 8 right.',steps:['Start at −4','Move 8 right on number line','Land on 4']},
+  {q:'2 − 9 = ?', a:-7, hint:'Start at 2, go LEFT 9 steps',steps:['2 − 9 = −7']},
+  {q:'−12 − 9 = ?', a:-21, hint:'Both negative — they both go further left!',steps:['Start at −12','Subtract 9 more (go further left)','−12 − 9 = −21']},
+  {q:'12 + 9 = ?', a:21, hint:'Positive + positive',steps:['12 + 9 = 21']},
+  {q:'−12 + 9 = ?', a:-3, hint:'Start at −12, add 9 (go RIGHT)',steps:['Start at −12, move 9 right','−12 + 9 = −3']},
+  {q:'3 + 8 − 6 = ?', a:5, hint:'Work left to right: first 3+8, then subtract 6',steps:['3 + 8 = 11','11 − 6 = 5']},
+  {q:'3 − 8 + 6 = ?', a:1, hint:'Work left to right: 3−8 first, then add 6',steps:['3 − 8 = −5','−5 + 6 = 1']},
+  {q:'−10 − 7 + 4 = ?', a:-13, hint:'Work left to right: −10−7 first, then add 4',steps:['−10 − 7 = −17','−17 + 4 = −13']},
+  // Multiply & divide (from her notebook page 2)
+  {q:'5 × (−3) = ?', a:-15, hint:'Positive × Negative = Negative',steps:['5 × 3 = 15','pos × neg = neg','Answer: −15']},
+  {q:'−6 ÷ 3 = ?', a:-2, hint:'Negative ÷ Positive = Negative',steps:['6 ÷ 3 = 2','neg ÷ pos = neg','Answer: −2']},
+  {q:'−42 × 2 = ?', a:-84, hint:'Negative × Positive = Negative',steps:['42 × 2 = 84','neg × pos = neg','Answer: −84']},
+  {q:'100 ÷ (−5) = ?', a:-20, hint:'Positive ÷ Negative = Negative',steps:['100 ÷ 5 = 20','pos ÷ neg = neg','Answer: −20']},
+  {q:'6 × (−3) = ?', a:-18, hint:'Positive × Negative = Negative',steps:['6 × 3 = 18','pos × neg = neg','Answer: −18']},
+  {q:'12 ÷ (−4) = ?', a:-3, hint:'Positive ÷ Negative = Negative',steps:['12 ÷ 4 = 3','pos ÷ neg = neg','Answer: −3']},
+  {q:'4 × 3 × (−2) = ?', a:-24, hint:'Multiply left to right. 4×3 first, then ×(−2)',steps:['4 × 3 = 12','12 × (−2) = −24','pos × neg = neg']},
+  {q:'−6 ÷ 3 × 4 = ?', a:-8, hint:'Work left to right: −6÷3 first, then ×4',steps:['−6 ÷ 3 = −2','−2 × 4 = −8']},
+  // Adding/subtracting negatives (from her Thursday notebook page)
+  {q:'3 − (−2) = ?', a:5, hint:'Subtracting a negative = adding! 3 − (−2) = 3 + 2',steps:['3 − (−2)','= 3 + 2','= 5']},
+  {q:'−7 − (−3) = ?', a:-4, hint:'Subtracting a negative = adding! −7 − (−3) = −7 + 3',steps:['−7 − (−3)','= −7 + 3','= −4']},
+  {q:'−2 − (−6) = ?', a:4, hint:'Subtracting a negative = adding! −2 − (−6) = −2 + 6',steps:['−2 − (−6)','= −2 + 6','= 4']},
+  {q:'5 − (−8) = ?', a:13, hint:'Subtracting a negative = adding!',steps:['5 − (−8)','= 5 + 8','= 13']},
 ];
 let intIdx=0;
 function loadIntQ(){
@@ -1801,6 +1985,7 @@ const maxVal=25;
 function buildBarChart(){
   buildBars('barChartArea', barData, maxVal, 200);
   buildScoreChart();
+  buildColourChart();
 }
 function buildBars(areaId, data, maxV, maxH){
   const area=document.getElementById(areaId);
@@ -1887,72 +2072,77 @@ function checkTQText(n,...answers){
 function showTQA(n,a){document.getElementById(`tqf${n}`).className='feedback-box correct';document.getElementById(`tqf${n}`).textContent='✅ '+a;}
 function showTQHint(n,h){document.getElementById(`tqf${n}`).className='feedback-box info';document.getElementById(`tqf${n}`).textContent='💡 '+h;}
 
-// =================== STATS CALCULATOR ===================
-function calcStats(){
-  const raw=document.getElementById('statsInput').value;
-  const nums=raw.split(',').map(s=>parseFloat(s.trim())).filter(n=>!isNaN(n));
-  if(nums.length<2){alert('Enter at least 2 numbers!');return;}
-  const sorted=[...nums].sort((a,b)=>a-b);
-  const sum=nums.reduce((a,b)=>a+b,0);
-  const mean=sum/nums.length;
-  // Mode
-  const freq={};
-  nums.forEach(n=>freq[n]=(freq[n]||0)+1);
-  const maxF=Math.max(...Object.values(freq));
-  const modes=Object.keys(freq).filter(k=>freq[k]===maxF).map(Number).sort((a,b)=>a-b);
-  // Median
-  let median, medWork;
-  const mid=Math.floor(sorted.length/2);
-  if(sorted.length%2===1){median=sorted[mid];medWork=`Middle value (position ${mid+1}) = ${median}`;}
-  else{median=(sorted[mid-1]+sorted[mid])/2;medWork=`Mean of positions ${mid} & ${mid+1}: (${sorted[mid-1]}+${sorted[mid]})÷2 = ${median}`;}
-  // Range
-  const range=sorted[sorted.length-1]-sorted[0];
-  document.getElementById('statsResult').style.display='block';
-  document.getElementById('statMean').textContent=Math.round(mean*100)/100;
-  document.getElementById('statMeanWork').textContent=`${sum} ÷ ${nums.length} = ${Math.round(mean*100)/100}`;
-  document.getElementById('statMode').textContent=maxF===1?'No mode':modes.join(', ');
-  document.getElementById('statMedian').textContent=median;
-  document.getElementById('statMedianWork').textContent=medWork;
-  document.getElementById('statRange').textContent=range;
-  document.getElementById('statRangeWork').textContent=`${sorted[sorted.length-1]} − ${sorted[0]} = ${range}`;
-  document.getElementById('statSorted').textContent='Sorted: '+sorted.join(', ');
+// =================== DECIMAL READING REVEAL ===================
+function revealReading(id, text){
+  const box=document.getElementById('rwAnswer');
+  box.style.display='block';
+  box.textContent='🔊 "'+text+'"';
 }
-calcStats();
 
-// =================== STATISTICS DRILL ===================
-const statsDrillProblems=[
-  {q:'Data set: 4, 7, 2, 7, 9, 3, 7\nFind the MODE.',a:'7',hint:'Mode = most frequent value. Count how many times each number appears.',steps:['Count: 4→1, 7→3, 2→1, 9→1, 3→1','7 appears 3 times — most!','Mode = 7'],type:'stat'},
-  {q:'Data set: 12, 5, 8, 5, 11, 5, 9\nFind the RANGE.',a:'7',hint:'Range = largest − smallest.',steps:['Largest = 12, Smallest = 5','12 − 5 = 7','Range = 7'],type:'stat'},
-  {q:'Data set: 3, 6, 8, 2, 6, 4\nFind the MEDIAN.',a:'5',hint:'Sort the data first, then find the middle.',steps:['Sorted: 2, 3, 4, 6, 6, 8','6 values → two middle: positions 3 & 4','(4 + 6) ÷ 2 = 5','Median = 5'],type:'stat'},
-  {q:'Data set: 10, 20, 30, 40, 50\nFind the MEAN.',a:'30',hint:'Mean = sum ÷ count.',steps:['Sum = 10+20+30+40+50 = 150','Count = 5','150 ÷ 5 = 30','Mean = 30'],type:'stat'},
-  {q:'Data set: 8, 3, 5, 3, 7, 3, 9, 2\nFind the MODE.',a:'3',hint:'Count each value\'s frequency.',steps:['3 appears 3 times','All others appear once','Mode = 3'],type:'stat'},
-  {q:'Data set: 15, 22, 18, 22, 19, 22, 14\nFind the RANGE.',a:'8',hint:'Range = Max − Min.',steps:['Max = 22, Min = 14','22 − 14 = 8','Range = 8'],type:'stat'},
-  {q:'Data set: 11, 15, 13, 17, 19\nFind the MEDIAN.',a:'15',hint:'Sort the data and pick the middle value.',steps:['Already sorted: 11, 13, 15, 17, 19','5 values → middle is position 3','Median = 15'],type:'stat'},
-  {q:'A student scored 65, 70, 80, 75, 60 on 5 tests.\nFind the MEAN score.',a:'70',hint:'Add all scores then divide by 5.',steps:['Sum = 65+70+80+75+60 = 350','Count = 5','350 ÷ 5 = 70','Mean = 70'],type:'stat'},
-  {q:'Data set: 4, 4, 6, 8, 8\nThe mode is 4 AND 8. True or false — this data is BIMODAL?',a:'true',hint:'Bimodal means two modes!',steps:['4 appears twice','8 appears twice','Two values tie for most frequent','Yes — bimodal!'],type:'stat'},
-  {q:'A bar graph shows: Mon=12, Tue=8, Wed=15, Thu=10, Fri=5.\nWhat is the RANGE of the data?',a:'10',hint:'Range = highest bar − lowest bar.',steps:['Highest = 15 (Wed)','Lowest = 5 (Fri)','15 − 5 = 10','Range = 10'],type:'stat'},
+// =================== CONVERSION DRILL ===================
+const convProblems=[
+  {q:'Convert to a fraction: 0.7',a:'7/10',alts:['7/10'],hint:'0.7 has ONE decimal place → denominator is 10',steps:['1 decimal place → /10','0.7 = 7/10','Already in simplest form']},
+  {q:'Convert to a fraction: 0.5',a:'1/2',alts:['5/10','1/2'],hint:'0.5 = 5/10. Can you simplify?',steps:['1 decimal place → /10','0.5 = 5/10','Simplify ÷5: 5/10 = 1/2']},
+  {q:'Convert to a fraction: 0.25',a:'1/4',alts:['25/100','1/4'],hint:'0.25 has 2 decimal places → /100',steps:['2 decimal places → /100','0.25 = 25/100','Simplify ÷25: 25/100 = 1/4']},
+  {q:'Convert to a fraction: 0.43',a:'43/100',alts:['43/100'],hint:'2 decimal places → denominator is 100',steps:['2 decimal places → /100','0.43 = 43/100','Cannot simplify further']},
+  {q:'Convert to a fraction: 0.125',a:'1/8',alts:['125/1000','1/8'],hint:'3 decimal places → /1000',steps:['3 decimal places → /1000','0.125 = 125/1000','Simplify ÷125: 125/1000 = 1/8']},
+  {q:'Convert to a fraction: 0.3',a:'3/10',alts:['3/10'],hint:'1 decimal place → /10',steps:['1 decimal place → /10','0.3 = 3/10','Already in simplest form']},
+  {q:'Convert to a fraction: 0.75',a:'3/4',alts:['75/100','3/4'],hint:'2 decimal places → /100',steps:['2 decimal places → /100','0.75 = 75/100','Simplify ÷25: 75/100 = 3/4']},
+  {q:'Convert to a fraction: 0.06',a:'3/50',alts:['6/100','3/50'],hint:'2 decimal places → /100. Can 6/100 be simplified?',steps:['2 decimal places → /100','0.06 = 6/100','Simplify ÷2: 6/100 = 3/50']},
+  {q:'Convert to a fraction: 0.009',a:'9/1000',alts:['9/1000'],hint:'3 decimal places → /1000',steps:['3 decimal places → /1000','0.009 = 9/1000','Cannot simplify further']},
+  {q:'What is 3/10 as a decimal?',a:'0.3',alts:['0.3'],hint:'Denominator is 10 → 1 decimal place',steps:['3/10 means 3 tenths','1 decimal place','3/10 = 0.3']},
+  {q:'What is 1/4 as a decimal?',a:'0.25',alts:['0.25'],hint:'1/4 = 25/100 → 2 decimal places',steps:['1/4 = 25/100','25/100 → 2 decimal places','= 0.25']},
+  {q:'What is 1/2 as a decimal?',a:'0.5',alts:['0.5','0.50'],hint:'1/2 = 5/10 → 1 decimal place',steps:['1/2 = 5/10','= 0.5']},
 ];
-let sdIdx=0;
-function loadSD(){
-  const p=statsDrillProblems[sdIdx%statsDrillProblems.length];
-  document.getElementById('sdText').innerHTML=p.q.replace(/\n/g,'<br>');
-  document.getElementById('sdAnswer').value='';
-  document.getElementById('sdHint').innerHTML=''; document.getElementById('sdHint').classList.remove('show');
-  document.getElementById('sdFeedback').className='feedback-box'; document.getElementById('sdFeedback').textContent='';
+let convIdx=0;
+function loadConv(){
+  const p=convProblems[convIdx%convProblems.length];
+  document.getElementById('convQText').textContent=p.q;
+  document.getElementById('convAnswer').value='';
+  document.getElementById('convHint').innerHTML=''; document.getElementById('convHint').classList.remove('show');
+  document.getElementById('convFeedback').className='feedback-box'; document.getElementById('convFeedback').textContent='';
 }
-function checkSD(){
-  const p=statsDrillProblems[sdIdx%statsDrillProblems.length];
-  const ans=document.getElementById('sdAnswer').value.trim().toLowerCase();
-  const correct=String(p.a).toLowerCase();
-  const fb=document.getElementById('sdFeedback');
-  if(ans===correct||parseFloat(ans)===parseFloat(p.a)){fb.className='feedback-box correct';fb.textContent='🎉 Correct! '+p.a;}
-  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite. Try the hint or steps!';}
+function checkConv(){
+  const p=convProblems[convIdx%convProblems.length];
+  const ans=document.getElementById('convAnswer').value.trim().replace(/\s/g,'');
+  const fb=document.getElementById('convFeedback');
+  if(p.alts.includes(ans)||ans===p.a){fb.className='feedback-box correct';fb.textContent='🎉 Correct! '+p.a;}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite. Try the hint!';}
 }
-function showSDHint(){const p=statsDrillProblems[sdIdx%statsDrillProblems.length];const h=document.getElementById('sdHint');h.innerHTML='<p class="step">💡 '+p.hint+'</p>';h.classList.add('show');}
-function showSDSteps(){const p=statsDrillProblems[sdIdx%statsDrillProblems.length];const h=document.getElementById('sdHint');h.innerHTML='<p class="step">📋 Steps:</p>'+p.steps.map((s,i)=>`<p><strong>Step ${i+1}:</strong> ${s}</p>`).join('');h.classList.add('show');}
-function showSDAnswer(){const p=statsDrillProblems[sdIdx%statsDrillProblems.length];const h=document.getElementById('sdHint');h.innerHTML+=`<p class="answer">✅ Answer: ${p.a}</p>`;h.classList.add('show');}
-function nextSD(){sdIdx++;loadSD();}
-loadSD();
+function showConvHint(){const p=convProblems[convIdx%convProblems.length];const h=document.getElementById('convHint');h.innerHTML='<p class="step">💡 '+p.hint+'</p>';h.classList.add('show');}
+function showConvAnswer(){const p=convProblems[convIdx%convProblems.length];const h=document.getElementById('convHint');h.innerHTML+=`<p class="answer">✅ Answer: ${p.a}</p>`;h.classList.add('show');}
+function nextConv(){convIdx++;loadConv();}
+loadConv();
+
+// =================== COLOUR CHART HELPERS ===================
+const colourData=[
+  {label:'🔵 Blue',val:4,color:'#0fbcf9'},
+  {label:'🔴 Red',val:3,color:'#e94560'},
+  {label:'⚪ White',val:2,color:'#aaaaaa'},
+  {label:'🟢 Green',val:7,color:'#0be881'},
+];
+function buildColourChart(){buildBars('colourChartArea',colourData,8,160);}
+
+function checkCQ(n,...answers){
+  const inp=document.getElementById(`cq${n}`);
+  const fb=document.getElementById(`cqf${n}`);
+  const val=inp.value.trim().toLowerCase();
+  if(answers.some(a=>val===a.toLowerCase())){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite!';}
+}
+function checkCQN(n,correct){
+  const inp=document.getElementById(`cq${n}`);
+  const fb=document.getElementById(`cqf${n}`);
+  if(parseFloat(inp.value)===correct){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite!';}
+}
+function checkCQFrac(n,...answers){
+  const inp=document.getElementById(`cq${n}`);
+  const fb=document.getElementById(`cqf${n}`);
+  if(answers.includes(inp.value.trim().replace(/\s/g,''))){fb.className='feedback-box correct';fb.textContent='🎉 Correct!';}
+  else{fb.className='feedback-box wrong';fb.textContent='❌ Not quite! Think: how many out of the total?';}
+}
+function showCQA(n,a){document.getElementById(`cqf${n}`).className='feedback-box correct';document.getElementById(`cqf${n}`).textContent='✅ '+a;}
 
 // =================== PATTERNS ===================
 const patterns=[
@@ -2022,9 +2212,9 @@ const quizQuestions=[
   // ── ANGLES (5) ──────────────────────────────────────────────────────
   {type:'mc',topic:'Angles',q:'What type of angle is 135°?',opts:['Acute','Right','Obtuse','Reflex'],ans:2,exp:'135° is between 90° and 180°, so it is Obtuse.'},
   {type:'mc',topic:'Angles',q:'The angles in ANY triangle always add up to:',opts:['90°','180°','270°','360°'],ans:1,exp:'All three interior angles of a triangle always sum to exactly 180°.'},
-  {type:'fill',topic:'Angles',q:'A triangle has angles of 48° and 73°. What is the third angle?',ans:'59',hint:'All angles in a triangle = 180°. Missing = 180 − 48 − 73',steps:['Add the two known angles: 48 + 73 = 121°','Subtract from 180°: 180 − 121 = 59°','Answer: 59°'],calc:true},
+  {type:'fill',topic:'Angles',q:'A triangle has angles of 48° and 73°. What is the third angle?',ans:'59',hint:'All angles in a triangle = 180°. Missing = 180 − 48 − 73',steps:['Add the two known: 48 + 73 = 121°','Subtract from 180°: 180 − 121 = 59°'],calc:true},
   {type:'tf',topic:'Angles',q:'A reflex angle is always greater than 180°.',ans:true,exp:'TRUE! Reflex angles are between 180° and 360°.'},
-  {type:'mc',topic:'Angles',q:'The exterior angle of a triangle equals the sum of:',opts:['All three interior angles','The two adjacent interior angles','The two non-adjacent (opposite) interior angles','The right angle only'],ans:2,exp:'Exterior angle = sum of the two NON-adjacent interior angles.'},
+  {type:'mc',topic:'Angles',q:'The exterior angle of a triangle equals the sum of:',opts:['All three interior angles','The two adjacent angles','The two NON-adjacent (opposite) interior angles','The right angle only'],ans:2,exp:'Exterior angle = sum of the two non-adjacent (opposite) interior angles.'},
 
   // ── LINES & SYMMETRY (4) ────────────────────────────────────────────
   {type:'tf',topic:'Lines',q:'Perpendicular lines meet at exactly 90°.',ans:true,exp:'TRUE! Perpendicular lines always intersect at right angles.'},
@@ -2032,49 +2222,65 @@ const quizQuestions=[
   {type:'mc',topic:'Symmetry',q:'How many lines of symmetry does a square have?',opts:['1','2','4','8'],ans:2,exp:'A square has 4 lines of symmetry: 2 through opposite sides, 2 through opposite corners.'},
   {type:'tf',topic:'Symmetry',q:'A rectangle has 4 lines of symmetry.',ans:false,exp:'FALSE! A rectangle has only 2 lines of symmetry — through the midpoints of opposite sides.'},
 
-  // ── DECIMALS (7) ────────────────────────────────────────────────────
+  // ── DECIMALS: PLACE VALUE, READING, EXPANDED FORM (5) ──────────────
   {type:'mc',topic:'Decimals',q:'What is the value of the digit 7 in 4.073?',opts:['7 ones','7 tenths','7 hundredths','7 thousandths'],ans:2,exp:'4.073: 4 ones, 0 tenths, 7 hundredths, 3 thousandths.'},
   {type:'mc',topic:'Decimals',q:'What is the expanded form of 5.24?',opts:['5 + 0.24','5 + 2 + 4','5 + 0.2 + 0.04','5 + 0.02 + 0.004'],ans:2,exp:'5.24 = 5 + 0.2 + 0.04 (2 tenths and 4 hundredths)'},
-  {type:'fill',topic:'Decimals',q:'Round 3.456 to 2 decimal places.',ans:'3.46',hint:'Look at the thousandths digit (6). Since 6 ≥ 5, round the hundredths UP.',steps:['Number: 3.456','Thousandths digit = 6','6 ≥ 5 → round UP','Hundredths: 5 becomes 6','Answer: 3.46'],calc:true},
-  {type:'mc',topic:'Decimals',q:'Which list is in order from SMALLEST to LARGEST?',opts:['0.03, 0.3, 0.303, 0.33','0.3, 0.03, 0.303, 0.33','0.33, 0.303, 0.3, 0.03','0.3, 0.303, 0.33, 0.03'],ans:0,exp:'Compare place by place: 0.03 < 0.3 < 0.303 < 0.33'},
-  {type:'fill',topic:'Decimals',q:'4.7 + 2.85 = ?',ans:'7.55',hint:'Rewrite as 4.70 + 2.85 so decimals line up.',steps:['4.70 + 2.85','Hundredths: 0+5=5','Tenths: 7+8=15 → write 5, carry 1','Ones: 4+2+1=7','Answer: 7.55'],calc:true},
-  {type:'mc',topic:'Decimals',q:'8.1 × 0.1 = ?',opts:['81','0.081','0.81','8.01'],ans:2,exp:'8.1 × 0.1 = 81 × 1 ÷ 100 = 0.81'},
-  {type:'mc',topic:'Decimals',q:'Which fraction is equivalent to 0.6?',opts:['6/100','3/5','6/1000','2/3'],ans:1,exp:'0.6 = 6/10 = 3/5 (divide numerator and denominator by 2)'},
+  {type:'mc',topic:'Decimals',q:'How do you say the number 12.06 aloud?',opts:['Twelve point six','Twelve point sixty','Twelve point zero six','One two point zero six'],ans:2,exp:'"Twelve point zero six" — say each digit after the decimal individually.'},
+  {type:'fill',topic:'Decimals',q:'Write 3.407 in expanded form.\n(Use + between parts, e.g. 3 + 0.4 + 0.007)',ans:'3 + 0.4 + 0.007',hint:'3 ones + 4 tenths + 0 hundredths + 7 thousandths',steps:['3 is in the ones place: 3','4 is in the tenths place: 0.4','0 is in the hundredths: 0.0','7 is in the thousandths: 0.007','Answer: 3 + 0.4 + 0.007'],calc:true},
+  {type:'mc',topic:'Decimals',q:'Which list is in order from SMALLEST to LARGEST?',opts:['0.03, 0.3, 0.303, 0.33','0.3, 0.03, 0.303, 0.33','0.33, 0.303, 0.3, 0.03','0.3, 0.303, 0.33, 0.03'],ans:0,exp:'Compare digit by digit: 0.03 < 0.3 < 0.303 < 0.33'},
 
-  // ── INTEGERS (5) ────────────────────────────────────────────────────
-  {type:'mc',topic:'Integers',q:'Which integer is the greatest?',opts:['-1','0','-100','-5'],ans:1,exp:'0 is to the right of all negative numbers on the number line — so it is greatest.'},
-  {type:'tf',topic:'Integers',q:'−6 × −3 = −18',ans:false,exp:'FALSE! Negative × Negative = POSITIVE. −6 × −3 = +18.'},
-  {type:'fill',topic:'Integers',q:'5 − (−8) = ?',ans:'13',hint:'Subtracting a negative is the same as adding!',steps:['5 − (−8)','= 5 + 8','= 13'],calc:true},
+  // ── DECIMALS: FRACTIONS CONVERSIONS (5) ────────────────────────────
+  {type:'mc',topic:'Decimals → Fractions',q:'What is 0.7 as a fraction?',opts:['7/100','7/1000','7/10','70/100'],ans:2,exp:'0.7 has ONE decimal place → denominator is 10. So 0.7 = 7/10.'},
+  {type:'mc',topic:'Decimals → Fractions',q:'What is 0.25 as a fraction in its simplest form?',opts:['25/10','25/1000','2/5','1/4'],ans:3,exp:'0.25 = 25/100. Simplify by ÷25: 25/100 = 1/4.'},
+  {type:'fill',topic:'Decimals → Fractions',q:'Write 0.43 as a fraction (do NOT simplify).',ans:'43/100',hint:'2 decimal places → denominator is 100',steps:['2 decimal places → /100','0.43 = 43/100'],calc:true},
+  {type:'mc',topic:'Decimals → Fractions',q:'0.125 as a fraction is:',opts:['125/100','12/5','1/8','125/10'],ans:2,exp:'0.125 = 125/1000. Simplify ÷125: 125/1000 = 1/8.'},
+  {type:'mc',topic:'Decimals → Fractions',q:'Which decimal equals 3/10?',opts:['3.0','0.03','0.30','0.003'],ans:2,exp:'3/10 means 3 tenths → 0.3 (which is the same as 0.30)'},
+
+  // ── DECIMALS: OPERATIONS & ROUNDING (5) ────────────────────────────
+  {type:'fill',topic:'Decimals',q:'Round 56.438 to 2 decimal places.',ans:'56.44',hint:'Look at the thousandths digit (8). 8 ≥ 5, so round UP the hundredths.',steps:['Number: 56.438','Thousandths digit = 8','8 ≥ 5 → round UP','3 becomes 4','Answer: 56.44'],calc:true},
+  {type:'fill',topic:'Decimals',q:'Round 7309.34 to 1 decimal place.',ans:'7309.3',hint:'Look at the hundredths digit (4). 4 < 5, so round DOWN.',steps:['Hundredths digit = 4','4 < 5 → keep as is','Answer: 7309.3'],calc:true},
+  {type:'fill',topic:'Decimals',q:'4.7 + 2.85 = ?',ans:'7.55',hint:'Rewrite as 4.70 + 2.85 — line up the decimal points!',steps:['4.70','+ 2.85','Hundredths: 0+5=5','Tenths: 7+8=15 → write 5, carry 1','Ones: 4+2+1=7','Answer: 7.55'],calc:true},
+  {type:'mc',topic:'Decimals',q:'8.1 × 0.1 = ?',opts:['81','0.081','0.81','8.01'],ans:2,exp:'81 × 1 = 81, then 2 decimal places → 0.81'},
+  {type:'mc',topic:'Decimals',q:'Which fraction is equivalent to 0.6?',opts:['6/100','3/5','6/1000','2/3'],ans:1,exp:'0.6 = 6/10 = 3/5 (simplify by ÷2)'},
+
+  // ── INTEGERS: ADDING & SUBTRACTING (6) ─────────────────────────────
+  {type:'fill',topic:'Integers',q:'4 − 8 = ?',ans:'-4',hint:'Start at 4 on the number line, go LEFT 8 steps.',steps:['Start at 4','Subtract 8 → go left','Land on −4'],calc:true},
+  {type:'fill',topic:'Integers',q:'−12 + 9 = ?',ans:'-3',hint:'Start at −12, add 9 (go RIGHT on number line)',steps:['Start at −12','Move right 9','−12 + 9 = −3'],calc:true},
+  {type:'mc',topic:'Integers',q:'3 − (−2) = ?',opts:['1','5','-1','-5'],ans:1,exp:'Subtracting a negative = ADDING. 3 − (−2) = 3 + 2 = 5.'},
+  {type:'mc',topic:'Integers',q:'−7 − (−3) = ?',opts:['-10','-4','4','10'],ans:1,exp:'−7 − (−3) = −7 + 3 = −4. Subtracting negative = adding.'},
+  {type:'fill',topic:'Integers',q:'3 + 8 − 6 = ?',ans:'5',hint:'Work left to right: 3+8 first, then −6',steps:['3 + 8 = 11','11 − 6 = 5'],calc:true},
+  {type:'fill',topic:'Integers',q:'−10 − 7 + 4 = ?',ans:'-13',hint:'Work left to right: −10−7 first, then +4',steps:['−10 − 7 = −17','−17 + 4 = −13'],calc:true},
+
+  // ── INTEGERS: MULTIPLY & DIVIDE (5) ────────────────────────────────
+  {type:'mc',topic:'Integers',q:'5 × (−3) = ?',opts:['15','-15','8','-8'],ans:1,exp:'Positive × Negative = Negative. 5 × 3 = 15, so 5 × (−3) = −15.'},
+  {type:'tf',topic:'Integers',q:'Negative × Negative = Positive.',ans:true,exp:'TRUE! Two negatives multiplied give a POSITIVE result. E.g. (−6) × (−2) = +12.'},
+  {type:'fill',topic:'Integers',q:'12 ÷ (−4) = ?',ans:'-3',hint:'Positive ÷ Negative = Negative',steps:['12 ÷ 4 = 3','pos ÷ neg = neg','Answer: −3'],calc:true},
+  {type:'mc',topic:'Integers',q:'4 × 3 × (−2) = ?',opts:['24','-24','-12','12'],ans:1,exp:'4 × 3 = 12, then 12 × (−2) = −24.'},
   {type:'mc',topic:'Integers',q:'Which shows the correct order from LEAST to GREATEST?',opts:['-5, -1, 0, 3, -8','-8, -5, -1, 0, 3','3, 0, -1, -5, -8','-1, 0, 3, -5, -8'],ans:1,exp:'On the number line, left = smaller. −8 < −5 < −1 < 0 < 3'},
-  {type:'fill',topic:'Integers',q:'−3 × 4 + 10 = ?',ans:'-2',hint:'Multiply first (order of operations), then add.',steps:['−3 × 4 = −12','−12 + 10 = −2','Answer: −2'],calc:true},
 
   // ── PROBABILITY (4) ─────────────────────────────────────────────────
   {type:'mc',topic:'Probability',q:'A bag has 3 red, 5 blue, and 2 green balls. What is P(green)?',opts:['2/5','1/5','1/10','2/10'],ans:1,exp:'Total = 10. P(green) = 2/10 = 1/5'},
-  {type:'tf',topic:'Probability',q:'The probability of an event can be greater than 1.',ans:false,exp:'FALSE! Probability is always between 0 and 1 inclusive.'},
+  {type:'tf',topic:'Probability',q:'The probability of an event can be greater than 1.',ans:false,exp:'FALSE! Probability is always between 0 (impossible) and 1 (certain).'},
   {type:'mc',topic:'Probability',q:'A coin is flipped. P(heads) = ?',opts:['1/4','1/3','1/2','2/3'],ans:2,exp:'2 equally likely outcomes: heads or tails. P(heads) = 1/2.'},
   {type:'mc',topic:'Probability',q:'If P(rain) = 0.8, this is best described as:',opts:['Impossible','Unlikely','Even chance','Likely'],ans:3,exp:'0.8 is close to 1 (certain), so it is Likely.'},
 
-  // ── DATA & GRAPHS — THE BIG SECTION (15) ───────────────────────────
-  {type:'mc',topic:'Data & Graphs',q:'A bar graph shows test scores: Mon=12, Tue=8, Wed=15, Thu=10, Fri=5. What is the RANGE?',opts:['7','8','10','15'],ans:2,exp:'Range = highest − lowest = 15 − 5 = 10'},
-  {type:'tf',topic:'Data & Graphs',q:'The MODE is the middle value when data is arranged in order.',ans:false,exp:'FALSE! The MODE is the MOST FREQUENT value. The MEDIAN is the middle value.'},
-  {type:'mc',topic:'Data & Graphs',q:'Data: 4, 7, 2, 7, 9, 3, 7. What is the MODE?',opts:['2','4','7','9'],ans:2,exp:'7 appears 3 times — more than any other value. Mode = 7.'},
-  {type:'fill',topic:'Data & Graphs',q:'Data: 5, 8, 3, 9, 5\nFind the MEDIAN.',ans:'5',hint:'Sort the data first, then find the middle value.',steps:['Sort: 3, 5, 5, 8, 9','5 values → middle is position 3','Median = 5'],calc:true},
-  {type:'fill',topic:'Data & Graphs',q:'Data: 10, 20, 30, 40, 50\nFind the MEAN.',ans:'30',hint:'Mean = sum of all values ÷ number of values.',steps:['Sum = 10+20+30+40+50 = 150','Count = 5','150 ÷ 5 = 30','Mean = 30'],calc:true},
-  {type:'mc',topic:'Data & Graphs',q:'A frequency table shows: Score 6→7 students, Score 7→9 students, Score 8→6 students. What is the MODE score?',opts:['6','7','8','9'],ans:1,exp:'Score 7 has the highest frequency (9 students). Mode = 7.'},
-  {type:'mc',topic:'Data & Graphs',q:'A tally chart shows Football: |||| |||| ||||. How many students is this?',opts:['12','13','14','15'],ans:2,exp:'Each |||| = 5. Three groups = 15... but read again: |||| |||| |||| = 10 + 4 = 14.'},
-  {type:'tf',topic:'Data & Graphs',q:'You should always check the SCALE of a bar graph before reading values.',ans:true,exp:'TRUE! The scale tells you what each unit represents. Ignoring it causes wrong readings.'},
-  {type:'fill',topic:'Data & Graphs',q:'30 students were surveyed. 6 chose Tennis. What PERCENTAGE chose Tennis?',ans:'20',hint:'Percentage = (part ÷ total) × 100',steps:['6 ÷ 30 = 0.2','0.2 × 100 = 20','Answer: 20%'],calc:true},
-  {type:'mc',topic:'Data & Graphs',q:'Data set: 12, 15, 15, 18, 20. Which statement is TRUE?',opts:['Mean = 16, Mode = 15','Mean = 15, Mode = 16','Mean = 18, Mode = 12','Mean = 20, Mode = 18'],ans:0,exp:'Sum=80, Mean=80÷5=16. 15 appears twice (most), Mode=15. ✅'},
-  {type:'mc',topic:'Data & Graphs',q:'A bar graph shows students\' favourite fruits. Apple=18, Mango=24, Banana=12, Grape=6. What fraction chose Mango?',opts:['1/4','2/5','2/5','4/10'],ans:1,exp:'Total = 18+24+12+6 = 60. Mango = 24/60 = 2/5.'},
-  {type:'fill',topic:'Data & Graphs',q:'Data: 8, 3, 5, 3, 7, 3, 9, 2\nWhat is the RANGE?',ans:'7',hint:'Range = largest value − smallest value',steps:['Largest = 9, Smallest = 2','9 − 2 = 7','Range = 7'],calc:true},
-  {type:'mc',topic:'Data & Graphs',q:'A class has these quiz scores: 6, 8, 7, 9, 6, 10, 7, 6. What is the mode?',opts:['6','7','8','9'],ans:0,exp:'6 appears 3 times (positions 1, 5, 8) — more than any other. Mode = 6.'},
-  {type:'tf',topic:'Data & Graphs',q:'A data set can have MORE than one mode.',ans:true,exp:'TRUE! When two values appear the same number of times (and most), the data is bimodal and has two modes.'},
-  {type:'mc',topic:'Data & Graphs',q:'In a bar graph, the TALLEST bar shows:',opts:['The least popular item','The mean of the data','The most popular item','The range of the data'],ans:2,exp:'The tallest bar represents the highest frequency — the most popular item.'},
+  // ── DATA & GRAPHS (9) ───────────────────────────────────────────────
+  {type:'mc',topic:'Data & Graphs',q:'A bar graph shows: Blue=4, Red=3, White=2, Green=7. Which colour was MOST popular?',opts:['Blue','Red','White','Green'],ans:3,exp:'Green has the highest bar (frequency = 7).'},
+  {type:'tf',topic:'Data & Graphs',q:'You should always check the SCALE of a bar graph before reading values.',ans:true,exp:'TRUE! The scale tells you what each unit on the axis represents. Missing it causes errors.'},
+  {type:'mc',topic:'Data & Graphs',q:'When drawing a bar chart, the spacing between bars must be:',opts:['Different sizes','The same all across','Touching each other','Only at the ends'],ans:1,exp:'Equal spacing between bars is one of the important rules for drawing bar charts.'},
+  {type:'tf',topic:'Data & Graphs',q:'In a bar chart, all bars must be the same WIDTH.',ans:true,exp:'TRUE! Only the HEIGHT changes to show the frequency. Width must always be equal.'},
+  {type:'mc',topic:'Data & Graphs',q:'James asks 16 friends their favourite colour. 4 chose Blue. What fraction chose Blue?',opts:['1/8','1/4','4/8','2/4'],ans:1,exp:'4 out of 16 = 4/16 = 1/4 (simplify by ÷4).'},
+  {type:'fill',topic:'Data & Graphs',q:'A tally shows: Football |||| |||| |||| How many is this?',ans:'14',hint:'Each group of 5 tallies (||||) = 5. Count the groups.',steps:['|||| = 5','|||| = 5','|||| = 4 (incomplete group)','5 + 5 + 4 = 14'],calc:true},
+  {type:'mc',topic:'Data & Graphs',q:'A tally chart shows: Maths=7, Science=4, Art=3, English=5. What is the TOTAL number of students?',opts:['15','19','22','24'],ans:1,exp:'Total = 7 + 4 + 3 + 5 = 19 students.'},
+  {type:'mc',topic:'Data & Graphs',q:'A bar graph has a scale where each square = 2 students. A bar is 5 squares tall. How many students is this?',opts:['5','7','10','12'],ans:2,exp:'5 squares × 2 students per square = 10 students.'},
+  {type:'tf',topic:'Data & Graphs',q:'A frequency table is used to count how many times each item occurs in a data set.',ans:true,exp:'TRUE! A frequency table organises data by listing categories and their counts (frequencies).'},
 
-  // ── MIXED CHALLENGE (Match) ─────────────────────────────────────────
-  {type:'match',topic:'Data & Graphs',q:'Match each statistical term to its correct meaning!',
-    pairs:[['Mode','Most frequent value'],['Median','Middle value when sorted'],['Range','Largest − Smallest'],['Mean','Sum ÷ Count']]},
-  {type:'match',topic:'Mixed',q:'Match each angle type to its correct description!',
+  // ── MATCHING ────────────────────────────────────────────────────────
+  {type:'match',topic:'Decimals → Fractions',q:'Match each decimal to its fraction!',
+    pairs:[['0.5','1/2'],['0.25','1/4'],['0.1','1/10'],['0.75','3/4']]},
+  {type:'match',topic:'Integers',q:'Match each expression to its answer!',
+    pairs:[['5 × (−3)','-15'],['−6 ÷ 3','-2'],['3 − (−2)','5'],['−4 + 8','4']]},
+  {type:'match',topic:'Angles',q:'Match each angle type to its description!',
     pairs:[['Acute','Less than 90°'],['Reflex','Between 180°–360°'],['Straight','Exactly 180°'],['Right','Exactly 90°']]},
 ];
 
